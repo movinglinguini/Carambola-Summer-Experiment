@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
-enum GameLoopStates {
+export enum GameLoopStates {
   INIT,
   MAIN,
   END
@@ -10,6 +10,8 @@ enum GameLoopStates {
   providedIn: 'root'
 })
 export class GameLoopService {
+  public $stateSwitch = new EventEmitter<GameLoopStates>();
+
   get loopState() {
     return this._loopState;
   }

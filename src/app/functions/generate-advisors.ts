@@ -1,11 +1,8 @@
-import { VALUE_LIST } from './../shared/values';
-
-/** globals */
-const ADVISOR_COUNT = 3;
+import { getOpposingValue, VALUE_LIST } from '../shared/values.utility';
 
 export interface IAdvisor {
   name: string,
-  promotes: [ number, number ],
+  cherishes: [ number, number ],
   despises: [ number, number ]
 }
 
@@ -14,13 +11,15 @@ export interface IAdvisor {
  * The advisors are also generated such that they do not overlap on values.
  * @returns
  */
-export function generateAdvisors(): IAdvisor[] {
+export function generateAdvisors(advisorCount: number): IAdvisor[] {
   const advisors: IAdvisor[] = [];
 
   // helper functions
   const randomIdx = (arrLen: number) => {
     return Math.round(Math.random() * arrLen);
   }
+
+  const getPerpendicularValueIdx = (idx: number) => Math.round(idx + VALUE_LIST.length * 0.25);
 
   const wrapArrayIndex = (idx: number, arrLen: number) => {
     if (idx < 0) { return arrLen + idx }
@@ -32,7 +31,7 @@ export function generateAdvisors(): IAdvisor[] {
     return Math.random() < 0.5 ? -1 : 1;
   }
 
-  for (let i = 0; i < ADVISOR_COUNT; i += 1) {
+  for (let i = 0; i < advisorCount; i += 1) {
     // index promoted values
     // for the first index, we want to make sure that subsequent advisors are not aligned too much
     // on their values.
@@ -40,8 +39,8 @@ export function generateAdvisors(): IAdvisor[] {
     // if this isn't the first advisor, shift this advisor's values away from the previous
     // otherwise, just randomly select a spot on the value circle
     if (i > 0) {
-      const lastAdvisorCIdx1 = advisors[i - 1].promotes[0];
-      cIdx1 = wrapArrayIndex(Math.round(lastAdvisorCIdx1 + VALUE_LIST.length * 0.25), VALUE_LIST.length);
+      const lastAdvisorCIdx1 = advisors[i - 1].cherishes[0];
+      cIdx1 = wrapArrayIndex(getPerpendicularValueIdx(lastAdvisorCIdx1), VALUE_LIST.length);
     } else {
       cIdx1 = wrapArrayIndex(randomIdx(VALUE_LIST.length), VALUE_LIST.length);
     }
@@ -49,12 +48,12 @@ export function generateAdvisors(): IAdvisor[] {
     const cIdx2 = wrapArrayIndex(cIdx1 + randomDirection(), VALUE_LIST.length);
 
     // index despised values
-    const dIdx1 = wrapArrayIndex(Math.round(cIdx1 + VALUE_LIST.length * 0.5), VALUE_LIST.length);
+    const dIdx1 = wrapArrayIndex(getOpposingValue(cIdx1), VALUE_LIST.length);
     const dIdx2 = wrapArrayIndex(dIdx1 + randomDirection(), VALUE_LIST.length);
 
     advisors.push({
       name: `${i}`,
-      promotes: [ cIdx1, cIdx2 ],
+      cherishes: [ cIdx1, cIdx2 ],
       despises: [ dIdx1, dIdx2 ],
     });
   }
