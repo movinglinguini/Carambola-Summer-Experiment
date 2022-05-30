@@ -5,6 +5,9 @@
 export const environment = {
   production: false,
   advisorCount: 3,
+  maxAffinity: 5,
+  minAffinity: -5,
+  playerCharacterKey: 'player',
 };
 
 /*

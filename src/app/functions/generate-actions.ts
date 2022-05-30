@@ -21,47 +21,47 @@ const compressedActionData = [{
   oppositeName: 'Repurpose Barracks',
   promote: [ VALUE_MAP.power ],
   harm: [ VALUE_MAP.universalism ],
-}, {
-  name: 'Maintain Art Museum',
-  oppositeName: 'Repurpose Art Museum',
-  promote: [ VALUE_MAP.stimulation ],
-  harm: [ VALUE_MAP.conformity ],
-}, {
-  name: 'Maintain Hospital',
-  oppositeName: 'Repurpose Hospital',
-  promote: [ VALUE_MAP.universalism ],
-  harm: [ VALUE_MAP.power ],
-}, {
-  name: 'Maintain Prison',
-  oppositeName: 'Repurpose Prison',
-  promote: [ VALUE_MAP.security ],
-  harm: [ VALUE_MAP.selfDirection ]
+},  {
+  name: 'Authorize Military March',
+  oppositeName: 'Prohibit Military March',
+  promote: [ VALUE_MAP.achievement ],
+  harm: [ VALUE_MAP.universalism ]
 }, {
   name: 'Authorize Festival',
   oppositeName: 'Prohibit Festival',
   promote: [ VALUE_MAP.hedonism ],
   harm: [ VALUE_MAP.security ]
 }, {
-  name: 'Enforce Mass',
-  oppositeName: 'Relax Mass',
-  promote: [ VALUE_MAP.tradition ],
-  harm: [ VALUE_MAP.selfDirection ]
+  name: 'Maintain Art Museum',
+  oppositeName: 'Repurpose Art Museum',
+  promote: [ VALUE_MAP.stimulation ],
+  harm: [ VALUE_MAP.conformityTradition ],
 }, {
-  name: 'Authorize Military March',
-  oppositeName: 'Prohibit Military March',
-  promote: [ VALUE_MAP.achievement ],
-  harm: [ VALUE_MAP.universalism ]
-}, {
-  name: 'Condemn Criminal',
-  oppositeName: 'Pardon Criminal',
+  name: 'Pardon Criminal ',
+  oppositeName: 'Condemn Criminal',
   promote: [ VALUE_MAP.selfDirection ],
-  harm: [ VALUE_MAP.universalism ],
+  harm: [ VALUE_MAP.conformityTradition ],
 }, {
-  name: 'Release Patient',
-  oppositeName: 'Detain Patient',
+  name: 'Maintain Hospital',
+  oppositeName: 'Repurpose Hospital',
+  promote: [ VALUE_MAP.universalism ],
+  harm: [ VALUE_MAP.power ],
+}, {
+  name: 'Open Food Rations',
+  oppositeName: 'Restrict Food Rations',
   promote: [ VALUE_MAP.benevolence ],
   harm: [ VALUE_MAP.security ]
-}];
+}, {
+  name: 'Enforce Mass',
+  oppositeName: 'Relax Mass',
+  promote: [ VALUE_MAP.conformityTradition ],
+  harm: [ VALUE_MAP.stimulation ]
+}, {
+  name: 'Maintain Prison',
+  oppositeName: 'Repurpose Prison',
+  promote: [ VALUE_MAP.security ],
+  harm: [ VALUE_MAP.selfDirection ]
+},];
 
 export function generateActions(): IAction[] {
   const decompressedActions: IAction[] = [];

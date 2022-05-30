@@ -1,9 +1,8 @@
-export const VALUE_LIST = [ 'power', 'achievement', 'hedonism', 'stimulation', 'self-direction', 'universalism', 'benevolence', 'conformity', 'tradition', 'security' ];
+export const VALUE_LIST = [ 'power', 'achievement', 'hedonism', 'stimulation', 'self-direction', 'universalism', 'benevolence', 'conformity-tradition', 'security' ];
 export const VALUE_MAP = {
   power: 'power',
   security: 'security',
-  conformity: 'conformity',
-  tradition: 'tradition',
+  conformityTradition: 'conformity-tradition',
   benevolence: 'benevolence',
   universalism: 'universalism',
   selfDirection: 'self-direction',

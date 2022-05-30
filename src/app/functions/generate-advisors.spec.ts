@@ -1,4 +1,4 @@
-import { ValueAttitudeKeys } from './../shared/values.utility';
+import { ValueAttitudeKeys, VALUE_LIST } from './../shared/values.utility';
 import { TestBed } from '@angular/core/testing';
 import { generateAdvisors, IAdvisor } from './generate-advisors';
 
@@ -28,7 +28,13 @@ describe('AppComponent', () => {
       const testCase = advisorList.every((advisor1, idx) => {
         const hasDistinctValues = advisorList.every((advisor2, jdx) => {
           if (idx === jdx) { return true; }
-          return checkForDistinctValues(ValueAttitudeKeys.CHERISH, advisor1, advisor2);
+          const isDistinct = checkForDistinctValues(ValueAttitudeKeys.CHERISH, advisor1, advisor2);
+          if (!isDistinct) {
+            console.log('failed cherished distinctness');
+            printAdvisor(advisor1);
+            printAdvisor(advisor2);
+          }
+          return isDistinct;
         });
 
         return hasDistinctValues;
@@ -41,8 +47,16 @@ describe('AppComponent', () => {
       const testCase = advisorList.every((advisor1, idx) => {
         const hasDistinctValues = advisorList.every((advisor2, jdx) => {
           if (idx === jdx) { return true; }
-          return checkForDistinctValues(ValueAttitudeKeys.DESPISE, advisor1, advisor2);
+          const isDistinct = checkForDistinctValues(ValueAttitudeKeys.DESPISE, advisor1, advisor2);
+          if (!isDistinct) {
+            console.log('failed despised distinctness');
+            printAdvisor(advisor1);
+            printAdvisor(advisor2);
+          }
+          return isDistinct;
         });
+
+
 
         return hasDistinctValues;
       });
@@ -64,4 +78,12 @@ describe('AppComponent', () => {
 
 function checkForDistinctValues(key: ValueAttitudeKeys, advisor1: IAdvisor, advisor2: IAdvisor) {
   return advisor1[key].every(value => !advisor2[key].includes(value));
+}
+
+function printAdvisor(advisor: IAdvisor) {
+  console.log(`Name: ${advisor.name}\nCherishes: ${valuesAsStrings(advisor.cherishes)}\nDespises:${valuesAsStrings(advisor.despises)}`);
+}
+
+function valuesAsStrings(values: number[]) {
+  return values.map(v => VALUE_LIST[v]);
 }

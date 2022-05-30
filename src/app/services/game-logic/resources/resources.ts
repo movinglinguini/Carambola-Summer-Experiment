@@ -1,5 +1,12 @@
 import { IAction } from './../../../functions/generate-actions';
 import { IAdvisor } from './../../../functions/generate-advisors';
 
-export const advisorList: IAdvisor[] = [];
-export const actionList: IAction[] = [];
+interface IGameResources {
+  advisorList: IAdvisor[];
+  actionList: IAction[];
+}
+
+export const GameResources: IGameResources = {
+  advisorList: [],
+  actionList: [],
+}

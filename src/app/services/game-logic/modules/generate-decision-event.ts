@@ -1,6 +1,6 @@
-import { getOpposingValue, VALUE_LIST } from './../../../shared/values.utility';
-import { ActionValueEffects, IAction } from './../../../functions/generate-actions';
-import { actionList } from './../resources/resources';
+import { getOpposingValue, VALUE_LIST, VALUE_MAP } from './../../../shared/values.utility';
+import { ActionValueEffects, IAction, actionMap } from './../../../functions/generate-actions';
+import { GameResources } from './../resources/resources';
 
 export interface IDecisionEvent {
   alternatives: [IAction, IAction];
@@ -14,19 +14,14 @@ export interface IDecisionEvent {
  * and a slot for the chosen action, which can be used to track the history of actions.
  */
 export function generateDecisionEvent(): IDecisionEvent {
-  const getRandomEffect = () => Math.random() < 0.5 ? ActionValueEffects.HARM : ActionValueEffects.PROMOTE;
-
   // choose two opposing values that the player must choose between to promote or harm
   const value1Idx = Math.floor(Math.random() * VALUE_LIST.length);
-  const value2Idx = getOpposingValue(value1Idx);
+  const action1 = getAnActionWithAttitudeOnValue(ActionValueEffects.PROMOTE, value1Idx);
 
-  const withEffect = getRandomEffect();
-
-  const action1: IAction = getAnActionWithAttitudeOnValue(withEffect, value1Idx);
-  const action2: IAction = getAnActionWithAttitudeOnValue(withEffect, value2Idx);
+  const action2 = actionMap.get(action1.oppositeActionKey) as IAction;
 
   return {
-    alternatives: [action1, action2],
+    alternatives: [(action1 as IAction), (action2 as IAction)],
     chosenAction: null,
   }
 }
@@ -35,7 +30,7 @@ export function generateDecisionEvent(): IDecisionEvent {
  * Helper function for
  */
 function getAnActionWithAttitudeOnValue(effectKey: ActionValueEffects, valueIdx: number): IAction {
-  return actionList.find(action => {
+  return GameResources.actionList.find(action => {
     return action[effectKey].includes(valueIdx);
   }) as IAction;
 }
