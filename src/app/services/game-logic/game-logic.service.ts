@@ -16,6 +16,11 @@ export class GameLogicService {
     return this._currentDecisionEvent;
   }
 
+  get isGameOver() {
+    return this._round === 0;
+  }
+
+  private _round = environment.countRounds;
   private _currentDecisionEvent: (IDecisionEvent | null) = null;
   private _decisionEventHistory: IDecisionEvent[] = [];
 
@@ -35,20 +40,18 @@ export class GameLogicService {
 
     GameResources.advisorList = advisors;
     GameResources.actionList = actions;
+
+    this._round = environment.countRounds;
   }
 
   onUpdate() {
     switch (this._gameLoop.loopState) {
       case GameLoopStates.MAIN:
-        this._onMainStateUpdate();
+        this.onMainStateUpdate();
         break;
     }
   }
 
-  _onMainStateUpdate() {
-    // generate a decision event to be presented to the player
-    this.generateDecisionEvent();
-  }
 
   /** START Event listeners */
   /**
@@ -64,6 +67,11 @@ export class GameLogicService {
       executeActionEffects(action);
       // go to the next decision event
       this.generateDecisionEvent();
+      this._round -= 1;
+
+      if (this._round === 0) {
+        this._gameLoop.triggerEndState();
+      }
     }
   }
   /** END Event Listeners */
@@ -86,5 +94,10 @@ export class GameLogicService {
         this.onStart();
         break;
     }
+  }
+
+  private onMainStateUpdate() {
+    // generate a decision event to be presented to the player
+    this.generateDecisionEvent();
   }
 }

@@ -1,10 +1,11 @@
 import { GameLoopService } from './services/game-loop.service';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EngineService {
+  public $update = new EventEmitter<void>();
 
   constructor(
     private _gameLoop: GameLoopService,
@@ -12,5 +13,9 @@ export class EngineService {
 
   startUp() {
     this._gameLoop.triggerInitState();
+  }
+
+  update() {
+    this.$update.emit();
   }
 }
