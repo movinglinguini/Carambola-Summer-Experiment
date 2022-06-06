@@ -1,8 +1,8 @@
+import { IAdvisor } from 'src/app/functions/generate-advisors';
 import { environment } from './../../../environments/environment.prod';
 import { IDecisionEvent } from './../game-logic/modules/generate-decision-event';
 import { IAction } from './../../functions/generate-actions';
 import { Injectable } from '@angular/core';
-import { IAdvisor } from 'src/app/functions/generate-advisors';
 
 export enum LogDataTypes {
   INIT = 'init',
@@ -23,9 +23,10 @@ export interface ILogInitData extends ILogData {
 
 export interface ILogAdvisorState extends ILogData {
   type: LogDataTypes.ADVISOR_STATE,
-  advisor: IAdvisor,
-  isRebellious: boolean
+  advisors: ILogAdvisor[],
 }
+
+export interface ILogAdvisor extends IAdvisor {};
 
 export interface ILogDecisionEvent extends ILogData {
   type: LogDataTypes.PRE_DECISION | LogDataTypes.POST_DECISION,

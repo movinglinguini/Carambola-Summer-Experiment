@@ -1,5 +1,5 @@
 import { environment } from './../../../../environments/environment';
-import { IAdvisor } from 'src/app/functions/generate-advisors';
+import { determineIfRebellious, IAdvisor } from 'src/app/functions/generate-advisors';
 import { GameResources } from './../resources/resources';
 import { IAction, ActionValueEffects } from './../../../functions/generate-actions';
 
@@ -16,12 +16,13 @@ export function executeActionEffects(action: IAction) {
     const promotedValues = action.promotes;
     const harmedValues = action.harms;
 
-    let affinity = advisor.affinityMap.get(environment.playerCharacterKey)?.affinity as number;
+    const playerAffinityIdx = advisor.affinities.findIndex(aff => aff.name === environment.playerCharacterKey) as number;
+    const affinityTowardPlayer =  advisor.affinities[playerAffinityIdx];
+    let affinity = affinityTowardPlayer.affinity as number;
 
     promotedValues.forEach(val => {
       affinity += determineEffect(ActionValueEffects.PROMOTE, val, advisor);
       affinity = clamp(affinity, minAffinity, maxAffinity);
-      // console.log(affinity);
     });
 
     harmedValues.forEach(val => {
@@ -34,7 +35,12 @@ export function executeActionEffects(action: IAction) {
       name: environment.playerCharacterKey,
       affinity,
     }
-    advisor.affinityMap.set(environment.playerCharacterKey, newAffinity);
+
+    advisor.affinities[playerAffinityIdx] = newAffinity;
+  });
+
+  GameResources.advisorList.forEach(advisor => {
+    advisor.rebellious = determineIfRebellious(advisor);
   });
 }
 

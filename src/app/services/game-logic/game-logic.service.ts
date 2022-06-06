@@ -1,8 +1,8 @@
 import { generateDecisionEvent, IDecisionEvent } from './modules/generate-decision-event';
-import { GameResources} from './resources/resources';
+import { GameResources } from './resources/resources';
 import { environment } from '../../../environments/environment';
 import { GameLoopService, GameLoopStates } from '../engine/services/game-loop.service';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { generateActions, IAction } from 'src/app/functions/generate-actions';
 import { generateAdvisors, IAdvisor } from 'src/app/functions/generate-advisors';
 import { executeActionEffects } from './modules/execute-action-effects';
@@ -11,6 +11,12 @@ import { executeActionEffects } from './modules/execute-action-effects';
   providedIn: 'root'
 })
 export class GameLogicService {
+
+  public $onNextRound = new EventEmitter<number>();
+
+  get advisors() {
+    return GameResources.advisorList;
+  }
 
   get currentDecisionEvent() {
     return this._currentDecisionEvent;

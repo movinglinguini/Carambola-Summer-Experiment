@@ -1,3 +1,4 @@
+import { GameResources } from './../services/game-logic/resources/resources';
 import { environment } from './../../environments/environment.prod';
 import { getOpposingValue, VALUE_LIST } from '../shared/values.utility';
 
@@ -10,8 +11,11 @@ export interface IAdvisor {
   name: string,
   cherishes: [ number, number ],
   despises: [ number, number ],
-  affinityMap: Map<string, IAdvisorAffinity>
+  affinities: IAdvisorAffinity[],
+  rebellious: boolean
 }
+
+export const ADVISOR_MAP = new Map<string, IAdvisor>();
 
 /**
  * Generates `ADVISOR_COUNT` advisors such that they have two values they cherish, and two they despise.
@@ -60,13 +64,16 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
     const dIdx2 = wrapArrayIndex(dIdx1 + randomDirection(), VALUE_LIST.length);
 
     const advisorName = `${i}`;
-
-    advisors.push({
+    const newAdvisor = {
       name: advisorName,
       cherishes: [ cIdx1, cIdx2 ],
       despises: [ dIdx1, dIdx2 ],
-      affinityMap: new Map(),
-    });
+      affinities: [],
+      rebellious: false,
+    } as IAdvisor;
+
+    advisors.push(newAdvisor);
+    ADVISOR_MAP.set(newAdvisor.name, newAdvisor);
   }
 
   // set affinities
@@ -76,16 +83,35 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
   advisors.forEach((advisor1, idx) => {
     advisors.forEach((advisor2, jdx) => {
       if (idx === jdx) {
-        advisor1.affinityMap.set(advisor1.name, { name: advisor1.name, affinity: 0 });
+        advisor1.affinities.push({ name: advisor1.name, affinity: 0 });
         return;
       }
 
       const randomAffinity = getRandomAffinity();
-      advisor1.affinityMap.set(advisor2.name, { name: advisor2.name, affinity: randomAffinity });
+      advisor1.affinities.push({ name: advisor2.name, affinity: Math.round(randomAffinity) });
     });
 
-    advisor1.affinityMap.set(playerKey, { name: playerKey, affinity: getRandomAffinity() });
+    advisor1.affinities.push({ name: playerKey, affinity: Math.round(getRandomAffinity()) });
   });
 
+  advisors.forEach(adv => adv.rebellious = determineIfRebellious(adv));
+
   return advisors;
+}
+
+export function determineIfRebellious(advisor: IAdvisor) {
+  const pAffinityValue = (advisor.affinities.find(aff => aff.name === environment.playerCharacterKey) as IAdvisorAffinity).affinity;
+  const npcAffinities = advisor.affinities.filter(aff => aff.name !== environment.playerCharacterKey) as IAdvisorAffinity[];
+
+  const totalAff = pAffinityValue + (npcAffinities.reduce((tot, aff) => {
+    const advisorData = ADVISOR_MAP.get(aff.name) as IAdvisor;
+    const advisorAffinityToPlayer = advisorData.affinities.find(_aff => _aff.name === environment.playerCharacterKey) as IAdvisorAffinity;
+
+    const advisorAffValue = aff.affinity;
+    const playerAffValue = advisorAffinityToPlayer.affinity;
+
+    return tot + advisorAffValue * playerAffValue;
+  }, pAffinityValue));
+
+  return totalAff < 0;
 }

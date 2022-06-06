@@ -3,7 +3,7 @@ import { GameResources } from './../game-logic/resources/resources';
 import { IAction } from './../../functions/generate-actions';
 import { environment } from './../../../environments/environment';
 import { GameLogicService } from './../game-logic/game-logic.service';
-import { LoggerService, ILogInitData, LogDataTypes, ILogDecisionEvent } from './../logger/logger.service';
+import { LoggerService, LogDataTypes, ILogAdvisor } from './../logger/logger.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
@@ -18,7 +18,7 @@ export class AutoplayerService {
 
   async run() {
     for (let i = 0; i < environment.testRunCount; i += 1) {
-      console.log('Run ', i);
+      console.log('Running playthrough #', i);
       this._gameLogic.onStart();
 
       await this._logger.logData({
@@ -38,12 +38,24 @@ export class AutoplayerService {
           decisionEvent: decisionEvent,
         });
 
+        await this._logger.logData({
+          round: i,
+          type: LogDataTypes.ADVISOR_STATE,
+          advisors: GameResources.advisorList,
+        });
+
         const chosenAction = this.chooseAction();
 
         await this._logger.logData({
           round: i,
           type: LogDataTypes.POST_DECISION,
           decisionEvent: { ...decisionEvent, chosenAction: chosenAction },
+        });
+
+        await this._logger.logData({
+          round: i,
+          type: LogDataTypes.ADVISOR_STATE,
+          advisors: GameResources.advisorList,
         });
       }
     }
