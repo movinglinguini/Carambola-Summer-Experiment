@@ -1,4 +1,3 @@
-import { GameResources } from './../services/game-logic/resources/resources';
 import { environment } from './../../environments/environment.prod';
 import { getOpposingValue, VALUE_LIST } from '../shared/values.utility';
 
