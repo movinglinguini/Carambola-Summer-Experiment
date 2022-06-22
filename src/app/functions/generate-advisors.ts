@@ -98,11 +98,11 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
   return advisors;
 }
 
-export function determineIfRebellious(advisor: IAdvisor) {
+export function calculateRebellionUtility(advisor: IAdvisor) {
   const pAffinityValue = (advisor.affinities.find(aff => aff.name === environment.playerCharacterKey) as IAdvisorAffinity).affinity;
   const npcAffinities = advisor.affinities.filter(aff => aff.name !== environment.playerCharacterKey) as IAdvisorAffinity[];
 
-  const totalAff = pAffinityValue + (npcAffinities.reduce((tot, aff) => {
+  const utility = -(pAffinityValue + (npcAffinities.reduce((tot, aff) => {
     const advisorData = ADVISOR_MAP.get(aff.name) as IAdvisor;
     const advisorAffinityToPlayer = advisorData.affinities.find(_aff => _aff.name === environment.playerCharacterKey) as IAdvisorAffinity;
 
@@ -110,7 +110,12 @@ export function determineIfRebellious(advisor: IAdvisor) {
     const playerAffValue = advisorAffinityToPlayer.affinity;
 
     return tot + advisorAffValue * playerAffValue;
-  }, pAffinityValue));
+  }, pAffinityValue)));
 
-  return totalAff < 0;
+  return utility;
+}
+
+export function determineIfRebellious(advisor: IAdvisor) {
+  const utility = calculateRebellionUtility(advisor);
+  return utility >= 0;
 }

@@ -1,0 +1,34 @@
+<table>
+  <thead>
+    <th></th>
+    <th></th>
+    <th></th>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let datum of loggedData">
+      <tr>
+        <!-- <td>
+          <ng-container  *ngIf="datum.type === logDataTypes.PRE_DECISION">
+            {{datum | json}}
+          </ng-container>
+        </td> -->
+        <td>
+          <ng-container  *ngIf="datum.type === logDataTypes.POST_DECISION">
+            <ng-container *ngTemplateOutlet="postDecisionData; context: { datum: datum }"></ng-container>
+          </ng-container>
+        </td>
+        <td>
+          <ng-container  *ngIf="datum.type === logDataTypes.ADVISOR_STATE">
+            {{datum | json}}
+          </ng-container>
+        </td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>
+
+<ng-template let-datum="datum" #postDecisionData>
+  <p>
+    On round {{datum.round}}, the Emperor decided to {{datum.decisionEvent.chosenAction.name}}
+  </p>
+</ng-template>

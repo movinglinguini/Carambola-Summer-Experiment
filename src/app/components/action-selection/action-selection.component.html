@@ -1,0 +1,11 @@
+<div id="container" *ngIf="currentDecisionEvent">
+  <ng-container *ngTemplateOutlet="actionCard; context: { action: currentDecisionEvent.alternatives[0] }"></ng-container>
+  <div id="separator">
+    <span>or</span>
+  </div>
+  <ng-container *ngTemplateOutlet="actionCard; context: { action: currentDecisionEvent.alternatives[1] }"></ng-container>
+</div>
+
+<ng-template #actionCard let-action="action">
+  <button (click)="onChooseAction(action)">{{action.name}}</button>
+</ng-template>

@@ -1,3 +1,4 @@
+import { LoggerService, ILogInitData, LogDataTypes, ILogDecisionEvent } from './../logger/logger.service';
 import { generateDecisionEvent, IDecisionEvent } from './modules/generate-decision-event';
 import { GameResources } from './resources/resources';
 import { environment } from '../../../environments/environment';
@@ -23,14 +24,21 @@ export class GameLogicService {
   }
 
   get isGameOver() {
-    return this._round === 0;
+    return this._round > environment.countRounds;
   }
 
-  private _round = environment.countRounds;
+  get round() {
+    return this._round;
+  }
+
+  private _round = 0;
   private _currentDecisionEvent: (IDecisionEvent | null) = null;
   private _decisionEventHistory: IDecisionEvent[] = [];
 
-  constructor(private _gameLoop: GameLoopService) {
+  constructor(
+    private _gameLoop: GameLoopService,
+    private _logger: LoggerService,
+  ) {
     this._gameLoop.$stateSwitch.subscribe((newState: GameLoopStates) => {
       this.handleStateSwitch(newState);
     });
@@ -47,7 +55,16 @@ export class GameLogicService {
     GameResources.advisorList = advisors;
     GameResources.actionList = actions;
 
-    this._round = environment.countRounds;
+    const payload: ILogInitData = {
+      type: LogDataTypes.INIT,
+      playthroughNo: 1,
+      round: this._round,
+      actions,
+    };
+
+    this._logger.logData(payload);
+
+    this._round = 1;
   }
 
   onUpdate() {
@@ -69,11 +86,21 @@ export class GameLogicService {
       this._currentDecisionEvent.chosenAction = action;
       this._decisionEventHistory.push(this._currentDecisionEvent);
 
+      const payload: ILogDecisionEvent = {
+        type: LogDataTypes.POST_DECISION,
+        decisionEvent: this._currentDecisionEvent,
+        playthroughNo: 1,
+        round: this._round,
+      };
+
+      this._logger.logData(payload);
+
       // execute the effects of the action
       executeActionEffects(action);
       // go to the next decision event
       this.generateDecisionEvent();
-      this._round -= 1;
+      this._round += 1;
+      this.$onNextRound.emit(this._round);
 
       if (this._round === 0) {
         this._gameLoop.triggerEndState();
@@ -91,6 +118,16 @@ export class GameLogicService {
    * */
   generateDecisionEvent(): IDecisionEvent {
     this._currentDecisionEvent = generateDecisionEvent();
+
+    const payload: ILogDecisionEvent = {
+      type: LogDataTypes.PRE_DECISION,
+      decisionEvent: this._currentDecisionEvent,
+      playthroughNo: 1,
+      round: this._round,
+    };
+
+    this._logger.logData(payload);
+
     return this._currentDecisionEvent;
   }
 

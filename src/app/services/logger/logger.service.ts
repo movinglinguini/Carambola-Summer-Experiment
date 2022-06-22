@@ -2,7 +2,7 @@ import { IAdvisor } from 'src/app/functions/generate-advisors';
 import { environment } from './../../../environments/environment.prod';
 import { IDecisionEvent } from './../game-logic/modules/generate-decision-event';
 import { IAction } from './../../functions/generate-actions';
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 export enum LogDataTypes {
   INIT = 'init',
@@ -13,7 +13,9 @@ export enum LogDataTypes {
 }
 
 export interface ILogData {
+  playthroughNo: number,
   round: number,
+  type: LogDataTypes
 }
 
 export interface ILogInitData extends ILogData {
@@ -37,16 +39,20 @@ export interface ILogDecisionEvent extends ILogData {
   providedIn: 'root'
 })
 export class LoggerService {
+  public $gameLog = new EventEmitter<ILogData>();
 
   constructor() { }
 
   logData(data: (ILogInitData | ILogAdvisorState | ILogDecisionEvent)) {
-    return fetch(environment.loggerEndpoint, {
-      method: 'POST',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-type': 'application/json'
-      }
-    });
+    // return fetch(environment.loggerEndpoint, {
+    //   method: 'POST',
+    //   body: JSON.stringify(data),
+    //   headers: {
+    //     'Content-type': 'application/json'
+    //   }
+    // });
+
+    console.log(data);
+    this.$gameLog.emit(data);
   }
 }

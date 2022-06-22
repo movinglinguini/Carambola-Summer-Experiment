@@ -1,0 +1,33 @@
+<table>
+  <thead>
+    <tr>
+      <th>&nbsp;</th>
+      <ng-container *ngFor="let advisor of advisors">
+        <th>{{advisor.name}}</th>
+      </ng-container>
+      <th>You</th>
+      <th>Rebellious?</th>
+      <th>Rebellion Utility</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let from of advisors">
+      <tr>
+        <td>{{from.name}}</td>
+        <ng-container *ngFor="let to of advisors">
+          <td *ngIf="to.name !== from.name">
+            {{getAffinityBetween(from.name, to.name)}}
+          </td>
+          <td *ngIf="to.name === from.name">
+            &minus;
+          </td>
+        </ng-container>
+        <td>
+          {{getAffinityWithPlayer(from.name)}}
+        </td>
+        <td>{{from.rebellious}}</td>
+        <td>{{getRebellionUtility(from)}}</td>
+      </tr>
+    </ng-container>
+  </tbody>
+</table>

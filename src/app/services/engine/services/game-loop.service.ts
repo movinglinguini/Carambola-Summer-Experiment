@@ -22,13 +22,16 @@ export class GameLoopService {
 
   public triggerInitState() {
     this._loopState = GameLoopStates.INIT;
+    this.$stateSwitch.emit(this._loopState);
   }
 
   public triggerMainState() {
     this._loopState = GameLoopStates.MAIN;
+    this.$stateSwitch.emit(this._loopState);
   }
 
   public triggerEndState() {
     this._loopState = GameLoopStates.END;
+    this.$stateSwitch.emit(this._loopState);
   }
 }
