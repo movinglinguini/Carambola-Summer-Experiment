@@ -1,5 +1,13 @@
-<app-affinity-tables></app-affinity-tables>
-<app-action-selection></app-action-selection>
+<app-round-counter></app-round-counter>
+<ng-container *ngIf="!isGameOver">
+  <app-affinity-tables></app-affinity-tables>
+  <app-action-selection></app-action-selection>
+</ng-container>
+
+<ng-container *ngIf="isGameOver">
+  <h1>Game over screen goes here.</h1>
+</ng-container>
+
 <app-log></app-log>
 
 

@@ -24,7 +24,7 @@ export class GameLogicService {
   }
 
   get isGameOver() {
-    return this._round > environment.countRounds;
+    return this._round >= environment.countRounds;
   }
 
   get round() {

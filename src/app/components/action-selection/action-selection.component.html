@@ -7,5 +7,26 @@
 </div>
 
 <ng-template #actionCard let-action="action">
-  <button (click)="onChooseAction(action)">{{action.name}}</button>
+  <button class="action-card" (click)="onChooseAction(action)">
+    <div class="action-name">
+      {{action.name}}
+    </div>
+    <hr/>
+    <div class="action-effects-container">
+      <div class="harm-effect">
+        <ng-container *ngFor="let value of action.harms">
+          <div class="value-text">
+            {{getValueText(value)}}
+          </div>
+        </ng-container>
+      </div>
+      <div class="promote-effect">
+        <ng-container *ngFor="let value of action.promotes">
+          <div class="value-text">
+            {{getValueText(value)}}
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </button>
 </ng-template>

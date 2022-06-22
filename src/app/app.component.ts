@@ -1,8 +1,6 @@
-import { LoggerService } from './services/logger/logger.service';
 import { AutoplayerService } from './services/autoplayer/autoplayer.service';
 import { environment } from './../environments/environment';
 import { GameLogicService } from './services/game-logic/game-logic.service';
-import { EngineService } from './services/engine/engine.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -15,11 +13,13 @@ export class AppComponent {
     return environment.testMode;
   }
 
+  get isGameOver() {
+    return this._gameLogic.isGameOver;
+  }
+
   constructor(
-    private _engine: EngineService,
     private _gameLogic: GameLogicService,
     private _autoPlayer: AutoplayerService,
-    private _logger: LoggerService,
   ) {}
 
   ngOnInit() {

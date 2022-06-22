@@ -1,8 +1,32 @@
 #container {
   display: flex;
-  align-items: stretch;
+  align-items: center;
 
   #separator {
     padding: 1rem;
   }
 }
+
+.action-card {
+  $card-height: 15rem;
+  $width-height-ratio: 0.75;
+
+  width: $card-height * $width-height-ratio;
+  height: $card-height;
+
+  background-color: white;
+  border-radius: 2.5%;
+
+  cursor: pointer;
+
+  .action-name {
+    height: 60%;
+  }
+
+  .action-effects-container {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+  }
+}
+
