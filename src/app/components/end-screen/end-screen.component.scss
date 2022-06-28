@@ -1,0 +1,19 @@
+#container {
+  #result-header {
+    text-align: center;
+  }
+
+  #result-blurb {
+    width: 25rem;
+    margin: auto;
+  }
+
+  #restart-btn-container {
+    display: flex;
+    justify-content: center;
+
+    #restart-btn {
+      padding: 1.25rem 2rem;
+    }
+  }
+}

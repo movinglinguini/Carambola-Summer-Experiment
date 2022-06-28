@@ -31,3 +31,7 @@
     </ng-container>
   </tbody>
 </table>
+
+<ng-container *ngFor="let advisor of advisors">
+  <app-affinity-description-generator [advisor]="advisor"></app-affinity-description-generator>
+</ng-container>

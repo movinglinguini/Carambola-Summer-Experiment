@@ -1,0 +1,17 @@
+.affinity-description {
+  line-height: 1.5rem;
+
+  .character-name {
+    font-weight: bold;
+  }
+
+  .affinity-string {
+    &.negative {
+      color: red;
+    }
+
+    &.positive {
+      color: blue;
+    }
+  }
+}

@@ -28,7 +28,6 @@ export function executeActionEffects(action: IAction) {
     harmedValues.forEach(val => {
       affinity += determineEffect(ActionValueEffects.HARM, val, advisor);
       affinity = clamp(affinity, minAffinity, maxAffinity);
-      console.log(affinity);
     });
 
     const newAffinity = {

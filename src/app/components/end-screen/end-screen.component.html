@@ -1,0 +1,22 @@
+<div id="container">
+  <h1 id="result-header">
+    <span *ngIf="isOverThrown">Overthrown!</span>
+    <span *ngIf="!isOverThrown">Survival!</span>
+  </h1>
+
+  <p id="result-blurb">
+    <span *ngIf="isOverThrown">
+      Your advisors have found you wanting. You've lost your position as Emperor of Carambola.
+    </span>
+
+    <span *ngIf="!isOverThrown">
+      Thanks to your decisions over the years, you've retained your position as Emperor of Carambola. May your reign continue a few years more!
+    </span>
+  </p>
+  <br/>
+  <div id="restart-btn-container">
+    <button id="restart-btn" (click)="onRestart()">Restart</button>
+  </div>
+</div>
+
+

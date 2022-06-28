@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   testMode: false,
+  showLog: false,
   testRunCount: 1,
   advisorCount: 3,
   maxAffinity: 5,

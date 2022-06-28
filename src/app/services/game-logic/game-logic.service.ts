@@ -24,11 +24,18 @@ export class GameLogicService {
   }
 
   get isGameOver() {
-    return this._round >= environment.countRounds;
+    return this._round > environment.countRounds;
   }
 
   get round() {
     return this._round;
+  }
+
+  get isPlayerOverThrown() {
+    const rebellious = this.advisors.filter(adv => adv.rebellious);
+    const notRebellious = this.advisors.filter(adv => !adv.rebellious);
+
+    return rebellious.length > notRebellious.length;
   }
 
   private _round = 0;

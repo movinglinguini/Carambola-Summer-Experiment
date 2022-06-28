@@ -1,0 +1,24 @@
+#container {
+  display: flex;
+  flex-direction: row;
+
+  .component-wrapper {
+    $affinity-table-width: 75%;
+
+    padding: 5rem;
+    display: flex;
+    justify-content: center;
+
+    & + .component-wrapper {
+      border-left: 3px solid black;
+    }
+
+    &#affinity-table {
+      width: $affinity-table-width;
+    }
+
+    &#action-selection {
+      width: 100% - $affinity-table-width;
+    }
+  }
+}

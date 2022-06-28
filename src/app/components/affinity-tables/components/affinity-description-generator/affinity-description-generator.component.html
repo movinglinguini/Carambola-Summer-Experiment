@@ -1,0 +1,41 @@
+<p class="affinity-description">
+  <span class="character-name">
+    {{inAdvisor.name}}
+  </span>
+
+  <span class="affinity-string {{getAffinityPolarityTowards(playerKey)}}">
+    {{getAffinityTowards(playerKey)}}
+  </span>
+
+
+  <span class="character-name">
+    the Emperor.
+  </span>
+
+  <ng-container *ngFor="let partner of otherAdvisorNames">
+    <br/>
+    &nbsp;&nbsp;
+
+    Their
+    <span class="affinity-string {{getAffinityPolarityTowards(partner)}}">
+      {{getAffinityTowards(partner)}}
+    </span>
+
+    <span class="character-name">
+      {{partner}}
+    </span>
+
+    <span class="affinity-string {{getEffectOnOpinionPolarity(inAdvisor.name, partner)}}">
+      {{getEffectOnOpinion(inAdvisor.name, partner)}}
+    </span>
+
+  </ng-container>
+  <br/>
+  &nbsp;&nbsp;
+  &nbsp;&nbsp;
+  <span>
+    Overall, <span class="character-name">{{inAdvisor.name}}</span> leans toward
+    <ng-container *ngIf="inAdvisor.rebellious"><span class="affinity-string negative">dethronement.</span></ng-container>
+    <ng-container *ngIf="!inAdvisor.rebellious"><span class="affinity-string positive">retaining the Emperor.</span></ng-container>
+  </span>
+</p>

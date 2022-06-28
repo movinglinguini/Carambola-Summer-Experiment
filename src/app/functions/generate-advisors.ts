@@ -98,24 +98,31 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
   return advisors;
 }
 
-export function calculateRebellionUtility(advisor: IAdvisor) {
+export function calculateEmperorOpinion(advisor: IAdvisor) {
   const pAffinityValue = (advisor.affinities.find(aff => aff.name === environment.playerCharacterKey) as IAdvisorAffinity).affinity;
   const npcAffinities = advisor.affinities.filter(aff => aff.name !== environment.playerCharacterKey) as IAdvisorAffinity[];
 
-  const utility = -(pAffinityValue + (npcAffinities.reduce((tot, aff) => {
-    const advisorData = ADVISOR_MAP.get(aff.name) as IAdvisor;
-    const advisorAffinityToPlayer = advisorData.affinities.find(_aff => _aff.name === environment.playerCharacterKey) as IAdvisorAffinity;
+  const utility = (pAffinityValue + (npcAffinities.reduce((tot, aff) => {
+    const partner = ADVISOR_MAP.get(aff.name) as IAdvisor;
+    // const advisorAffinityToPlayer = partner.affinities.find(_aff => _aff.name === environment.playerCharacterKey) as IAdvisorAffinity;
 
-    const advisorAffValue = aff.affinity;
-    const playerAffValue = advisorAffinityToPlayer.affinity;
+    // const advisorAffValue = aff.affinity;
+    // const playerAffValue = advisorAffinityToPlayer.affinity;
 
-    return tot + advisorAffValue * playerAffValue;
+    return tot + calculateRelationshipEffectOnRebellionUtility(advisor, partner);
   }, pAffinityValue)));
 
   return utility;
 }
 
+export function calculateRelationshipEffectOnRebellionUtility(advisor: IAdvisor, partner: IAdvisor) {
+  const aff = advisor.affinities.find(a => a.name === partner.name)?.affinity as number;
+  const partnerToPlayerAffinity = partner.affinities.find(a => a.name === environment.playerCharacterKey)?.affinity as number;
+
+  return aff * partnerToPlayerAffinity;
+}
+
 export function determineIfRebellious(advisor: IAdvisor) {
-  const utility = calculateRebellionUtility(advisor);
+  const utility = -calculateEmperorOpinion(advisor);
   return utility >= 0;
 }

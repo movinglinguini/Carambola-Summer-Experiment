@@ -51,8 +51,6 @@ export class LoggerService {
     //     'Content-type': 'application/json'
     //   }
     // });
-
-    console.log(data);
     this.$gameLog.emit(data);
   }
 }

@@ -1,3 +1,6 @@
-<p>
-  <b>Round: {{roundNo}}/{{roundTotal}}</b>
-</p>
+<div id="container">
+  <p id="round-counter">
+    <b *ngIf="isInMainLoop">Round: {{roundNo}}/{{roundTotal}}</b>
+    <b *ngIf="!isInMainLoop">Game Over</b>
+  </p>
+</div>

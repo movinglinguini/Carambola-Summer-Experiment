@@ -1,5 +1,5 @@
 import { environment } from './../../../environments/environment';
-import { calculateRebellionUtility, IAdvisor } from './../../functions/generate-advisors';
+import { calculateEmperorOpinion, IAdvisor } from './../../functions/generate-advisors';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -54,7 +54,7 @@ export class AffinityTablesComponent implements OnInit {
   }
 
   getRebellionUtility(advisor: IAdvisor) {
-    return calculateRebellionUtility(advisor);
+    return -calculateEmperorOpinion(advisor);
   }
 
 }

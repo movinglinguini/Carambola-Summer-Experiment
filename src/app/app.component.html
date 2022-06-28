@@ -1,14 +1,12 @@
 <app-round-counter></app-round-counter>
 <ng-container *ngIf="!isGameOver">
-  <app-affinity-tables></app-affinity-tables>
-  <app-action-selection></app-action-selection>
+  <app-main-screen></app-main-screen>
 </ng-container>
 
 <ng-container *ngIf="isGameOver">
-  <h1>Game over screen goes here.</h1>
+  <app-end-screen (restart)="onRestart()"></app-end-screen>
 </ng-container>
 
-<app-log></app-log>
-
-
-
+<ng-container *ngIf="doShowLog">
+  <app-log></app-log>
+</ng-container>
