@@ -17,8 +17,8 @@ export class AffinityTablesComponent implements OnInit {
 
   public advisorAffinityMap = new Map<string, number>();
 
-  get isTestMode() {
-    return environment.testMode;
+  get showTable() {
+    return environment.showAffinityTable;
   }
 
   get advisors() {

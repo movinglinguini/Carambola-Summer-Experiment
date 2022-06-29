@@ -71,7 +71,7 @@ export class GameLogicService {
 
     this._logger.logData(payload);
 
-    this._round = 1;
+    this._round = 0;
   }
 
   onUpdate() {
@@ -136,6 +136,10 @@ export class GameLogicService {
     this._logger.logData(payload);
 
     return this._currentDecisionEvent;
+  }
+
+  getDecisionEventAtRound(roundNo: number): IDecisionEvent {
+    return this._decisionEventHistory[roundNo];
   }
 
   private handleStateSwitch(newState: GameLoopStates) {

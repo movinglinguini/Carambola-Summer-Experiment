@@ -1,5 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+html {
+  scroll-behavior: smooth;
+}
+
 button {
   background-color: white;
   cursor: pointer;
+}
+
+.character-name {
+  font-weight: bold;
+}
+
+.affinity-string {
+  &.negative {
+    color: red;
+  }
+
+  &.positive {
+    color: blue;
+  }
+}
+
+.action-description {
+  font-style: italic;
 }

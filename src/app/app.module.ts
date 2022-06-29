@@ -14,6 +14,9 @@ import { RoundCounterComponent } from './components/round-counter/round-counter.
 import { EndScreenComponent } from './components/end-screen/end-screen.component';
 import { MainScreenComponent } from './components/main-screen/main-screen.component';
 import { AffinityDescriptionGeneratorComponent } from './components/affinity-tables/components/affinity-description-generator/affinity-description-generator.component';
+import { SelectedActionComponent } from './components/selected-action/selected-action.component';
+import { ActionReactionComponent } from './components/action-reaction/action-reaction.component';
+import { ActionReactionGeneratorComponent } from './components/action-reaction/components/action-reaction-generator/action-reaction-generator.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +28,9 @@ import { AffinityDescriptionGeneratorComponent } from './components/affinity-tab
     EndScreenComponent,
     MainScreenComponent,
     AffinityDescriptionGeneratorComponent,
+    SelectedActionComponent,
+    ActionReactionComponent,
+    ActionReactionGeneratorComponent,
   ],
   imports: [
     BrowserModule

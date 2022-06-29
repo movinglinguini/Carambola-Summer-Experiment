@@ -4,7 +4,6 @@ import { GameResources } from './../resources/resources';
 import { IAction, ActionValueEffects } from './../../../functions/generate-actions';
 
 export function executeActionEffects(action: IAction) {
-  console.log(action);
   const clamp = (value: number, min: number, max: number) => {
     return Math.floor(Math.max(min, Math.min(value, max)));
   }
@@ -43,7 +42,7 @@ export function executeActionEffects(action: IAction) {
   });
 }
 
-function determineEffect(actionEffect: ActionValueEffects, valueIdx: number, onAdvisor: IAdvisor): number {
+export function determineEffect(actionEffect: ActionValueEffects, valueIdx: number, onAdvisor: IAdvisor): number {
   const cherishesValue = onAdvisor.cherishes.includes(valueIdx);
   const despisesValue = onAdvisor.despises.includes(valueIdx);
 

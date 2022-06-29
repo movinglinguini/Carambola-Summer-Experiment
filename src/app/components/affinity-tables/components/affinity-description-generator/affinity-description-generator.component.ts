@@ -1,10 +1,8 @@
-import { LoggerService } from './../../../../services/logger/logger.service';
+import { AffinityTablesService } from './../../services/affinity-tables.service';
 import { environment } from './../../../../../environments/environment.prod';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
-import { IAdvisor, ADVISOR_MAP, calculateRelationshipEffectOnRebellionUtility } from './../../../../functions/generate-advisors';
-import { Component, Input, OnInit } from '@angular/core';
-import { selectRandom } from 'src/app/shared/random.utility';
-import { AffinityTablesService } from '../../services/affinity-tables.service';
+import { IAdvisor } from './../../../../functions/generate-advisors';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 type CharacterKey = string;
 
@@ -13,7 +11,7 @@ type CharacterKey = string;
   templateUrl: './affinity-description-generator.component.html',
   styleUrls: ['./affinity-description-generator.component.scss']
 })
-export class AffinityDescriptionGeneratorComponent implements OnInit {
+export class AffinityDescriptionGeneratorComponent implements OnInit, OnChanges {
   static genRelationshipKey(advisor1: IAdvisor, advisor2: IAdvisor) {
     return `${advisor1.name}.${advisor2.name}`;
   }
@@ -42,7 +40,11 @@ export class AffinityDescriptionGeneratorComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this._affinityTablesService.generateAffinityDisplayData(this.inAdvisor, this.inRoundNo);
+    this.loadTableData();
+  }
+
+  ngOnChanges(): void {
+    this.loadTableData();
   }
 
   getAffinityTowards(key: CharacterKey) {
@@ -79,5 +81,9 @@ export class AffinityDescriptionGeneratorComponent implements OnInit {
 
   getIfRebellious() {
     return this._affinityTablesService.getIfRebellious(this.inAdvisor.name, this.inRoundNo);
+  }
+
+  private loadTableData() {
+    this._affinityTablesService.generateAffinityDisplayData(this.inAdvisor, this.inRoundNo);
   }
 }

@@ -1,7 +1,7 @@
 import { VALUE_LIST } from './../../shared/values.utility';
 import { IAction } from './../../functions/generate-actions';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-action-selection',
@@ -9,7 +9,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./action-selection.component.scss']
 })
 export class ActionSelectionComponent{
-
   get currentDecisionEvent() {
     return this._gameLogic.currentDecisionEvent;
   }

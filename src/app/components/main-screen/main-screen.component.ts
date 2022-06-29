@@ -7,7 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-screen.component.scss']
 })
 export class MainScreenComponent implements OnInit {
-  public rounds: null[] = [null];
+  public rounds: null[] = [];
+
+  get currentRound() {
+    return this._gameLogicService.round;
+  }
+
+  get isGameOver() {
+    return this._gameLogicService.isGameOver;
+  }
 
   constructor(
     private _gameLogicService: GameLogicService
@@ -17,6 +25,10 @@ export class MainScreenComponent implements OnInit {
     this._gameLogicService.$onNextRound.subscribe(() => {
       this.rounds.push(null);
     });
+  }
+
+  ngAfterViewChecked() {
+    document.getElementById('view-marker')?.scrollIntoView();
   }
 
 }

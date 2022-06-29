@@ -1,6 +1,7 @@
 export const environment = {
   production: false,
   testMode: false,
+  showAffinityTable: false,
   showLog: false,
   testRunCount: 5,
   advisorCount: 3,
