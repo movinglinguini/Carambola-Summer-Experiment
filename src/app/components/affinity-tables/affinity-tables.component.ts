@@ -1,7 +1,7 @@
 import { environment } from './../../../environments/environment';
 import { calculateEmperorOpinion, IAdvisor } from './../../functions/generate-advisors';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 const affinityMapKeyDelimiter = '::';
 
@@ -13,7 +13,13 @@ type AdvisorName = string;
   styleUrls: ['./affinity-tables.component.scss']
 })
 export class AffinityTablesComponent implements OnInit {
+  @Input('roundNo') inRoundNo: number;
+
   public advisorAffinityMap = new Map<string, number>();
+
+  get isTestMode() {
+    return environment.testMode;
+  }
 
   get advisors() {
     return this._gameLogic.advisors;

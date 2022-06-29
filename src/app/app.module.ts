@@ -1,3 +1,4 @@
+import { AffinityTablesService } from './components/affinity-tables/services/affinity-tables.service';
 import { LoggerService } from './services/logger/logger.service';
 import { GameLogicService } from './services/game-logic/game-logic.service';
 import { GameLoopService } from './services/engine/services/game-loop.service';
@@ -32,7 +33,8 @@ import { AffinityDescriptionGeneratorComponent } from './components/affinity-tab
     EngineService,
     GameLoopService,
     GameLogicService,
-    LoggerService
+    LoggerService,
+    AffinityTablesService,
   ],
   bootstrap: [AppComponent]
 })

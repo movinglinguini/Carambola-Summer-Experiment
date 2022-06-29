@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LogComponent implements OnInit {
   public loggedData: ILogData[] = [];
+  public loggedDataByType = new Map<LogDataTypes, ILogData[]>();
 
   get logDataTypes() {
     return LogDataTypes;
@@ -19,7 +20,12 @@ export class LogComponent implements OnInit {
 
   ngOnInit(): void {
     this._logger.$gameLog.subscribe(datum => {
-      this.loggedData.push(datum);
+      if (!this.loggedDataByType.has(datum.type)) {
+        this.loggedDataByType.set(datum.type, []);
+      }
+
+      this.loggedDataByType.get(datum.type)?.push({...datum});
+      this.loggedData.push({...datum});
     });
   }
 

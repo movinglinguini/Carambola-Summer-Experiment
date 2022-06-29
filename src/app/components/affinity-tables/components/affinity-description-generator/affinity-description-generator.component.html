@@ -25,8 +25,8 @@
       {{partner}}
     </span>
 
-    <span class="affinity-string {{getEffectOnOpinionPolarity(inAdvisor.name, partner)}}">
-      {{getEffectOnOpinion(inAdvisor.name, partner)}}
+    <span class="affinity-string {{getEffectOnOpinionPolarity(partner)}}">
+      {{getEffectOnOpinion(partner)}}
     </span>
 
   </ng-container>
@@ -35,7 +35,7 @@
   &nbsp;&nbsp;
   <span>
     Overall, <span class="character-name">{{inAdvisor.name}}</span> leans toward
-    <ng-container *ngIf="inAdvisor.rebellious"><span class="affinity-string negative">dethronement.</span></ng-container>
-    <ng-container *ngIf="!inAdvisor.rebellious"><span class="affinity-string positive">retaining the Emperor.</span></ng-container>
+    <ng-container *ngIf="getIfRebellious()"><span class="affinity-string negative">dethronement.</span></ng-container>
+    <ng-container *ngIf="!getIfRebellious()"><span class="affinity-string positive">retaining the Emperor.</span></ng-container>
   </span>
 </p>

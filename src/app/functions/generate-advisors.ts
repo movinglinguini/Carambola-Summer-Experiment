@@ -2,16 +2,22 @@ import { environment } from './../../environments/environment.prod';
 import { getOpposingValue, VALUE_LIST } from '../shared/values.utility';
 
 interface IAdvisorAffinity {
-  name: string,
-  affinity: number,
+  name: string;
+  affinity: number;
+}
+
+interface IRelationshipEffects {
+  name: string;
+  effect: number;
 }
 
 export interface IAdvisor {
-  name: string,
-  cherishes: [ number, number ],
-  despises: [ number, number ],
-  affinities: IAdvisorAffinity[],
-  rebellious: boolean
+  name: string;
+  cherishes: [ number, number ];
+  despises: [ number, number ];
+  affinities: IAdvisorAffinity[];
+  relationshipEffects: IRelationshipEffects[];
+  rebellious: boolean;
 }
 
 export const ADVISOR_MAP = new Map<string, IAdvisor>();
@@ -69,6 +75,7 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
       despises: [ dIdx1, dIdx2 ],
       affinities: [],
       rebellious: false,
+      relationshipEffects: [],
     } as IAdvisor;
 
     advisors.push(newAdvisor);
@@ -88,6 +95,7 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
 
       const randomAffinity = getRandomAffinity();
       advisor1.affinities.push({ name: advisor2.name, affinity: Math.round(randomAffinity) });
+      advisor1.relationshipEffects.push({ name: advisor2.name, effect: calculateRelationshipEffectOnRebellionUtility(advisor1, advisor2 )})
     });
 
     advisor1.affinities.push({ name: playerKey, affinity: Math.round(getRandomAffinity()) });
