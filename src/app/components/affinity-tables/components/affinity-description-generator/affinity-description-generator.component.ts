@@ -1,5 +1,5 @@
 import { AffinityTablesService } from './../../services/affinity-tables.service';
-import { environment } from './../../../../../environments/environment.prod';
+import { environment } from './../../../../../environments/environment';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
 import { IAdvisor } from './../../../../functions/generate-advisors';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
@@ -34,6 +34,10 @@ export class AffinityDescriptionGeneratorComponent implements OnInit, OnChanges 
     return environment.playerCharacterKey;
   }
 
+  get showRawNumbers(): boolean {
+    return environment.showRawNumbers;
+  }
+
   constructor(
     private _gameLogicService: GameLogicService,
     private _affinityTablesService: AffinityTablesService
@@ -52,7 +56,7 @@ export class AffinityDescriptionGeneratorComponent implements OnInit, OnChanges 
   }
 
   getAffinityPolarityTowards(key: CharacterKey) {
-    const affinity = this._affinityTablesService.getRawAffinity(this.inAdvisor.name, key, this.inRoundNo) || 0;
+    const affinity = this.getRawAffinityTowards(key) || 0;
 
     if (affinity < 0) {
       return 'negative';
@@ -63,12 +67,16 @@ export class AffinityDescriptionGeneratorComponent implements OnInit, OnChanges 
     return '';
   }
 
+  getRawAffinityTowards(key: CharacterKey) {
+    return this._affinityTablesService.getRawAffinity(this.inAdvisor.name, key, this.inRoundNo);
+  }
+
   getEffectOnOpinion(partner: CharacterKey) {
     return this._affinityTablesService.getRelEffectData(this.inAdvisor.name, partner, this.inRoundNo);
   }
 
   getEffectOnOpinionPolarity(partner: CharacterKey) {
-    const effect = this._affinityTablesService.getRawRelEffectData(this.inAdvisor.name, partner, this.inRoundNo) || 0;
+    const effect = this.getRawEffectOnOpinion(partner) || 0;
 
     if (effect < 0) {
       return 'negative';
@@ -79,8 +87,16 @@ export class AffinityDescriptionGeneratorComponent implements OnInit, OnChanges 
     return '';
   }
 
+  getRawEffectOnOpinion(partner: CharacterKey) {
+    return this._affinityTablesService.getRawRelEffectData(this.inAdvisor.name, partner, this.inRoundNo);
+  }
+
   getIfRebellious() {
     return this._affinityTablesService.getIfRebellious(this.inAdvisor.name, this.inRoundNo);
+  }
+
+  getRebellionUtility() {
+    return this._affinityTablesService.getRawRebelliousness(this.inAdvisor.name, this.inRoundNo);
   }
 
   private loadTableData() {

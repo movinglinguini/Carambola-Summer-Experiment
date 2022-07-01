@@ -12,22 +12,12 @@ export function executeActionEffects(action: IAction) {
   const minAffinity = environment.minAffinity;
 
   GameResources.advisorList.forEach(advisor => {
-    const promotedValues = action.promotes;
-    const harmedValues = action.harms;
-
     const playerAffinityIdx = advisor.affinities.findIndex(aff => aff.name === environment.playerCharacterKey) as number;
     const affinityTowardPlayer =  advisor.affinities[playerAffinityIdx];
     let affinity = affinityTowardPlayer.affinity as number;
 
-    promotedValues.forEach(val => {
-      affinity += determineEffect(ActionValueEffects.PROMOTE, val, advisor);
-      affinity = clamp(affinity, minAffinity, maxAffinity);
-    });
-
-    harmedValues.forEach(val => {
-      affinity += determineEffect(ActionValueEffects.HARM, val, advisor);
-      affinity = clamp(affinity, minAffinity, maxAffinity);
-    });
+    affinity += calculateActionEffect(action, advisor);
+    affinity = clamp(affinity, minAffinity, maxAffinity);
 
     const newAffinity = {
       name: environment.playerCharacterKey,
@@ -42,7 +32,19 @@ export function executeActionEffects(action: IAction) {
   });
 }
 
-export function determineEffect(actionEffect: ActionValueEffects, valueIdx: number, onAdvisor: IAdvisor): number {
+export function calculateActionEffect(action: IAction, advisor: IAdvisor) {
+  const promoteEffect = [...action.promotes].reduce((acc, value) => {
+    return acc + determineEffect(ActionValueEffects.PROMOTE, value, advisor);
+  }, 0);
+
+  const harmEffect = [...action.harms].reduce((acc, value) => {
+    return acc + determineEffect(ActionValueEffects.HARM, value, advisor);
+  }, 0);
+
+  return promoteEffect + harmEffect;
+}
+
+function determineEffect(actionEffect: ActionValueEffects, valueIdx: number, onAdvisor: IAdvisor): number {
   const cherishesValue = onAdvisor.cherishes.includes(valueIdx);
   const despisesValue = onAdvisor.despises.includes(valueIdx);
 

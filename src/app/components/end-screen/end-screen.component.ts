@@ -13,6 +13,10 @@ export class EndScreenComponent implements OnInit {
     return this._gameLogic.isPlayerOverThrown;
   }
 
+  get resultPolarity() {
+    return this.isOverThrown ? 'negative' : 'positive';
+  }
+
   constructor(
     private _gameLogic: GameLogicService,
   ) { }

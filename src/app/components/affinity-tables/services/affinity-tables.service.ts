@@ -1,6 +1,6 @@
 import { selectRandom } from 'src/app/shared/random.utility';
 import { environment } from './../../../../environments/environment.prod';
-import { IAdvisor } from 'src/app/functions/generate-advisors';
+import { calculateEmperorOpinion, IAdvisor } from 'src/app/functions/generate-advisors';
 import { Injectable } from '@angular/core';
 
 export interface IAffinityTableData {
@@ -9,6 +9,7 @@ export interface IAffinityTableData {
   relationshipEffect: Map<string, string>;
   rawRelationshipEffect: Map<string, number>;
   rebellious: Map<string, boolean>;
+  rawRebelliousness: Map<string, number>;
 }
 
 @Injectable({
@@ -46,6 +47,7 @@ export class AffinityTablesService {
       relationshipEffect: new Map<string, string>(),
       rawRelationshipEffect: new Map<string, number>(),
       rebellious: new Map<string, boolean>(),
+      rawRebelliousness: new Map<string, number>()
     };
 
     advisorAffinities?.forEach(affData => {
@@ -70,6 +72,7 @@ export class AffinityTablesService {
     });
 
     newTableDatum.rebellious.set(advisor.name, advisor.rebellious);
+    newTableDatum.rawRebelliousness.set(advisor.name, -calculateEmperorOpinion(advisor));
 
     const tableKey = AffinityTablesService.genTableKey(advisor.name, roundNo);
     this._affTableData.set(tableKey, newTableDatum);
@@ -98,6 +101,10 @@ export class AffinityTablesService {
 
   getIfRebellious(advisor: string, roundNo: number) {
     return this.retrieveTable(advisor, roundNo)?.rebellious.get(advisor);
+  }
+
+  getRawRebelliousness(advisor: string, roundNo: number) {
+    return this.retrieveTable(advisor, roundNo)?.rawRebelliousness.get(advisor);
   }
 
   private retrieveTable(advisor: string, roundNo: number) {

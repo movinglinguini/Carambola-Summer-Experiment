@@ -1,16 +1,16 @@
 <div id="container">
-  <h1 id="result-header">
-    <span *ngIf="isOverThrown">Overthrown!</span>
-    <span *ngIf="!isOverThrown">Survival!</span>
+  <h1 id="result-header" class="affinity-string {{resultPolarity}}">
+    <span *ngIf="isOverThrown">...and the Emperor is Dethroned</span>
+    <span *ngIf="!isOverThrown">...and the Emperor's Rule Continues On</span>
   </h1>
 
   <p id="result-blurb">
     <span *ngIf="isOverThrown">
-      Your advisors have found you wanting. You've lost your position as Emperor of Carambola.
+      Behind closed doors, the Emperor's advisors voted to dethrone them, ending a tumultuous rule.
     </span>
 
     <span *ngIf="!isOverThrown">
-      Thanks to your decisions over the years, you've retained your position as Emperor of Carambola. May your reign continue a few years more!
+      Behind closed doors, the Emperor's advisors voted to retain them. The Emperor's rule continues on.
     </span>
   </p>
   <br/>

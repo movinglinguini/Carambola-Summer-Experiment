@@ -1,9 +1,9 @@
-import { IDecisionEvent } from './../../../../services/game-logic/modules/generate-decision-event';
+import { IAction } from './../../../../functions/generate-actions';
+import { environment } from './../../../../../environments/environment';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
 import { IAdvisor } from './../../../../functions/generate-advisors';
 import { Component, Input, OnInit } from '@angular/core';
-import { determineEffect } from 'src/app/services/game-logic/modules/execute-action-effects';
-import { ActionValueEffects } from 'src/app/functions/generate-actions';
+import { calculateActionEffect } from 'src/app/services/game-logic/modules/execute-action-effects';
 
 @Component({
   selector: 'app-action-reaction-generator',
@@ -25,21 +25,21 @@ export class ActionReactionGeneratorComponent implements OnInit {
     return this._rawDecisionReaction < 0 ? 'negative' : 'positive';
   }
 
+  get showRawNumbers() {
+    return environment.showRawNumbers;
+  }
+
+  get rawDecisionReaction() {
+    return this._rawDecisionReaction;
+  }
+
   constructor(
     private _gameLogicService: GameLogicService,
   ) { }
 
   ngOnInit(): void {
     const decisionEvent = this._gameLogicService.getDecisionEventAtRound(this.inRoundNo);
-    const promotionEffect = [...(decisionEvent.chosenAction?.promotes as number[])].reduce((acc, curr) => {
-      return acc + determineEffect(ActionValueEffects.PROMOTE, curr, this.inAdvisor);
-    }, 0);
-
-    const harmEffect = [...(decisionEvent.chosenAction?.harms as number[])].reduce((acc, curr) => {
-      return acc + determineEffect(ActionValueEffects.HARM, curr, this.inAdvisor);
-    }, 0);
-
-    this._rawDecisionReaction = promotionEffect + harmEffect;
+    this._rawDecisionReaction = calculateActionEffect(decisionEvent.chosenAction as IAction, this.inAdvisor);
     this.decisionReaction = this.generateReaction();
   }
 

@@ -5,6 +5,10 @@
 
   <span class="affinity-string {{getAffinityPolarityTowards(playerKey)}}">
     {{getAffinityTowards(playerKey)}}
+
+    <ng-container *ngIf="showRawNumbers">
+      ({{getRawAffinityTowards(playerKey)}})
+    </ng-container>
   </span>
 
 
@@ -19,6 +23,10 @@
     Their
     <span class="affinity-string {{getAffinityPolarityTowards(partner)}}">
       {{getAffinityTowards(partner)}}
+
+      <ng-container *ngIf="showRawNumbers">
+        ({{getRawAffinityTowards(partner)}})
+      </ng-container>
     </span>
 
     <span class="character-name">
@@ -27,6 +35,10 @@
 
     <span class="affinity-string {{getEffectOnOpinionPolarity(partner)}}">
       {{getEffectOnOpinion(partner)}}
+
+      <ng-container *ngIf="showRawNumbers">
+        ({{getRawEffectOnOpinion(partner)}})
+      </ng-container>
     </span>
 
   </ng-container>
@@ -35,7 +47,16 @@
   &nbsp;&nbsp;
   <span>
     Overall, <span class="character-name">{{inAdvisor.name}}</span> leans toward
-    <ng-container *ngIf="getIfRebellious()"><span class="affinity-string negative">dethronement.</span></ng-container>
-    <ng-container *ngIf="!getIfRebellious()"><span class="affinity-string positive">retaining the Emperor.</span></ng-container>
+    <ng-container *ngIf="getIfRebellious()">
+      <span class="affinity-string negative">dethronement.</span>
+    </ng-container>
+    <ng-container *ngIf="!getIfRebellious()">
+      <span class="affinity-string positive">retaining the Emperor.</span>
+    </ng-container>
+
+    <ng-container *ngIf="showRawNumbers">
+      ({{getRebellionUtility()}})
+    </ng-container>
+
   </span>
 </p>

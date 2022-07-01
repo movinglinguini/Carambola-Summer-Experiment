@@ -5,6 +5,10 @@
 
  <span class="affinity-string {{reactionPolarity}}">
   {{decisionReaction}}
+
+  <ng-container *ngIf="showRawNumbers">
+    ({{rawDecisionReaction}})
+  </ng-container>
  </span>
 
  this decision.
