@@ -1,10 +1,15 @@
 #container {
-  display: flex;
-  align-items: center;
 
-  #separator {
-    padding: 1rem;
+  #alternative-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    #separator {
+      padding: 1rem;
+    }
   }
+
 }
 
 .action-card {

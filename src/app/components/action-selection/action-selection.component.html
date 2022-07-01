@@ -1,10 +1,12 @@
 <div id="container" *ngIf="currentDecisionEvent">
   <p>On this day, <span class="character-name">the Emperor</span> made the following mandate:</p>
-  <ng-container *ngTemplateOutlet="actionCard; context: { action: currentDecisionEvent.alternatives[0] }"></ng-container>
-  <div id="separator">
-    <span>or</span>
+  <div id="alternative-wrapper">
+    <ng-container *ngTemplateOutlet="actionCard; context: { action: currentDecisionEvent.alternatives[0] }"></ng-container>
+    <div id="separator">
+      <span>or</span>
+    </div>
+    <ng-container *ngTemplateOutlet="actionCard; context: { action: currentDecisionEvent.alternatives[1] }"></ng-container>
   </div>
-  <ng-container *ngTemplateOutlet="actionCard; context: { action: currentDecisionEvent.alternatives[1] }"></ng-container>
 </div>
 
 <ng-template #actionCard let-action="action">
