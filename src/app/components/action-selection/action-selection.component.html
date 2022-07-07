@@ -16,17 +16,19 @@
     </div>
     <hr/>
     <div class="action-effects-container">
-      <div class="harm-effect">
+      <div class="effect-list harm">
+        <div class="value-text-header">HARMS</div>
         <ng-container *ngFor="let value of action.harms">
           <div class="value-text">
-            {{getValueText(value)}}
+            <i>{{getValueText(value)}}</i>
           </div>
         </ng-container>
       </div>
-      <div class="promote-effect">
+      <div class="effect-list promote">
+        <div class="value-text-header">PROMOTES</div>
         <ng-container *ngFor="let value of action.promotes">
           <div class="value-text">
-            {{getValueText(value)}}
+            <i>{{getValueText(value)}}</i>
           </div>
         </ng-container>
       </div>

@@ -32,6 +32,19 @@
     display: flex;
     align-items: stretch;
     justify-content: space-between;
+
+    .effect-list{
+      padding: 5px;
+      width: 50%;
+
+      .value-text-header {
+        margin-bottom: 1rem;
+      }
+    }
+
+    .effect-list + .effect-list {
+      border-left: 1px dashed black;
+    }
   }
 }
 
