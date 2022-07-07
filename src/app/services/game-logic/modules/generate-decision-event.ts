@@ -1,5 +1,5 @@
 import { selectRandom } from 'src/app/shared/random.utility';
-import { getOpposingValue, VALUE_LIST, VALUE_MAP } from './../../../shared/values.utility';
+import { VALUE_LIST } from './../../../shared/values.utility';
 import { ActionValueEffects, IAction, actionMap } from './../../../functions/generate-actions';
 import { GameResources } from './../resources/resources';
 
