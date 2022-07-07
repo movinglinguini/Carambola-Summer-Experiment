@@ -1,3 +1,4 @@
+import { selectRandom } from 'src/app/shared/random.utility';
 import { getOpposingValue, VALUE_LIST, VALUE_MAP } from './../../../shared/values.utility';
 import { ActionValueEffects, IAction, actionMap } from './../../../functions/generate-actions';
 import { GameResources } from './../resources/resources';
@@ -17,8 +18,9 @@ export function generateDecisionEvent(): IDecisionEvent {
   // choose two opposing values that the player must choose between to promote or harm
   const value1Idx = Math.floor(Math.random() * VALUE_LIST.length);
   const action1 = getAnActionWithAttitudeOnValue(ActionValueEffects.PROMOTE, value1Idx);
+  const otherActions = Array.from(actionMap.values()).filter(act => act.name !== action1.name);
 
-  const action2 = actionMap.get(action1.oppositeActionKey) as IAction;
+  const action2 = selectRandom(otherActions);
 
   return {
     alternatives: [(action1 as IAction), (action2 as IAction)],
