@@ -8,7 +8,7 @@ export const environment = {
   advisorCount: 3,
   maxAffinity: 5,
   minAffinity: -5,
-  countRounds: 25,
+  countRounds: 15,
   playerCharacterKey: 'player',
   loggerEndpoint: 'http://localhost:3000/',
 };
