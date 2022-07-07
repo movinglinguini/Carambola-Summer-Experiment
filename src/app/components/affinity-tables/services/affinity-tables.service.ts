@@ -1,6 +1,6 @@
 import { selectRandom } from 'src/app/shared/random.utility';
 import { environment } from './../../../../environments/environment.prod';
-import { calculateEmperorOpinion, IAdvisor } from 'src/app/functions/generate-advisors';
+import { calculateEmperorOpinion, IAdvisor, calculateRebellionUtility } from 'src/app/functions/generate-advisors';
 import { Injectable } from '@angular/core';
 
 export interface IAffinityTableData {
@@ -37,7 +37,7 @@ export class AffinityTablesService {
       return this.retrieveTable(advisor.name, roundNo);
     }
 
-    const advisorAffinities = advisor.affinities;
+    const advisorAffinities = advisor.affinities.filter(aff => aff.name !== environment.playerCharacterKey);
     const affinityTowardPlayer = advisor.affinities
       .find(aff => aff.name === environment.playerCharacterKey)?.affinity as number;
 
@@ -49,6 +49,10 @@ export class AffinityTablesService {
       rebellious: new Map<string, boolean>(),
       rawRebelliousness: new Map<string, number>()
     };
+
+    const playerKey = AffinityTablesService.genPartnerKey(advisor.name, environment.playerCharacterKey, roundNo);
+    newTableDatum.rawAffinity.set(playerKey, affinityTowardPlayer);
+    newTableDatum.affinity.set(playerKey, this.getAffinityVerb(affinityTowardPlayer));
 
     advisorAffinities?.forEach(affData => {
       const isPlayer = affData.name === environment.playerCharacterKey;
@@ -63,16 +67,13 @@ export class AffinityTablesService {
       newTableDatum.affinity.set(key, affString);
       newTableDatum.rawAffinity.set(key, affData.affinity);
 
-      if (!isPlayer) {
-        const relEffect = advisor.relationshipEffects.find(relEff => relEff.name === affData.name)?.effect as number;
-        newTableDatum.relationshipEffect.set(key, this.getAffinityEffect(affinityTowardPlayer, relEffect));
-        newTableDatum.rawRelationshipEffect.set(key, relEffect);
-      }
-
+      const relEffect = advisor.relationshipEffects.find(relEff => relEff.name === affData.name)?.effect as number;
+      newTableDatum.rawRelationshipEffect.set(key, relEffect);
+      newTableDatum.relationshipEffect.set(key, this.getAffinityEffectString(affinityTowardPlayer, relEffect));
     });
 
     newTableDatum.rebellious.set(advisor.name, advisor.rebellious);
-    newTableDatum.rawRebelliousness.set(advisor.name, -calculateEmperorOpinion(advisor));
+    newTableDatum.rawRebelliousness.set(advisor.name, calculateRebellionUtility(advisor));
 
     const tableKey = AffinityTablesService.genTableKey(advisor.name, roundNo);
     this._affTableData.set(tableKey, newTableDatum);
@@ -148,7 +149,7 @@ export class AffinityTablesService {
     return selectRandom(possibleStrings);
   };
 
-  private getAffinityEffect(originalOpinion: number, effect: number) {
+  private getAffinityEffectString(originalOpinion: number, effect: number) {
     const possibleStrings = [];
     const postEffect = originalOpinion + effect;
 

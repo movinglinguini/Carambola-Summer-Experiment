@@ -1,5 +1,5 @@
 import { environment } from './../../../../environments/environment';
-import { determineIfRebellious, IAdvisor } from 'src/app/functions/generate-advisors';
+import { IAdvisor, determineIfRebellious, calculateRebellionUtility, calculateRelationshipEffectOnRebellionUtility } from 'src/app/functions/generate-advisors';
 import { GameResources } from './../resources/resources';
 import { IAction, ActionValueEffects } from './../../../functions/generate-actions';
 
@@ -28,6 +28,15 @@ export function executeActionEffects(action: IAction) {
   });
 
   GameResources.advisorList.forEach(advisor => {
+    const partners = GameResources.advisorList.filter(partner => ![advisor.name, environment.playerCharacterKey].includes(partner.name))
+    partners.forEach(partner => {
+      const relEffectIdx = advisor.relationshipEffects.findIndex(p => p.name === partner.name);
+      advisor.relationshipEffects[relEffectIdx].effect = calculateRelationshipEffectOnRebellionUtility(advisor, partner);
+    });
+  });
+
+  GameResources.advisorList.forEach(advisor => {
+    advisor.rebellionUtility = calculateRebellionUtility(advisor);
     advisor.rebellious = determineIfRebellious(advisor);
   });
 }
