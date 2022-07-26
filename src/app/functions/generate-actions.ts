@@ -37,7 +37,7 @@ const compressedActionData = [{
   promote: [ VALUE_MAP.stimulation ],
   harm: [ VALUE_MAP.conformityTradition ],
 }, {
-  name: 'Pardon Criminal ',
+  name: 'Pardon Criminal',
   oppositeName: 'Condemn Criminal',
   promote: [ VALUE_MAP.selfDirection ],
   harm: [ VALUE_MAP.conformityTradition ],
