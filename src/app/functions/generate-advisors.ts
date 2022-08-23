@@ -1,3 +1,4 @@
+import { selectRandom } from 'src/app/shared/random.utility';
 import { environment } from './../../environments/environment.prod';
 import { getOpposingValue, VALUE_LIST } from '../shared/values.utility';
 
@@ -22,6 +23,7 @@ export interface IAdvisor {
 }
 
 export const ADVISOR_MAP = new Map<string, IAdvisor>();
+
 
 /**
  * Generates `ADVISOR_COUNT` advisors such that they have two values they cherish, and two they despise.
@@ -69,7 +71,19 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
     const dIdx1 = wrapArrayIndex(getOpposingValue(cIdx1), VALUE_LIST.length);
     const dIdx2 = wrapArrayIndex(dIdx1 + randomDirection(), VALUE_LIST.length);
 
-    const advisorName = `Advisor #${i}`;
+    let possibleAdvisorNames = [
+      'Dmitri',
+      'Ivan',
+      'Alyosha',
+      'Katerina',
+      'Varvara',
+      'Nastasya'
+    ];
+
+    const advisorName = selectRandom(possibleAdvisorNames);
+    const nameIdx = possibleAdvisorNames.findIndex(name => name === advisorName);
+    possibleAdvisorNames.splice(nameIdx, 1);
+
     const newAdvisor = {
       name: advisorName,
       cherishes: [ cIdx1, cIdx2 ],

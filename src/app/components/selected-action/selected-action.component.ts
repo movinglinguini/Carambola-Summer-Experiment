@@ -1,4 +1,4 @@
-import { actionMap } from './../../functions/generate-actions';
+import { actionMap, IAction } from './../../functions/generate-actions';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { IDecisionEvent } from './../../services/game-logic/modules/generate-decision-event';
 import { LoggerService } from './../../services/logger/logger.service';
@@ -19,8 +19,8 @@ export class SelectedActionComponent implements OnInit {
   }
 
   get alternativeActionText(): string {
-    const chosenAction = this.decisionEvent.chosenAction;
-    const alternative = actionMap.get(chosenAction?.oppositeActionKey as string);
+    const chosenAction = this.decisionEvent.chosenAction as IAction;
+    const alternative = this.decisionEvent.alternatives.find(actions => actions.name !== chosenAction.name);
 
     return alternative?.name as string;
   }
