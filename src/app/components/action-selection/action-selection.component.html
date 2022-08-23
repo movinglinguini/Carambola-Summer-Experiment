@@ -10,27 +10,14 @@
 </div>
 
 <ng-template #actionCard let-action="action">
-  <button class="action-card" (click)="onChooseAction(action)">
-    <div class="action-name">
-      {{action.name}}
-    </div>
-    <hr/>
-    <div class="action-effects-container">
-      <div class="effect-list harm">
-        <div class="value-text-header">HARMS</div>
-        <ng-container *ngFor="let value of action.harms">
-          <div class="value-text">
-            <i>{{getValueText(value)}}</i>
-          </div>
-        </ng-container>
+  <button (click)="onChooseAction(action)">
+    <div class="action-card">
+      <div class="action-name">
+        {{action.name}}
       </div>
-      <div class="effect-list promote">
-        <div class="value-text-header">PROMOTES</div>
-        <ng-container *ngFor="let value of action.promotes">
-          <div class="value-text">
-            <i>{{getValueText(value)}}</i>
-          </div>
-        </ng-container>
+      <hr/>
+      <div class="action-card-description">
+        {{action.description}}
       </div>
     </div>
   </button>

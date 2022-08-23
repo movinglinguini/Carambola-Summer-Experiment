@@ -13,7 +13,7 @@
 }
 
 .action-card {
-  $card-height: 15rem;
+  $card-height: 10rem;
   $width-height-ratio: 0.75;
 
   width: $card-height * $width-height-ratio;
@@ -21,17 +21,15 @@
 
   background-color: white;
   border-radius: 2.5%;
+  padding: 5px;
 
   cursor: pointer;
 
   .action-name {
-    height: 60%;
+    height: 2rem;
   }
 
   .action-effects-container {
-    display: flex;
-    align-items: stretch;
-    justify-content: space-between;
 
     .effect-list{
       padding: 5px;

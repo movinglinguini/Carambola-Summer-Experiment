@@ -2,6 +2,7 @@ import { valueNameToIdx, VALUE_MAP } from '../shared/values.utility';
 
 export interface IAction {
   name: string;
+  description: string;
   promotes: number[];
   harms: number[];
   oppositeActionKey: string;
@@ -20,6 +21,8 @@ const compressedActionData = [{
   name: 'Maintain Barracks',
   oppositeName: 'Repurpose Barracks',
   promote: [ VALUE_MAP.power ],
+  description: '',
+  oppositeDescription: '',
   harm: [ VALUE_MAP.universalism ],
 },  {
   name: 'Authorize Military March',
@@ -39,6 +42,8 @@ const compressedActionData = [{
   name: 'Maintain Art Museum',
   oppositeName: 'Repurpose Art Museum',
   promote: [ VALUE_MAP.stimulation ],
+  description: '',
+  oppositeDescription: '',
   harm: [ VALUE_MAP.conformityTradition ],
 }, {
   name: 'Pardon Criminal',
@@ -83,6 +88,7 @@ export function generateActions(): IAction[] {
   compressedActionData.forEach(action => {
     const action1 = {
       name: action.name,
+      description: action.description,
       promotes: action.promote.map(val => valueNameToIdx(val)),
       harms: action.harm.map(val => valueNameToIdx(val)),
       oppositeActionKey: action.oppositeName,
@@ -90,6 +96,7 @@ export function generateActions(): IAction[] {
 
     const action2 = {
       name: action.oppositeName,
+      description: action.oppositeDescription,
       promotes: action.harm.map(val => valueNameToIdx(val)),
       harms: action.promote.map(val => valueNameToIdx(val)),
       oppositeActionKey: action.name,
