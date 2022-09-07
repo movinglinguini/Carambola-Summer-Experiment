@@ -21,8 +21,8 @@ const compressedActionData = [{
   name: 'Maintain Barracks',
   oppositeName: 'Repurpose Barracks',
   promote: [ VALUE_MAP.power ],
-  description: '',
-  oppositeDescription: '',
+  description: 'Maintain your military\'s presence in the empire.',
+  oppositeDescription: 'Replace the barracks with something that the people can use.',
   harm: [ VALUE_MAP.universalism ],
 },  {
   name: 'Authorize Military March',
@@ -35,15 +35,15 @@ const compressedActionData = [{
   name: 'Authorize Festival',
   oppositeName: 'Prohibit Festival',
   description: "Let the people run wild!",
-  oppositeDescription: "A festival is too much of a risk for security.",
+  oppositeDescription: "A festival will attract crowds too large for the guards to handle.",
   promote: [ VALUE_MAP.hedonism ],
   harm: [ VALUE_MAP.security ]
 }, {
   name: 'Maintain Art Museum',
   oppositeName: 'Repurpose Art Museum',
   promote: [ VALUE_MAP.stimulation ],
-  description: '',
-  oppositeDescription: '',
+  description: 'Art stimulates the mind.',
+  oppositeDescription: 'Art museums give space to rebels and heretics. You cannot have that.',
   harm: [ VALUE_MAP.conformityTradition ],
 }, {
   name: 'Pardon Criminal',
@@ -55,15 +55,15 @@ const compressedActionData = [{
 }, {
   name: 'Maintain Hospital',
   oppositeName: 'Repurpose Hospital',
-  description: '',
-  oppositeDescription: '',
+  description: 'Even the sick are under your care.',
+  oppositeDescription: 'Maintaining this hospital and tending to the sick shows weakness.',
   promote: [ VALUE_MAP.universalism ],
   harm: [ VALUE_MAP.power ],
 }, {
   name: 'Open Food Rations',
   oppositeName: 'Restrict Food Rations',
   description: 'Bring mercy to the needy by giving them access to food.',
-  oppositeDescription: '',
+  oppositeDescription: 'Bringing out rations will attract crowds too large for the guards to handle.',
   promote: [ VALUE_MAP.benevolence ],
   harm: [ VALUE_MAP.security ]
 }, {
@@ -76,8 +76,8 @@ const compressedActionData = [{
 }, {
   name: 'Maintain Prison',
   oppositeName: 'Repurpose Prison',
-  description: '',
-  oppositeDescription: '',
+  description: 'Remind would-be troublemakers what their lives can amount to.',
+  oppositeDescription: 'The law can be less heavy-handed for a while.',
   promote: [ VALUE_MAP.security ],
   harm: [ VALUE_MAP.selfDirection ]
 },];

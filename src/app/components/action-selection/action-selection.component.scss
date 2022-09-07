@@ -27,6 +27,9 @@
 
   .action-name {
     height: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .action-effects-container {
