@@ -51,6 +51,15 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
     return Math.random() < 0.5 ? -1 : 1;
   }
 
+  const possibleAdvisorNames = [
+    'Dmitri',
+    'Ivan',
+    'Alyosha',
+    'Katerina',
+    'Varvara',
+    'Nastasya'
+  ];
+
   for (let i = 0; i < advisorCount; i += 1) {
     // index promoted values
     // for the first index, we want to make sure that subsequent advisors are not aligned too much
@@ -71,14 +80,6 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
     const dIdx1 = wrapArrayIndex(getOpposingValue(cIdx1), VALUE_LIST.length);
     const dIdx2 = wrapArrayIndex(dIdx1 + randomDirection(), VALUE_LIST.length);
 
-    let possibleAdvisorNames = [
-      'Dmitri',
-      'Ivan',
-      'Alyosha',
-      'Katerina',
-      'Varvara',
-      'Nastasya'
-    ];
 
     const advisorName = selectRandom(possibleAdvisorNames);
     const nameIdx = possibleAdvisorNames.findIndex(name => name === advisorName);
@@ -123,6 +124,8 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
     adv.rebellionUtility = calculateRebellionUtility(adv);
     adv.rebellious = determineIfRebellious(adv);
   });
+
+  console.log(advisors);
 
   return advisors;
 }
