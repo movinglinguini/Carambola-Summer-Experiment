@@ -125,8 +125,6 @@ export function generateAdvisors(advisorCount: number): IAdvisor[] {
     adv.rebellious = determineIfRebellious(adv);
   });
 
-  console.log(advisors);
-
   return advisors;
 }
 
