@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  testMode: false,
+  testMode: true,
   showAffinityTable: false,
   showRawNumbers: false,
   showLog: false,
