@@ -1,4 +1,3 @@
-import { GameLoopService, GameLoopStates } from './../../services/engine/services/game-loop.service';
 import { environment } from './../../../environments/environment';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,14 +9,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoundCounterComponent implements OnInit {
 
-  get isInMainLoop() {
-    return this._gameLoop.loopState === GameLoopStates.MAIN;
-  }
-
-  get isInEndLoop() {
-    return this._gameLoop.loopState === GameLoopStates.END;
-  }
-
   get roundNo() {
     return this._gameLogic.round;
   }
@@ -28,7 +19,6 @@ export class RoundCounterComponent implements OnInit {
 
   constructor(
     private _gameLogic: GameLogicService,
-    private _gameLoop: GameLoopService,
   ) { }
 
   ngOnInit(): void {

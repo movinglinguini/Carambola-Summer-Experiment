@@ -1,9 +1,7 @@
-import { GameLoopService } from './services/engine/services/game-loop.service';
 import { AutoplayerService } from './services/autoplayer/autoplayer.service';
 import { environment } from './../environments/environment';
 import { GameLogicService } from './services/game-logic/game-logic.service';
 import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',

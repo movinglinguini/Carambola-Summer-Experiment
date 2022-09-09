@@ -2,7 +2,6 @@ import { LoggerService, ILogInitData, LogDataTypes, ILogDecisionEvent } from './
 import { generateDecisionEvent, IDecisionEvent } from './modules/generate-decision-event';
 import { GameResources } from './resources/resources';
 import { environment } from '../../../environments/environment';
-import { GameLoopService, GameLoopStates } from '../engine/services/game-loop.service';
 import { Injectable, EventEmitter } from '@angular/core';
 import { generateActions, IAction } from '../../functions/generate-actions';
 import { generateAdvisors, IAdvisor } from '../../functions/generate-advisors';
@@ -130,18 +129,5 @@ export class GameLogicService {
 
   getDecisionEventAtRound(roundNo: number): IDecisionEvent {
     return this._decisionEventHistory[roundNo];
-  }
-
-  private handleStateSwitch(newState: GameLoopStates) {
-    switch (newState) {
-      case GameLoopStates.INIT:
-        this.onStart();
-        break;
-    }
-  }
-
-  private onMainStateUpdate() {
-    // generate a decision event to be presented to the player
-    this.generateDecisionEvent();
   }
 }

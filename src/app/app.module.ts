@@ -1,8 +1,6 @@
 import { AffinityTablesService } from './components/affinity-tables/services/affinity-tables.service';
 import { LoggerService } from './services/logger/logger.service';
 import { GameLogicService } from './services/game-logic/game-logic.service';
-import { GameLoopService } from './services/engine/services/game-loop.service';
-import { EngineService } from './services/engine/engine.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -24,7 +22,6 @@ import { ActionReactionGeneratorComponent } from './components/action-reaction/c
     AffinityTablesComponent,
     LogComponent,
     ActionSelectionComponent,
-    RoundCounterComponent,
     EndScreenComponent,
     MainScreenComponent,
     AffinityDescriptionGeneratorComponent,
@@ -39,8 +36,6 @@ import { ActionReactionGeneratorComponent } from './components/action-reaction/c
     AppComponent
   ],
   providers: [
-    EngineService,
-    GameLoopService,
     GameLogicService,
     LoggerService,
     AffinityTablesService,
