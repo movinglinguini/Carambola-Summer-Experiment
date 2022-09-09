@@ -23,10 +23,7 @@ export class AppComponent {
     return this._gameLogic.isGameOver;
   }
 
-  private _endGameSubscription: Subscription;
-
   constructor(
-    private _gameLoop: GameLoopService,
     private _gameLogic: GameLogicService,
     private _autoPlayer: AutoplayerService,
   ) {}
@@ -40,21 +37,10 @@ export class AppComponent {
   }
 
   initGame() {
-    this._endGameSubscription = this._gameLogic.$onNextRound.subscribe(roundNo => {
-      if (this._gameLogic.isGameOver) {
-        this._gameLoop.triggerEndState();
-      }
-    });
-
-    this._gameLoop.triggerInitState();
     this._gameLogic.onStart();
-    this._gameLogic.generateDecisionEvent();
-    this._gameLoop.triggerMainState();
   }
 
   onRestart() {
-    this._endGameSubscription.unsubscribe();
-
     this.initGame();
   }
 }

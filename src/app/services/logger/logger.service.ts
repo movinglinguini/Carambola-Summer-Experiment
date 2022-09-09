@@ -43,13 +43,6 @@ export class LoggerService {
   constructor() { }
 
   logData(data: (ILogInitData | ILogAdvisorState | ILogDecisionEvent)) {
-    // return fetch(environment.loggerEndpoint, {
-    //   method: 'POST',
-    //   body: JSON.stringify(data),
-    //   headers: {
-    //     'Content-type': 'application/json'
-    //   }
-    // });
     this.$gameLog.emit(data);
   }
 }

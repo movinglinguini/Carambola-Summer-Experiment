@@ -35,6 +35,9 @@ import { ActionReactionGeneratorComponent } from './components/action-reaction/c
   imports: [
     BrowserModule
   ],
+  exports: [
+    AppComponent
+  ],
   providers: [
     EngineService,
     GameLoopService,

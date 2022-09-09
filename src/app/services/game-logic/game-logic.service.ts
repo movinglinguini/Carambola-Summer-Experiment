@@ -14,6 +14,7 @@ import { executeActionEffects } from './modules/execute-action-effects';
 export class GameLogicService {
 
   public $onNextRound = new EventEmitter<number>();
+  public $onGameOver = new EventEmitter<number>();
 
   get advisors() {
     return GameResources.advisorList;
@@ -24,7 +25,7 @@ export class GameLogicService {
   }
 
   get isGameOver() {
-    return this._round > environment.countRounds;
+    return this._round >= (environment.countRounds - 1);
   }
 
   get round() {
@@ -43,13 +44,8 @@ export class GameLogicService {
   private _decisionEventHistory: IDecisionEvent[] = [];
 
   constructor(
-    private _gameLoop: GameLoopService,
     private _logger: LoggerService,
-  ) {
-    this._gameLoop.$stateSwitch.subscribe((newState: GameLoopStates) => {
-      this.handleStateSwitch(newState);
-    });
-  }
+  ) {}
 
   /**
    * START State change handlers
@@ -72,14 +68,7 @@ export class GameLogicService {
     this._logger.logData(payload);
 
     this._round = 0;
-  }
-
-  onUpdate() {
-    switch (this._gameLoop.loopState) {
-      case GameLoopStates.MAIN:
-        this.onMainStateUpdate();
-        break;
-    }
+    this.generateDecisionEvent();
   }
 
 
@@ -107,10 +96,11 @@ export class GameLogicService {
       // go to the next decision event
       this.generateDecisionEvent();
       this._round += 1;
-      this.$onNextRound.emit(this._round);
 
-      if (this._round === 0) {
-        this._gameLoop.triggerEndState();
+      if (this.isGameOver) {
+        this.$onGameOver.emit();
+      } else {
+        this.$onNextRound.emit(this._round);
       }
     }
   }
