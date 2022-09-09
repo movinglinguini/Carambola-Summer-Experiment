@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { AffinityTablesComponent } from './components/affinity-tables/affinity-tables.component';
 import { LogComponent } from './components/log/log.component';
 import { ActionSelectionComponent } from './components/action-selection/action-selection.component';
-import { RoundCounterComponent } from './components/round-counter/round-counter.component';
 import { EndScreenComponent } from './components/end-screen/end-screen.component';
 import { MainScreenComponent } from './components/main-screen/main-screen.component';
 import { AffinityDescriptionGeneratorComponent } from './components/affinity-tables/components/affinity-description-generator/affinity-description-generator.component';
@@ -33,7 +32,7 @@ import { ActionReactionGeneratorComponent } from './components/action-reaction/c
     BrowserModule
   ],
   exports: [
-    AppComponent
+    MainScreenComponent
   ],
   providers: [
     GameLogicService,
