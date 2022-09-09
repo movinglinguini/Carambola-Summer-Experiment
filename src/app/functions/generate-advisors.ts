@@ -1,4 +1,4 @@
-import { selectRandom } from 'src/app/shared/random.utility';
+import { selectRandom } from '../shared/random.utility';
 import { environment } from './../../environments/environment.prod';
 import { getOpposingValue, VALUE_LIST } from '../shared/values.utility';
 

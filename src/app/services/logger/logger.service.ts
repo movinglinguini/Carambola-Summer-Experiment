@@ -1,5 +1,4 @@
-import { IAdvisor } from 'src/app/functions/generate-advisors';
-import { environment } from './../../../environments/environment.prod';
+import { IAdvisor } from '../../functions/generate-advisors';
 import { IDecisionEvent } from './../game-logic/modules/generate-decision-event';
 import { IAction } from './../../functions/generate-actions';
 import { Injectable, EventEmitter } from '@angular/core';

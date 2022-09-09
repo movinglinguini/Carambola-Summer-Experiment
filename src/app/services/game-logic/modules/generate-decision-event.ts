@@ -1,4 +1,4 @@
-import { selectRandom } from 'src/app/shared/random.utility';
+import { selectRandom } from '../../../shared/random.utility';
 import { VALUE_LIST } from './../../../shared/values.utility';
 import { ActionValueEffects, IAction, actionMap } from './../../../functions/generate-actions';
 import { GameResources } from './../resources/resources';

@@ -4,8 +4,8 @@ import { GameResources } from './resources/resources';
 import { environment } from '../../../environments/environment';
 import { GameLoopService, GameLoopStates } from '../engine/services/game-loop.service';
 import { Injectable, EventEmitter } from '@angular/core';
-import { generateActions, IAction } from 'src/app/functions/generate-actions';
-import { generateAdvisors, IAdvisor } from 'src/app/functions/generate-advisors';
+import { generateActions, IAction } from '../../functions/generate-actions';
+import { generateAdvisors, IAdvisor } from '../../functions/generate-advisors';
 import { executeActionEffects } from './modules/execute-action-effects';
 
 @Injectable({

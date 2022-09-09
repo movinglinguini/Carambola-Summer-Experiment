@@ -3,7 +3,7 @@ import { environment } from './../../../../../environments/environment';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
 import { IAdvisor } from './../../../../functions/generate-advisors';
 import { Component, Input, OnInit } from '@angular/core';
-import { calculateActionEffect } from 'src/app/services/game-logic/modules/execute-action-effects';
+import { calculateActionEffect } from '../../../../services/game-logic/modules/execute-action-effects';
 
 @Component({
   selector: 'app-action-reaction-generator',

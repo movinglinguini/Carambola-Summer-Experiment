@@ -1,5 +1,10 @@
 import { environment } from './../../../../environments/environment';
-import { IAdvisor, determineIfRebellious, calculateRebellionUtility, calculateRelationshipEffectOnRebellionUtility } from 'src/app/functions/generate-advisors';
+import {
+  IAdvisor,
+  determineIfRebellious,
+  calculateRebellionUtility,
+  calculateRelationshipEffectOnRebellionUtility
+} from '../../../functions/generate-advisors';
 import { GameResources } from './../resources/resources';
 import { IAction, ActionValueEffects } from './../../../functions/generate-actions';
 
