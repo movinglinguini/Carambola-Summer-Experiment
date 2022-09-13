@@ -1,6 +1,6 @@
-import { selectRandom } from '../../../shared/random.utility';
-import { VALUE_LIST } from './../../../shared/values.utility';
-import { ActionValueEffects, IAction, actionMap } from './../../../functions/generate-actions';
+import { selectRandom } from '../../../shared/utilities/random.utility';
+import { VALUE_LIST } from './../../../shared/utilities/values.utility';
+import { ActionValueEffects, IAction } from './../../../shared/resources/action.resource';
 import { GameResources } from './../resources/resources';
 
 export interface IDecisionEvent {

@@ -1,5 +1,5 @@
-import { IAction } from './../../../functions/generate-actions';
-import { IAdvisor } from './../../../functions/generate-advisors';
+import { IAction } from './../../../shared/resources/action.resource';
+import { IAdvisor } from './../../../shared/resources/advisors.resource';
 
 interface IGameResources {
   advisorList: IAdvisor[];

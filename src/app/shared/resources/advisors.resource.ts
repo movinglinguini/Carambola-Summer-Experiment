@@ -1,6 +1,6 @@
-import { selectRandom } from '../shared/random.utility';
-import { environment } from './../../environments/environment.prod';
-import { getOpposingValue, VALUE_LIST } from '../shared/values.utility';
+import { selectRandom } from '../utilities/random.utility';
+import { environment } from '../../../environments/environment.prod';
+import { getOpposingValue, VALUE_LIST } from '../utilities/values.utility';
 
 interface IAdvisorAffinity {
   name: string;

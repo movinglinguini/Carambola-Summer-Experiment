@@ -1,5 +1,5 @@
-import { VALUE_LIST } from './../../shared/values.utility';
-import { IAction } from './../../functions/generate-actions';
+import { VALUE_LIST } from './../../shared/utilities/values.utility';
+import { IAction } from './../../shared/resources/action.resource';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, Input } from '@angular/core';
 

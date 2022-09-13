@@ -1,7 +1,6 @@
-import { actionMap, IAction } from './../../functions/generate-actions';
+import { IAction } from './../../shared/resources/action.resource';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { IDecisionEvent } from './../../services/game-logic/modules/generate-decision-event';
-import { LoggerService } from './../../services/logger/logger.service';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

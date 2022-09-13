@@ -3,9 +3,8 @@ import { generateDecisionEvent, IDecisionEvent } from './modules/generate-decisi
 import { GameResources } from './resources/resources';
 import { environment } from '../../../environments/environment';
 import { Injectable, EventEmitter } from '@angular/core';
-import { generateActions, IAction } from '../../functions/generate-actions';
-import { generateAdvisors, IAdvisor } from '../../functions/generate-advisors';
-import { executeActionEffects } from './modules/execute-action-effects';
+import { generateAdvisors, IAdvisor } from '../../shared/resources/advisors.resource';
+import { executeActionEffects, generateActions, IAction } from '../../shared/resources/action.resource';
 
 @Injectable({
   providedIn: 'root'
@@ -91,7 +90,7 @@ export class GameLogicService {
       this._logger.logData(payload);
 
       // execute the effects of the action
-      executeActionEffects(action);
+      executeActionEffects(action, this.advisors);
       // go to the next decision event
       this.generateDecisionEvent();
       this._round += 1;

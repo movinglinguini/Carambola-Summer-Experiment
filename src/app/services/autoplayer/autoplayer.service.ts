@@ -1,6 +1,6 @@
 import { IDecisionEvent } from './../game-logic/modules/generate-decision-event';
 import { GameResources } from './../game-logic/resources/resources';
-import { IAction } from './../../functions/generate-actions';
+import { IAction } from './../../shared/resources/action.resource';
 import { environment } from './../../../environments/environment';
 import { GameLogicService } from './../game-logic/game-logic.service';
 import { LoggerService, LogDataTypes, ILogAdvisor } from './../logger/logger.service';

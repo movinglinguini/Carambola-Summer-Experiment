@@ -1,5 +1,5 @@
 import { environment } from './../../../environments/environment';
-import { calculateEmperorOpinion, IAdvisor } from './../../functions/generate-advisors';
+import { calculateEmperorOpinion, IAdvisor } from './../../shared/resources/advisors.resource';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, Input, OnInit } from '@angular/core';
 
