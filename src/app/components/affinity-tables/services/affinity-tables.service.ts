@@ -117,15 +117,15 @@ export class AffinityTablesService {
     const possibleStrings = [];
 
     if (aff < -3) {
-      possibleStrings.push('hates', 'despises');
+      possibleStrings.push('hated', 'despised');
     } else if (aff < 0) {
-      possibleStrings.push('dislikes', 'distrusts');
+      possibleStrings.push('disliked', 'distrusted');
     } else if (aff === 0) {
-      possibleStrings.push('is uncertain about');
+      possibleStrings.push('was uncertain about');
     } else if (aff < 3) {
-      possibleStrings.push('trusts', 'approves of');
+      possibleStrings.push('trusted', 'approved of');
     } else if (aff <= 5) {
-      possibleStrings.push('adores', 'reveres');
+      possibleStrings.push('adored', 'revered');
     }
 
     return selectRandom(possibleStrings);
@@ -155,27 +155,27 @@ export class AffinityTablesService {
 
     if (originalOpinion < 0) {
       if (postEffect < originalOpinion) {
-        possibleStrings.push('worsens their opinion.')
+        possibleStrings.push('worsened their opinion.')
       } else if (postEffect > originalOpinion) {
-        possibleStrings.push('improves their opinion.')
+        possibleStrings.push('improved their opinion.')
       } else {
-        possibleStrings.push('makes no effect.');
+        possibleStrings.push('made no effect.');
       }
     } else if (originalOpinion > 0) {
       if (postEffect > originalOpinion) {
-        possibleStrings.push('strengthens their opinion.');
+        possibleStrings.push('strengthened their opinion.');
       } else if (postEffect < originalOpinion) {
-        possibleStrings.push('sours their opinion.')
+        possibleStrings.push('soured their opinion.')
       } else {
-        possibleStrings.push('makes no effect.')
+        possibleStrings.push('made no effect.')
       }
     } else {
       if (postEffect > 0) {
-        possibleStrings.push('nudges them toward a positive opinion.');
+        possibleStrings.push('nudged them toward a positive opinion.');
       } else if (postEffect < 0) {
-        possibleStrings.push('nudges them toward a negative opinion.');
+        possibleStrings.push('nudged them toward a negative opinion.');
       } else {
-        possibleStrings.push('makes no effect.');
+        possibleStrings.push('made no effect.');
       }
     }
 
