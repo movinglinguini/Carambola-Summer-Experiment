@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "deploy": "ng build && git add . && git commit -m 'deploy' && git push",
+    "deploy": "ng build --baseHref='' && zip build.zip docs && git add . && git commit -m 'deploy' && git push",
     "logger": "node logger",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
