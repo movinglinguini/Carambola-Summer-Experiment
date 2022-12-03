@@ -6,12 +6,14 @@
   }
 
   .affinity-string {
+    font-weight: bold;
+
     &.negative {
-      color: red;
+      color: #ff5628;
     }
 
     &.positive {
-      color: blue;
+      color: #5c4aee;
     }
   }
 }
