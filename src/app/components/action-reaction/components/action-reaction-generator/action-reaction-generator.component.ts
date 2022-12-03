@@ -45,15 +45,15 @@ export class ActionReactionGeneratorComponent implements OnInit {
   private generateReaction(): string {
     switch (this._rawDecisionReaction) {
       case -2:
-        return 'abhors';
+        return 'abhored';
       case -1:
-        return 'dislikes';
+        return 'disliked';
       case 0:
-        return 'is unaffected by';
+        return 'was unaffected by';
       case 1:
-        return 'likes';
+        return 'liked';
       case 2:
-        return 'applauds';
+        return 'applauded';
       default:
         return '';
     }
