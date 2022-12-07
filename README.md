@@ -23,13 +23,23 @@ ng serve --open
 You can edit global configs for the code through `environments/environments.ts`. 
 
 
-### Running the Build Locally
+### Running a Build Locally
 In a terminal of your choice, navigate to the root of the game project and run the following: 
 
 ```bash
 ng serve --open --prod
 ```
 
+## Building the Game
+In a terminal of your choice, navigate to the root of the game project and run the following: 
+
+```bash
+ng build --bashHref=''
+```
+
+This will pack up the code by uglifying it and smashing it altogether into small packets. The result will be dumped into a folder called `build`.
+
+If you'd like to configure the build process, please refer to the documentation on the Angular CLI below.
 
 ## Application Info
 
