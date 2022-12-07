@@ -7,6 +7,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   styleUrls: ['./end-screen.component.scss']
 })
 export class EndScreenComponent implements OnInit {
+  /** @deprecated */
   @Output('restart') outRestart = new EventEmitter<void>();
 
   get isOverThrown() {
@@ -23,9 +24,4 @@ export class EndScreenComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  onRestart(): void {
-    this.outRestart.emit();
-  }
-
 }
