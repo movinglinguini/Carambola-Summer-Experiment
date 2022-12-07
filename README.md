@@ -34,12 +34,12 @@ ng serve --open --prod
 In a terminal of your choice, navigate to the root of the game project and run the following: 
 
 ```bash
-ng build --bashHref=''
+ng build
 ```
 
 This will pack up the code by uglifying it and smashing it altogether into small packets. The result will be dumped into a folder called `build`.
 
-If you'd like to configure the build process, please refer to the documentation on the Angular CLI below.
+If you'd like to configure the build process, please refer to the documentation on the Angular CLI below. For example, when I'm building for deployment on itch.io, I tend to run `ng build --baseHref=''`.
 
 ## Application Info
 
