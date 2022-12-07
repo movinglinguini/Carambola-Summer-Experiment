@@ -1,4 +1,12 @@
 <div id="container">
+  <h1 id="game-intro">
+    A <span id="message-body">record of Executive Decisions</span>
+  </h1>
+  <div class="round-divider">
+    <div class="line"></div>
+    <div class="dot"></div>
+    <div class="line"></div>
+  </div>
   <!-- show the game's history-->
   <ng-container *ngFor="let round of rounds; let idx = index">
     <h1>{{beautifyDate(round.date)}}</h1>
@@ -11,6 +19,7 @@
 
     <div class="round-divider">
       <div class="line"></div>
+      <div class="dot"></div>
       <div class="dot"></div>
       <div class="line"></div>
     </div>
