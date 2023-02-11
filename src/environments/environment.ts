@@ -6,6 +6,15 @@ export const environment = {
   production: false,
   /** If true, the game will run itself from start to end. */
   testMode: false,
+  advisorGeneratorFile: {
+    path: '../assets/advisor-generators/default-generator.function.ts',
+    opts: {
+      advisorCount: 3,
+      playerCharacterKey: 'player',
+      maxAffinity: 5,
+      minAffinity: -5,
+    },
+  },
   /** 
    * If true, the game will print dumps of affinities the
    * NPC's have among each other and with the player.
@@ -36,8 +45,9 @@ export const environment = {
   testRunCount: 1,
   advisorCount: 3,
   showLog: false,
-  playerCharacterKey: 'player',
   loggerEndpoint: 'http://localhost:3000/',
+  /** @deprecated */
+  playerCharacterKey: 'player',
 };
 
 /*

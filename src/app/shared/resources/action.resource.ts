@@ -120,7 +120,12 @@ export function generateActions(): IAction[] {
 }
 
 
-
+/**
+ * 
+ * @param action 
+ * @param advisorList
+ * @deprecated
+ */
 export function executeActionEffects(action: IAction, advisorList: IAdvisor[]) {
   const clamp = (value: number, min: number, max: number) => {
     return Math.floor(Math.max(min, Math.min(value, max)));

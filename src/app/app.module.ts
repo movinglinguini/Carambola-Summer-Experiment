@@ -14,6 +14,7 @@ import { AffinityDescriptionGeneratorComponent } from './components/affinity-tab
 import { SelectedActionComponent } from './components/selected-action/selected-action.component';
 import { ActionReactionComponent } from './components/action-reaction/action-reaction.component';
 import { ActionReactionGeneratorComponent } from './components/action-reaction/components/action-reaction-generator/action-reaction-generator.component';
+import { AdvisorService } from './services/advisor.service';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ActionReactionGeneratorComponent } from './components/action-reaction/c
     GameLogicService,
     LoggerService,
     AffinityTablesService,
+    AdvisorService,
   ],
   bootstrap: [AppComponent]
 })
