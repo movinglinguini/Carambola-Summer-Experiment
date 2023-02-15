@@ -1,0 +1,29 @@
+<div id="container">
+  <svg [attr.height]="timelineContainerHeight" [attr.width]="timelineContainerWidth">
+    <svg:g id="timeline-wrapper" [attr.transform]="'translate('+ (timelineContainerWidth / 2) + ', 7.5)'">
+      <!--Line covering what's already transpired.-->
+      <line x1="0" x2="0" y1="0" [attr.y2]="timelineProgressAsHeight" stroke="rgba(55, 53, 47, 1)" [attr.stroke-width]="svgTimelineStrokeWidth"></line>
+      <!--Line covering what hasn't transpired.-->
+      <line x1="0" x2="0" [attr.y1]="timelineProgressAsHeight" [attr.y2]="timelineContainerHeight - 7.5" stroke="rgba(55, 53, 47, 0.3)" [attr.stroke-width]="svgTimelineStrokeWidth"></line>
+
+      <svg:g id="timeline-ticks-wrapper">
+        <ng-container *ngFor="let event of events; let idx = index">
+          <g class="tick-wrapper" [attr.transform]="'translate(0,' + event.progressAsHeight + ')'">
+            <line x1="-10" x2="10" y1="0" y2="0" stroke="rgba(55, 53, 47, 1)" [attr.stroke-width]="svgTimelineStrokeWidth"></line>
+            <text x="12" alignment-baseline="middle">{{beautifyDate(event.date)}}</text>
+            <rect
+              class="tick-hover-trigger"
+              x="-10"
+              [attr.y]="-svgTimelineBandHeight * 0.33"
+              [attr.width]="100"
+              [attr.height]="svgTimelineBandHeight * 0.66"
+              (click)="onClickTick(event, idx)"
+              fill="transparent"
+            >
+            </rect>
+          </g>
+        </ng-container>
+      </svg:g>
+    </svg:g>
+  </svg>
+</div>

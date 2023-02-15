@@ -14,6 +14,8 @@ import { AffinityDescriptionGeneratorComponent } from './components/affinity-tab
 import { SelectedActionComponent } from './components/selected-action/selected-action.component';
 import { ActionReactionComponent } from './components/action-reaction/action-reaction.component';
 import { ActionReactionGeneratorComponent } from './components/action-reaction/components/action-reaction-generator/action-reaction-generator.component';
+import { ChronicleComponent } from './components/main-screen/components/chronicle/chronicle.component';
+import { TimelineComponent } from './components/main-screen/components/timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ActionReactionGeneratorComponent } from './components/action-reaction/c
     SelectedActionComponent,
     ActionReactionComponent,
     ActionReactionGeneratorComponent,
+    ChronicleComponent,
+    TimelineComponent,
   ],
   imports: [
     BrowserModule

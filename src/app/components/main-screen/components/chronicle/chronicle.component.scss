@@ -1,0 +1,50 @@
+@use '../../../../../styles/_colors.scss' as colors;
+
+#container {
+  display: flex;
+  flex-direction: column;
+  width: 33rem;
+  margin: auto;
+
+  h1 {
+    &#game-intro {
+      font-size: 2.5rem;
+
+      #message-body {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  #action-selection-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .round-divider {
+    $height: 5px;
+    $fill-color: colors.$text-color;
+
+    display: flex;
+    align-items: center;
+
+    height: $height;
+
+    .line {
+      background-color: $fill-color;
+      flex-grow: 1;
+      height: $height * 0.25;
+    }
+
+    .dot {
+      $margin-size: 1%;
+
+      background-color: $fill-color;
+      border-radius: 50%;
+      width: $height;
+      height: $height;
+      margin-left: $margin-size;
+      margin-right: $margin-size;
+    }
+  }
+}

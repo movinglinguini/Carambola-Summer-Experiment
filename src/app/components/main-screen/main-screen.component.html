@@ -1,36 +1,14 @@
 <div id="container">
-  <h1 id="game-intro">
-    A <span id="message-body">record of Executive Decisions</span>
-  </h1>
-  <div class="round-divider">
-    <div class="line"></div>
-    <div class="dot"></div>
-    <div class="line"></div>
-  </div>
-  <!-- show the game's history-->
-  <ng-container *ngFor="let round of rounds; let idx = index">
-    <h1>{{beautifyDate(round.date)}}</h1>
-    <!--show affinities at this round-->
-    <app-affinity-tables [roundNo]="idx"></app-affinity-tables>
-    <!--show which action was selected at this round-->
-    <app-selected-action [roundNo]="idx"></app-selected-action>
-    <!--show how each advisor reacted at this round-->
-    <app-action-reaction [roundNo]="idx"></app-action-reaction>
-
-    <div class="round-divider">
-      <div class="line"></div>
-      <div class="dot"></div>
-      <div class="dot"></div>
-      <div class="line"></div>
+  <div id="ui-wrapper">
+    <div class="grid-spacer">
+      <div id="timeline-wrapper">
+        <app-timeline></app-timeline>
+      </div>
     </div>
-  </ng-container>
-
-  <h1>{{beautifyDate(currentDate)}}</h1>
-
-  <app-affinity-tables [roundNo]="currentRound"></app-affinity-tables>
-
-  <div *ngIf="!isGameOver">
-    <app-action-selection></app-action-selection>
+    <div id="chronicle-wrapper" class="grid-spacer">
+      <app-chronicle></app-chronicle>
+    </div>
+    <div class="grid-spacer"></div>
   </div>
-  <div id="view-marker"></div>
 </div>
+

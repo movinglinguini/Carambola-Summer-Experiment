@@ -11,6 +11,7 @@ import { executeActionEffects, generateActions, IAction } from '../../shared/res
 })
 export class GameLogicService {
 
+  public $beforeNextRound = new EventEmitter<number>();
   public $onNextRound = new EventEmitter<number>();
   public $onGameOver = new EventEmitter<number>();
 
@@ -28,6 +29,10 @@ export class GameLogicService {
 
   get round() {
     return this._round;
+  }
+
+  get maxRounds() {
+    return environment.countRounds;
   }
 
   get isPlayerOverThrown() {
@@ -77,6 +82,7 @@ export class GameLogicService {
    */
   onChooseAction(action: IAction) {
     if (this._currentDecisionEvent) {
+      this.$beforeNextRound.emit(this._round);
       this._currentDecisionEvent.chosenAction = action;
       this._decisionEventHistory.push(this._currentDecisionEvent);
 

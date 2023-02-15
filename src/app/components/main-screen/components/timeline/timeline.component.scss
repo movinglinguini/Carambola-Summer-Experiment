@@ -1,0 +1,9 @@
+svg {
+  rect {
+    &.tick-hover-trigger {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
