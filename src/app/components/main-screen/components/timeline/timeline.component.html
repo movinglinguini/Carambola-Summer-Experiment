@@ -22,6 +22,30 @@
               <!--draw reaction markers-->
               <g class="reaction-marker-wrapper" transform="translate(16,0)">
                 <ng-container *ngFor="let reaction of event.reactions; let idx = index">
+                  <!--circle for ambivalent, triangle up for +, triangle down for - -->
+                  <g [attr.transform]="'translate('+ (idx * 15) +', 0)'">
+                    <ng-container *ngIf="reaction.reaction === 0">
+                      <circle r="5" fill="black"></circle>
+                    </ng-container>
+                    <ng-container *ngIf="reaction.reaction > 0">
+                      <g transform="translate(-5,-5)">
+                        <polygon points="5 0,10 10,0 10" fill="#5c4aee"/>
+
+                        <ng-container *ngIf="reaction.reaction > 1">
+                          <polygon points="5 10,10 20,0 20" fill="#5c4aee"/>
+                        </ng-container>
+                      </g>
+                    </ng-container>
+                    <ng-container *ngIf="reaction.reaction < 0">
+                      <g transform="translate(-5,-5)">
+                        <polygon points="5 10,0 0,10 0" fill="#ff5628"/>
+
+                        <ng-container *ngIf="reaction.reaction < -1">
+                          <polygon points="5 20,0 10,10 10" fill="#ff5628"/>
+                        </ng-container>
+                      </g>
+                    </ng-container>
+                  </g>
                 </ng-container>
               </g>
               <rect
@@ -43,7 +67,7 @@
     </svg:g>
 
     <mask id="translucent-mask">
-      <rect [attr.x]="-timelineContainerWidth" [attr.y]="-timelineContainerHeight" [attr.width]="timelineContainerWidth * 2" [attr.height]="2 * timelineContainerHeight" fill="rgba(255, 255, 255, 0.3)"></rect>
+      <rect [attr.x]="-timelineContainerWidth" [attr.y]="-timelineContainerHeight" [attr.width]="timelineContainerWidth * 2" [attr.height]="2 * timelineContainerHeight" fill="rgba(255, 255, 255, 0.4)"></rect>
     </mask>
     <mask id="opaque-mask">
       <rect [attr.x]="-timelineContainerWidth" [attr.y]="-timelineContainerHeight" [attr.width]="timelineContainerWidth * 2" [attr.height]="2 * timelineContainerHeight"  fill="white"></rect>
