@@ -12,40 +12,50 @@
 
 }
 
-.action-card {
+.action-card-btn {
   $card-height: 15rem;
   $width-height-ratio: 0.75;
+  $card-width: $card-height * $width-height-ratio;
 
-  width: $card-height * $width-height-ratio;
-  height: $card-height;
-
-  background-color: white;
-  border-radius: 2.5%;
-  padding: 5px;
-
-  cursor: pointer;
-
-  .action-name {
-    height: 2rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  &:hover {
+    $scale: 0.05;
+    transform: translate(0,-$card-height*$scale);
   }
 
-  .action-effects-container {
+  .action-card {
+    width: $card-width;
+    height: $card-height;
 
-    .effect-list{
-      padding: 5px;
-      width: 50%;
+    background-color: white;
+    border-radius: 2.5%;
+    padding: 5px;
 
-      .value-text-header {
-        margin-bottom: 1rem;
-      }
+    cursor: pointer;
+
+    .action-name {
+      height: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .effect-list + .effect-list {
-      border-left: 1px dashed black;
+    .action-effects-container {
+
+      .effect-list{
+        padding: 5px;
+        width: 50%;
+
+        .value-text-header {
+          margin-bottom: 1rem;
+        }
+      }
+
+      .effect-list + .effect-list {
+        border-left: 1px dashed black;
+      }
     }
   }
 }
+
+
 
