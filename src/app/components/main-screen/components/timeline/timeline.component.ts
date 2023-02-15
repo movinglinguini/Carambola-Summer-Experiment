@@ -1,3 +1,4 @@
+import { IAdvisor } from './../../../../shared/resources/advisors.resource';
 import { DateTime } from 'luxon';
 import { DateCounterService } from './../../../../services/date-counter.service';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
@@ -7,6 +8,7 @@ interface ITimelineEvent {
   progress: number;
   date: DateTime;
   progressAsHeight: number;
+  reactions: { advisor: IAdvisor, reaction:  number }[];
 }
 
 @Component({
@@ -21,6 +23,8 @@ export class TimelineComponent implements OnInit {
   public svgTimelineBandHeight: number;
 
   public events: ITimelineEvent[] = [];
+
+  public mouseOverTick: number | null;
 
   get svgViewBox() {
     return `0 0 ${this.timelineContainerWidth} ${this.timelineContainerHeight}`;
@@ -41,13 +45,14 @@ export class TimelineComponent implements OnInit {
 
   ngOnInit(): void {
     this.timelineContainerHeight = window.innerHeight * 0.8;
-    this.timelineContainerWidth = window.innerWidth * 0.33;
+    this.timelineContainerWidth = window.innerWidth * 0.25;
     this.svgTimelineBandHeight = (1 / (this._gameLogicService.maxRounds - 1)) * this.timelineContainerHeight;
 
     this.events.push({
       progress: this.timelineProgress,
       progressAsHeight: this.timelineProgressAsHeight,
       date: this._dateCounterService.currentDate,
+      reactions: [],
     });
 
     this._gameLogicService.$onNextRound.subscribe(() => {
@@ -55,7 +60,12 @@ export class TimelineComponent implements OnInit {
         progress: this.timelineProgress,
         progressAsHeight: this.timelineProgressAsHeight,
         date: this._dateCounterService.currentDate,
+        reactions: [],
       });
+    });
+
+    this._gameLogicService.$beforeNextRound.subscribe((event) => {
+      this.events[this.events.length - 1].reactions = event.reactions;
     });
   }
 
@@ -63,8 +73,31 @@ export class TimelineComponent implements OnInit {
     document.getElementById(`view-top-marker_${index}`)?.scrollIntoView();
   }
 
+  onMouseOverTick(event: ITimelineEvent, index: number) {
+    this.mouseOverTick = index;
+  }
+
+  onMouseOutTick(event: ITimelineEvent, index: number) {
+    this.mouseOverTick = null;
+
+  }
+
   beautifyDate(date: DateTime) {
     return date.toLocaleString(DateTime.DATE_MED);
+  }
+
+  getReactionColor(reaction: number) {
+    if (reaction < 0) {
+      return '#ff5628';
+    } else if (reaction > 0) {
+      return '#5c4aee';
+    } else {
+      return '#37352f';
+    }
+  }
+
+  getTickWrapperMask(index: number) {
+    return this.mouseOverTick === index ? 'url(#opaque-mask)' : 'url(#translucent-mask)';
   }
 
 }

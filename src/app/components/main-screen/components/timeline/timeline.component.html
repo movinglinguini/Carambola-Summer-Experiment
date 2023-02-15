@@ -10,20 +10,43 @@
         <ng-container *ngFor="let event of events; let idx = index">
           <g class="tick-wrapper" [attr.transform]="'translate(0,' + event.progressAsHeight + ')'">
             <line x1="-10" x2="10" y1="0" y2="0" stroke="rgba(55, 53, 47, 1)" [attr.stroke-width]="svgTimelineStrokeWidth"></line>
-            <text x="12" alignment-baseline="middle">{{beautifyDate(event.date)}}</text>
-            <rect
-              class="tick-hover-trigger"
-              x="-10"
-              [attr.y]="-svgTimelineBandHeight * 0.33"
-              [attr.width]="100"
-              [attr.height]="svgTimelineBandHeight * 0.66"
-              (click)="onClickTick(event, idx)"
-              fill="transparent"
-            >
-            </rect>
+
+            <g class="tick-label-wrapper" [attr.mask]="getTickWrapperMask(idx)">
+              <!--draw the date-->
+              <text
+                x="-12"
+                alignment-baseline="middle"
+                text-anchor="end"
+                font-size="14"
+              >{{beautifyDate(event.date)}}</text>
+              <!--draw reaction markers-->
+              <g class="reaction-marker-wrapper" transform="translate(16,0)">
+                <ng-container *ngFor="let reaction of event.reactions; let idx = index">
+                </ng-container>
+              </g>
+              <rect
+                class="tick-trigger"
+                x="-150"
+                [attr.y]="-svgTimelineBandHeight * 0.33"
+                [attr.width]="300"
+                [attr.height]="svgTimelineBandHeight * 0.66"
+                (click)="onClickTick(event, idx)"
+                (mouseover)="onMouseOverTick(event, idx)"
+                (mouseout)="onMouseOutTick(event, idx)"
+                fill="transparent"
+              >
+              </rect>
+            </g>
           </g>
         </ng-container>
       </svg:g>
     </svg:g>
+
+    <mask id="translucent-mask">
+      <rect [attr.x]="-timelineContainerWidth" [attr.y]="-timelineContainerHeight" [attr.width]="timelineContainerWidth * 2" [attr.height]="2 * timelineContainerHeight" fill="rgba(255, 255, 255, 0.3)"></rect>
+    </mask>
+    <mask id="opaque-mask">
+      <rect [attr.x]="-timelineContainerWidth" [attr.y]="-timelineContainerHeight" [attr.width]="timelineContainerWidth * 2" [attr.height]="2 * timelineContainerHeight"  fill="white"></rect>
+    </mask>
   </svg>
 </div>

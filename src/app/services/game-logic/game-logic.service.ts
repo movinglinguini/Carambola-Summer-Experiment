@@ -4,14 +4,20 @@ import { GameResources } from './resources/resources';
 import { environment } from '../../../environments/environment';
 import { Injectable, EventEmitter } from '@angular/core';
 import { generateAdvisors, IAdvisor } from '../../shared/resources/advisors.resource';
-import { executeActionEffects, generateActions, IAction } from '../../shared/resources/action.resource';
+import { calculateActionEffect, executeActionEffects, generateActions, IAction } from '../../shared/resources/action.resource';
+
+interface IEvent {
+  round: number;
+  chosenAction: IAction;
+  reactions: { advisor: IAdvisor, reaction: number }[]
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameLogicService {
 
-  public $beforeNextRound = new EventEmitter<number>();
+  public $beforeNextRound = new EventEmitter<IEvent>();
   public $onNextRound = new EventEmitter<number>();
   public $onGameOver = new EventEmitter<number>();
 
@@ -82,7 +88,6 @@ export class GameLogicService {
    */
   onChooseAction(action: IAction) {
     if (this._currentDecisionEvent) {
-      this.$beforeNextRound.emit(this._round);
       this._currentDecisionEvent.chosenAction = action;
       this._decisionEventHistory.push(this._currentDecisionEvent);
 
@@ -94,6 +99,15 @@ export class GameLogicService {
       };
 
       this._logger.logData(payload);
+
+      this.$beforeNextRound.emit({
+        round: this._round,
+        chosenAction: action,
+        reactions: this.advisors.map(adv => ({
+          advisor: adv,
+          reaction: calculateActionEffect(action, adv),
+        }))
+      });
 
       // execute the effects of the action
       executeActionEffects(action, this.advisors);
