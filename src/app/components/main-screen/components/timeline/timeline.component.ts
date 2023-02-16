@@ -3,12 +3,15 @@ import { DateTime } from 'luxon';
 import { DateCounterService } from './../../../../services/date-counter.service';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
 import { Component, OnInit } from '@angular/core';
+import { InteractionTrackerService } from 'src/app/services/interaction-tracker.service';
+import { IAction } from 'src/app/shared/resources/action.resource';
 
 interface ITimelineEvent {
   progress: number;
   date: DateTime;
   progressAsHeight: number;
   reactions: { advisor: IAdvisor, reaction:  number }[];
+  action: IAction | null;
 }
 
 @Component({
@@ -25,6 +28,7 @@ export class TimelineComponent implements OnInit {
   public events: ITimelineEvent[] = [];
 
   public mouseOverTick: number | null;
+  public highlightTicks: number[] = [];
 
   get svgViewBox() {
     return `0 0 ${this.timelineContainerWidth} ${this.timelineContainerHeight}`;
@@ -41,6 +45,7 @@ export class TimelineComponent implements OnInit {
   constructor(
     private _gameLogicService: GameLogicService,
     private _dateCounterService: DateCounterService,
+    private _interactionTrackerService: InteractionTrackerService,
   ) { }
 
   ngOnInit(): void {
@@ -53,6 +58,7 @@ export class TimelineComponent implements OnInit {
       progressAsHeight: this.timelineProgressAsHeight,
       date: this._dateCounterService.currentDate,
       reactions: [],
+      action: null,
     });
 
     this._gameLogicService.$onNextRound.subscribe(() => {
@@ -61,12 +67,24 @@ export class TimelineComponent implements OnInit {
         progressAsHeight: this.timelineProgressAsHeight,
         date: this._dateCounterService.currentDate,
         reactions: [],
+        action: null,
       });
     });
 
     this._gameLogicService.$beforeNextRound.subscribe((event) => {
       this.events[this.events.length - 1].reactions = event.reactions;
+      this.events[this.events.length - 1].action = event.chosenAction;
     });
+
+    this._interactionTrackerService.$trackOnHoverAction.subscribe((payload) => {
+      if (payload.event === 'leave') {
+        this.highlightTicks = [];
+      } else if (payload.event === 'enter') {
+        this.highlightTicks = this.events.filter((evt) => {
+          return evt.action?.name === payload.action.name;
+        }).map((evt, idx) => idx);
+      }
+    })
   }
 
   onClickTick(event: ITimelineEvent, index: number) {
@@ -74,12 +92,11 @@ export class TimelineComponent implements OnInit {
   }
 
   onMouseOverTick(event: ITimelineEvent, index: number) {
-    this.mouseOverTick = index;
+    this.highlightTicks = [index];
   }
 
   onMouseOutTick(event: ITimelineEvent, index: number) {
-    this.mouseOverTick = null;
-
+    this.highlightTicks = [];
   }
 
   beautifyDate(date: DateTime) {

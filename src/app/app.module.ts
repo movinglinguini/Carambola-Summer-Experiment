@@ -16,6 +16,8 @@ import { ActionReactionComponent } from './components/action-reaction/action-rea
 import { ActionReactionGeneratorComponent } from './components/action-reaction/components/action-reaction-generator/action-reaction-generator.component';
 import { ChronicleComponent } from './components/main-screen/components/chronicle/chronicle.component';
 import { TimelineComponent } from './components/main-screen/components/timeline/timeline.component';
+import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { ReactionMemoryService } from './components/action-selection/services/reaction-memory.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { TimelineComponent } from './components/main-screen/components/timeline/
     TimelineComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NgbModule,
+    NgbTooltipModule
   ],
   exports: [
     MainScreenComponent
@@ -42,6 +46,7 @@ import { TimelineComponent } from './components/main-screen/components/timeline/
     GameLogicService,
     LoggerService,
     AffinityTablesService,
+    ReactionMemoryService,
   ],
   bootstrap: [AppComponent]
 })

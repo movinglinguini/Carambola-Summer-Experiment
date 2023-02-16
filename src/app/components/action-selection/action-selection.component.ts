@@ -2,6 +2,9 @@ import { VALUE_LIST } from './../../shared/utilities/values.utility';
 import { IAction } from './../../shared/resources/action.resource';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, Input } from '@angular/core';
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
+import { ReactionMemoryService } from './services/reaction-memory.service';
+import { InteractionTrackerService } from 'src/app/services/interaction-tracker.service';
 
 @Component({
   selector: 'app-action-selection',
@@ -15,6 +18,8 @@ export class ActionSelectionComponent{
 
   constructor(
     private _gameLogic: GameLogicService,
+    private _reactionMemoryService: ReactionMemoryService,
+    private _interactionTrackingService: InteractionTrackerService,
   ) { }
 
   onChooseAction(action: IAction) {
@@ -23,5 +28,19 @@ export class ActionSelectionComponent{
 
   getValueText(value: number): string {
     return VALUE_LIST[value];
+  }
+
+  openActionTooltip(tooltip: NgbTooltip, action: IAction) {
+    tooltip.open({ action });
+    this._interactionTrackingService.$trackOnHoverAction.emit({ action, event: 'enter' });
+  }
+
+  closeActionTooltip(tooltip: NgbTooltip) {
+    tooltip.close();
+  }
+
+  getReactionsToAction(action: IAction) {
+    this._interactionTrackingService.$trackOnHoverAction.emit({ action, event: 'leave' });
+    return this._reactionMemoryService.getReactionsToAction(action);
   }
 }

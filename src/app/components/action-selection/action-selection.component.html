@@ -10,8 +10,18 @@
 </div>
 
 <ng-template #actionCard let-action="action">
-  <button class="action-card-btn" (click)="onChooseAction(action)">
-    <div class="action-card">
+  <button 
+    class="action-card-btn" 
+    (click)="onChooseAction(action)"
+  >
+    <div class="action-card"
+      (mouseover)="openActionTooltip(tooltip, action)"
+      (mouseleave)="closeActionTooltip(tooltip)"
+      [ngbTooltip]="actionCardTooltip"
+      #tooltip="ngbTooltip"
+      trigger="manual"
+      placement="left"
+    >
       <div class="action-name">
         {{action.name}}
       </div>
@@ -21,4 +31,8 @@
       </div>
     </div>
   </button>
+</ng-template>
+
+<ng-template #actionCardTooltip let-action="action">
+  {{getReactionsToAction(action) | json}}
 </ng-template>

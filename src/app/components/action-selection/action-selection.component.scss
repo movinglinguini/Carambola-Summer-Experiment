@@ -17,10 +17,10 @@
   $width-height-ratio: 0.75;
   $card-width: $card-height * $width-height-ratio;
 
-  &:hover {
-    $scale: 0.05;
-    transform: translate(0,-$card-height*$scale);
-  }
+  // &:hover {
+  //   $scale: 0.05;
+  //   transform: translate(0,-$card-height*$scale);
+  // }
 
   .action-card {
     width: $card-width;
