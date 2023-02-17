@@ -1,8 +1,8 @@
+import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { VALUE_LIST } from './../../shared/utilities/values.utility';
 import { IAction } from './../../shared/resources/action.resource';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, Input } from '@angular/core';
-import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
 import { ReactionMemoryService } from './services/reaction-memory.service';
 import { InteractionTrackerService } from 'src/app/services/interaction-tracker.service';
 
@@ -30,17 +30,18 @@ export class ActionSelectionComponent{
     return VALUE_LIST[value];
   }
 
-  openActionTooltip(tooltip: NgbTooltip, action: IAction) {
-    tooltip.open({ action });
+  onMouseOver(tooltip: NgbTooltip, action: IAction) {
     this._interactionTrackingService.$trackOnHoverAction.emit({ action, event: 'enter' });
+    tooltip.open({ action });
   }
 
-  closeActionTooltip(tooltip: NgbTooltip) {
+  onMouseLeave(tooltip: NgbTooltip, action: IAction) {
+    this._interactionTrackingService.$trackOnHoverAction.emit({ action, event: 'leave' });
     tooltip.close();
   }
 
   getReactionsToAction(action: IAction) {
-    this._interactionTrackingService.$trackOnHoverAction.emit({ action, event: 'leave' });
-    return this._reactionMemoryService.getReactionsToAction(action);
+    const reactions = this._reactionMemoryService.getReactionsToAction(action);
+
   }
 }

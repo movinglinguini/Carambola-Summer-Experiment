@@ -10,17 +10,15 @@
 </div>
 
 <ng-template #actionCard let-action="action">
-  <button 
-    class="action-card-btn" 
+  <button
+    class="action-card-btn"
     (click)="onChooseAction(action)"
   >
     <div class="action-card"
-      (mouseover)="openActionTooltip(tooltip, action)"
-      (mouseleave)="closeActionTooltip(tooltip)"
+      (mouseover)="onMouseOver(tooltip, action)"
+      (mouseleave)="onMouseLeave(tooltip, action)"
       [ngbTooltip]="actionCardTooltip"
       #tooltip="ngbTooltip"
-      trigger="manual"
-      placement="left"
     >
       <div class="action-name">
         {{action.name}}

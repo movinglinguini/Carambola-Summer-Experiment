@@ -9,10 +9,19 @@
   h1 {
     &#game-intro {
       font-size: 2.5rem;
+      text-align: center;
 
       #message-body {
         font-size: 2rem;
       }
+    }
+  }
+
+  #game-history-wrapper {
+    padding: 0 5rem;
+
+    .history-date {
+      line-height: 5rem;
     }
   }
 

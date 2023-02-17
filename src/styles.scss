@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @use './styles/index.scss';
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
 
 @font-face {
   font-family: 'Noto-Serif';
@@ -31,7 +33,10 @@ html {
   scroll-behavior: smooth;
   background-color: #fffefc;
   color: #37352f;
-  font-family: "Noto-Serif", serif;
+
+  body {
+    font-family: "Noto-Serif", serif;
+  }
 }
 
 button {
@@ -59,6 +64,3 @@ button {
 .action-description {
   font-style: italic;
 }
-
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';

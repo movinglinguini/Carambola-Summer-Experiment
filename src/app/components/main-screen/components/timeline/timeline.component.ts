@@ -26,8 +26,6 @@ export class TimelineComponent implements OnInit {
   public svgTimelineBandHeight: number;
 
   public events: ITimelineEvent[] = [];
-
-  public mouseOverTick: number | null;
   public highlightTicks: number[] = [];
 
   get svgViewBox() {
@@ -80,9 +78,10 @@ export class TimelineComponent implements OnInit {
       if (payload.event === 'leave') {
         this.highlightTicks = [];
       } else if (payload.event === 'enter') {
-        this.highlightTicks = this.events.filter((evt) => {
-          return evt.action?.name === payload.action.name;
-        }).map((evt, idx) => idx);
+        const highlightMask = this.events.map((evt, idx) => {
+          return { display: evt.action?.name === payload.action.name, index: idx };
+        });
+        this.highlightTicks = highlightMask.filter(m => m.display).map(m => m.index);
       }
     })
   }
@@ -114,7 +113,7 @@ export class TimelineComponent implements OnInit {
   }
 
   getTickWrapperMask(index: number) {
-    return this.mouseOverTick === index ? 'url(#opaque-mask)' : 'url(#translucent-mask)';
+    return this.highlightTicks.includes(index) ? 'url(#opaque-mask)' : 'url(#translucent-mask)';
   }
 
 }
