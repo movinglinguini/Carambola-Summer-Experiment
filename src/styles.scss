@@ -28,7 +28,6 @@
   font-style: italic
 }
 
-
 html {
   scroll-behavior: smooth;
   background-color: #fffefc;
@@ -63,4 +62,15 @@ button {
 
 .action-description {
   font-style: italic;
+}
+
+
+.reaction-memory-tooltip, .timeline-tooltip {
+  .tooltip-inner {
+    background: white;
+    color: index.$text-color;
+    border: index.$text-color 2px solid;
+    font-family: "Noto-Serif", serif;
+    font-weight: bold;
+  }
 }

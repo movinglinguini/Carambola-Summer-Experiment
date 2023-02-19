@@ -40,8 +40,11 @@ export class ActionSelectionComponent{
     tooltip.close();
   }
 
-  getReactionsToAction(action: IAction) {
-    const reactions = this._reactionMemoryService.getReactionsToAction(action);
+  hasReactionsToAction(action: IAction): boolean {
+    return this._reactionMemoryService.hasReactionsToAction(action)
+  }
 
+  getReactionsToAction(action: IAction) {
+    return this._reactionMemoryService.getReactionsToAction(action);
   }
 }

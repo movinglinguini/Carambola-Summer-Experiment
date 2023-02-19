@@ -18,6 +18,7 @@
       (mouseover)="onMouseOver(tooltip, action)"
       (mouseleave)="onMouseLeave(tooltip, action)"
       [ngbTooltip]="actionCardTooltip"
+      tooltipClass="reaction-memory-tooltip"
       #tooltip="ngbTooltip"
     >
       <div class="action-name">
@@ -32,5 +33,13 @@
 </ng-template>
 
 <ng-template #actionCardTooltip let-action="action">
-  {{getReactionsToAction(action) | json}}
+  <ng-container *ngIf="hasReactionsToAction(action); else noReactionTooltip">
+    <ng-container *ngFor="let reaction of getReactionsToAction(action)">
+      <app-action-reaction-generator [advisor]="reaction.advisor" [action]="reaction.action"></app-action-reaction-generator>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #noReactionTooltip>
+  <p>You have never selected this action.</p>
 </ng-template>

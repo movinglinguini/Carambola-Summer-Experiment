@@ -8,7 +8,7 @@
 
       <svg:g id="timeline-ticks-wrapper">
         <ng-container *ngFor="let event of events; let idx = index">
-          <g class="tick-wrapper" [attr.transform]="'translate(0,' + event.progressAsHeight + ')'">
+          <g class="tick-wrapper" [attr.transform]="'translate(0,' + eventIndexToHeight(idx) + ')'">
             <line x1="-10" x2="10" y1="0" y2="0" stroke="rgba(55, 53, 47, 1)" [attr.stroke-width]="svgTimelineStrokeWidth"></line>
 
             <g class="tick-label-wrapper" [attr.mask]="getTickWrapperMask(idx)">
@@ -48,18 +48,25 @@
                   </g>
                 </ng-container>
               </g>
-              <rect
-                class="tick-trigger"
+              <foreignObject
                 x="-150"
                 [attr.y]="-svgTimelineBandHeight * 0.33"
-                [attr.width]="300"
+                [attr.width]="250"
                 [attr.height]="svgTimelineBandHeight * 0.66"
-                (click)="onClickTick(event, idx)"
-                (mouseover)="onMouseOverTick(event, idx)"
-                (mouseout)="onMouseOutTick(event, idx)"
-                fill="transparent"
               >
-              </rect>
+                <div
+                  class="tooltip-trigger"
+                  [ngbTooltip]="decisionReminder"
+                  triggers="manual"
+                  placement="right"
+                  container="body"
+                  tooltipClass="timeline-tooltip"
+                  #tooltip="ngbTooltip"
+                  (click)="onClickTick(event, idx)"
+                  (mouseover)="onMouseOverTick(tooltip, event, idx)"
+                  (mouseout)="onMouseOutTick(tooltip, event, idx)"
+                ></div>
+              </foreignObject>
             </g>
           </g>
         </ng-container>
@@ -74,3 +81,7 @@
     </mask>
   </svg>
 </div>
+
+<ng-template #decisionReminder let-event="event">
+  <p><b>The Emperor</b> chose to <i>{{event.chosenAction.name}}</i> instead of <i>{{event.alternateAction.name}}</i>.</p>
+</ng-template>

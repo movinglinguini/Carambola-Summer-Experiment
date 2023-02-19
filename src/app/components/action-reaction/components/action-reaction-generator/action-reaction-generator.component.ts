@@ -12,6 +12,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ActionReactionGeneratorComponent implements OnInit {
   @Input('roundNo') inRoundNo: number;
   @Input('advisor') inAdvisor: IAdvisor;
+  @Input('action') inAction: IAction;
   public decisionReaction: string;
 
   private _rawDecisionReaction: number;
@@ -32,13 +33,10 @@ export class ActionReactionGeneratorComponent implements OnInit {
     return this._rawDecisionReaction;
   }
 
-  constructor(
-    private _gameLogicService: GameLogicService,
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-    const decisionEvent = this._gameLogicService.getDecisionEventAtRound(this.inRoundNo);
-    this._rawDecisionReaction = calculateActionEffect(decisionEvent.chosenAction as IAction, this.inAdvisor);
+    this._rawDecisionReaction = calculateActionEffect(this.inAction, this.inAdvisor);
     this.decisionReaction = this.generateReaction();
   }
 

@@ -1,3 +1,4 @@
+import { TimelineService } from './../../../services/timeline.service';
 import { Injectable } from '@angular/core';
 import { GameLogicService } from 'src/app/services/game-logic/game-logic.service';
 import { IAction } from 'src/app/shared/resources/action.resource';
@@ -9,7 +10,8 @@ interface IActionMemoryUnit {
   reaction: number;
 }
 
-/** Simple service for tracking the reactions that players have seen. */
+/** Simple service for tracking the reactions that players have seen.
+*/
 @Injectable({
   providedIn: 'root'
 })
@@ -17,20 +19,24 @@ export class ReactionMemoryService {
   private _actionsToReactions = new Map<string, IActionMemoryUnit[]>();
 
   constructor(
-    private _gameLogicService: GameLogicService
+    private _timelineService: TimelineService,
   ) {
     // Before the next round, save reactions to the chosen action.
-    this._gameLogicService.$beforeNextRound.subscribe((roundData) => {
-      const newMemoryUnits = roundData.reactions.map(r => {
+    this._timelineService.$addReactions.subscribe((event) => {
+      const newMemoryUnits = event.reactions.map(r => {
         return ({
           advisor: r.advisor,
           reaction: r.reaction,
-          action: roundData.chosenAction,
+          action: event.chosenAction as IAction,
         });
       });
-      
-      this._actionsToReactions.set(roundData.chosenAction.name, newMemoryUnits);
+
+      this._actionsToReactions.set((event.chosenAction as IAction).name, newMemoryUnits);
     });
+  }
+
+  public hasReactionsToAction(action: IAction): boolean {
+    return this._actionsToReactions.has(action.name);
   }
 
   public getReactionsToAction(action: IAction): IActionMemoryUnit[] | null {

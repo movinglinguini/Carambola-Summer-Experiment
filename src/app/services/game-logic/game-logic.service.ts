@@ -9,6 +9,7 @@ import { calculateActionEffect, executeActionEffects, generateActions, IAction }
 interface IEvent {
   round: number;
   chosenAction: IAction;
+  alternateAction: IAction;
   reactions: { advisor: IAdvisor, reaction: number }[]
 }
 
@@ -103,6 +104,7 @@ export class GameLogicService {
       this.$beforeNextRound.emit({
         round: this._round,
         chosenAction: action,
+        alternateAction: (this._currentDecisionEvent.alternatives.find(act => act.name !== action.name) as IAction),
         reactions: this.advisors.map(adv => ({
           advisor: adv,
           reaction: calculateActionEffect(action, adv),
