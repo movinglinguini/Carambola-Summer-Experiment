@@ -1,4 +1,4 @@
-import { IAdvisor } from '../../shared/resources/advisors.resource';
+import { IAdvisor } from '../../shared/resources/advisors.resource-dep';
 import { IDecisionEvent } from './../game-logic/modules/generate-decision-event';
 import { IAction } from './../../shared/resources/action.resource';
 import { Injectable, EventEmitter } from '@angular/core';

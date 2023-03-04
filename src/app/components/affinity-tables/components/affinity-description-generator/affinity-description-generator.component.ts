@@ -1,7 +1,7 @@
 import { AffinityTablesService } from './../../services/affinity-tables.service';
 import { environment } from './../../../../../environments/environment';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
-import { IAdvisor } from './../../../../shared/resources/advisors.resource';
+import { IAdvisor } from '../../../../shared/resources/advisors.resource-dep';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 type CharacterKey = string;

@@ -1,6 +1,6 @@
 import { selectRandom } from '../../../shared/utilities/random.utility';
 import { environment } from './../../../../environments/environment.prod';
-import { IAdvisor, calculateRebellionUtility } from '../../../shared/resources/advisors.resource';
+import { IAdvisor, calculateRebellionUtility } from '../../../shared/resources/advisors.resource-dep';
 import { Injectable } from '@angular/core';
 
 export interface IAffinityTableData {

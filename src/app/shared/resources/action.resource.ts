@@ -4,7 +4,7 @@ import {
   determineIfRebellious,
   calculateRebellionUtility,
   calculateRelationshipEffectOnRebellionUtility
-} from './advisors.resource';
+} from './advisors.resource-dep';
 
 import { valueNameToIdx, VALUE_MAP } from '../utilities/values.utility';
 
@@ -121,8 +121,8 @@ export function generateActions(): IAction[] {
 
 
 /**
- * 
- * @param action 
+ *
+ * @param action
  * @param advisorList
  * @deprecated
  */

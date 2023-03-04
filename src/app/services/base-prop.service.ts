@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import * as PouchDB from 'pouchdb';
+import * as _PouchDB from 'pouchdb';
 
+const PouchDB = (_PouchDB as any).default;
 
 /**
  * Base service intended for handling anything that is a prop in the game:
@@ -8,16 +8,12 @@ import * as PouchDB from 'pouchdb';
  *
  * Anything that ought to be stored for future use is a prop.
  */
-@Injectable({
-  providedIn: 'root'
-})
 export class BasePropService {
 
   protected _db: PouchDB.Database;
-  protected _dbname: string;
   protected _indices: string[] = [];
 
-  constructor() {
-    this._db = new PouchDB(this._dbname);
+  constructor(protected _dbname: string) {
+    this._db = new PouchDB(_dbname);
   }
 }

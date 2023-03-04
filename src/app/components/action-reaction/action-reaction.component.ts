@@ -1,4 +1,4 @@
-import { IAdvisor } from './../../shared/resources/advisors.resource';
+import { IAdvisor } from '../../shared/resources/advisors.resource-dep';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, Input, OnInit } from '@angular/core';
 

@@ -1,7 +1,7 @@
 import { IAction, calculateActionEffect } from './../../../../shared/resources/action.resource';
 import { environment } from './../../../../../environments/environment';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
-import { IAdvisor } from './../../../../shared/resources/advisors.resource';
+import { IAdvisor } from '../../../../shared/resources/advisors.resource-dep';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({

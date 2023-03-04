@@ -1,9 +1,10 @@
+import { AdvisorService } from './../advisor.service';
 import { LoggerService, ILogInitData, LogDataTypes, ILogDecisionEvent } from './../logger/logger.service';
 import { generateDecisionEvent, IDecisionEvent } from './modules/generate-decision-event';
 import { GameResources } from './resources/resources';
 import { environment } from '../../../environments/environment';
 import { Injectable, EventEmitter } from '@angular/core';
-import { generateAdvisors, IAdvisor } from '../../shared/resources/advisors.resource';
+import { generateAdvisors, IAdvisor } from '../../shared/resources/advisors.resource-dep';
 import { executeActionEffects, generateActions, IAction } from '../../shared/resources/action.resource';
 
 @Injectable({
@@ -43,14 +44,15 @@ export class GameLogicService {
 
   constructor(
     private _logger: LoggerService,
+    private _advisorService: AdvisorService,
   ) {}
 
   /**
    * START State change handlers
    * END State change handlers
    */
-  onStart() {
-    const advisors: IAdvisor[] = generateAdvisors(environment.advisorCount);
+  async onStart() {
+    const advisors: IAdvisor[] = await this._advisorService.generateAdvisors(environment.advisorGeneratorFile.name, environment.advisorGeneratorFile.opts);
     const actions: IAction[] = generateActions();
 
     GameResources.advisorList = advisors;
