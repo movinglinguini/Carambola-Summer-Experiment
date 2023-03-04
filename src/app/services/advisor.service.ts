@@ -12,11 +12,12 @@ interface IDBAdvisor extends IAdvisor {
   providedIn: 'root'
 })
 export class AdvisorService extends BasePropService {
+  protected _dbname: string = 'Advisor';
 
   constructor() {
     // async import and call the advisor generator from the given
     // environment file
-    super('Advisor');
+    super();
   }
 
   /**
@@ -34,7 +35,7 @@ export class AdvisorService extends BasePropService {
 
     this.updateAllAdvisorRelationshipEffects(advisors);
     this.updateAllAdvisorRebellionUtilities(advisors);
-    // save advisors to the 
+    // save advisors to the
     await this._db.bulkDocs(advisors);
     return advisors;
   }
@@ -56,28 +57,28 @@ export class AdvisorService extends BasePropService {
     const clamp = (value: number, min: number, max: number) => {
       return Math.floor(Math.max(min, Math.min(value, max)));
     }
-    
+
     // update every advisor's affinity using actions
     advisors.forEach(adv => {
       const playerAffinityIdx = adv.affinities.findIndex(aff => aff.name === playerCharacterKey) as number;
       const affinityTowardPlayer =  adv.affinities[playerAffinityIdx];
       let affinity = affinityTowardPlayer.affinity as number;
-      
+
       /** @todo Replace this with a method from an upcoming action service. */
       affinity += calculateActionEffect(action, adv);
       affinity = clamp(affinity, minAffinity, maxAffinity);
-  
+
       const newAffinity = {
         name: playerCharacterKey,
         affinity,
       }
-  
+
       adv.affinities[playerAffinityIdx] = newAffinity;
     });
 
     // update relationship effects
     this.updateAllAdvisorRelationshipEffects(advisors);
-    
+
     //update relationship utilities
     this.updateAllAdvisorRebellionUtilities(advisors);
 
@@ -109,22 +110,22 @@ export class AdvisorService extends BasePropService {
   /**
    * Calculates this advisor's opinion on the emperor after considering
    * their relationship with the other advisors.
-   * @param advisor 
-   * @returns 
+   * @param advisor
+   * @returns
    */
   private calculateEmperorOpinion(advisor: IDBAdvisor): number {
     const playerCharacterKey: string = environment.advisorGeneratorFile.opts.playerCharacterKey;
 
     const partnerAffinities = advisor.affinities.filter(aff => aff.name !== advisor.name);
-  
+
     const pAffinityValue = (partnerAffinities.find(aff => aff.name === playerCharacterKey) as IAdvisorAffinity).affinity;
     const npcAffinities = partnerAffinities.filter(aff => aff.name !== environment.playerCharacterKey) as IAdvisorAffinity[];
-  
+
     const opinion = (npcAffinities.reduce((tot, aff) => {
       const partnerRelEffect = advisor.relationshipEffects.find(rel => rel.name === aff.name)?.effect || 0;
       return tot + partnerRelEffect;
     }, pAffinityValue));
-  
+
     return opinion;
   }
 
@@ -132,7 +133,7 @@ export class AdvisorService extends BasePropService {
     const playerCharacterKey = environment.advisorGeneratorFile.opts.playerCharacterKey;
     const advisorToPartnerAffinity = advisor.affinities.find(a => a.name === partner.name)?.affinity as number;
     const partnerToPlayerAffinity = partner.affinities.find(a => a.name === playerCharacterKey)?.affinity as number;
-  
+
     return advisorToPartnerAffinity * partnerToPlayerAffinity;
   }
 
@@ -142,7 +143,7 @@ export class AdvisorService extends BasePropService {
 
   /**
    * Given `advisorGeneratorFile`, import the function that generates the advisors.
-   * @param advisorGeneratorFile 
+   * @param advisorGeneratorFile
    */
   private async loadAdvisorGenerator(advisorGeneratorFile: string): Promise<(opts?: any) => IAdvisor[]> {
     const module = await import(advisorGeneratorFile);
