@@ -14,6 +14,18 @@ export class BasePropService {
   protected _indices: string[] = [];
 
   constructor(protected _dbname: string) {
-    this._db = new PouchDB(_dbname);
+    this.startDB();
+  }
+
+  protected async clearTable() {
+    const docs = (await this._db.allDocs({
+      include_docs: true,
+    })).rows.map(r => (r.doc as any));
+
+    this._db.bulkDocs(docs.map(doc => ({...doc, _deleted: true })));
+  }
+
+  private async startDB() {
+    this._db = new PouchDB(this._dbname);
   }
 }

@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   /** If true, the game will run itself from start to end. */
   testMode: false,
-  advisorGeneratorFile: {
+  advisorGeneratorMeta: {
     name: 'defaultGenerator',
     opts: {
       advisorCount: 3,
@@ -14,6 +14,14 @@ export const environment = {
       maxAffinity: 5,
       minAffinity: -5,
     },
+  },
+  actionGeneratorMeta: {
+    name: 'defaultGenerator',
+    opts: null
+  },
+  decisionEventGeneratorMeta: {
+    name: 'defaultGenerator',
+    opts: null,
   },
   /**
    * If true, the game will print dumps of affinities the

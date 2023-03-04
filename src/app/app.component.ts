@@ -9,6 +9,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  public gameInitialized: boolean = false;
+
   get doShowLog() {
     return environment.showLog;
   }
@@ -26,19 +28,20 @@ export class AppComponent {
     private _autoPlayer: AutoplayerService,
   ) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     if (environment.testMode) {
-      this._autoPlayer.run();
+      await this._autoPlayer.run();
     } else {
-      this.initGame();
+      await this.initGame();
+      this.gameInitialized = true;
     }
   }
 
-  initGame() {
-    this._gameLogic.onStart();
+  async initGame() {
+    await this._gameLogic.onStart();
   }
 
-  onRestart() {
-    this.initGame();
+  async onRestart() {
+    await this.initGame();
   }
 }

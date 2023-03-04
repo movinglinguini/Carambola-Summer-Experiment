@@ -16,13 +16,12 @@ export class AffinityTablesComponent implements OnInit {
   @Input('roundNo') inRoundNo: number;
 
   public advisorAffinityMap = new Map<string, number>();
+  get advisors(): IAdvisor[] {
+    return this._gameLogic.advisors;
+  }
 
   get showTable() {
     return environment.showAffinityTable;
-  }
-
-  get advisors() {
-    return this._gameLogic.advisors;
   }
 
   constructor(
@@ -33,15 +32,14 @@ export class AffinityTablesComponent implements OnInit {
     return `${from}${affinityMapKeyDelimiter}${to}`;
   }
 
-  ngOnInit(): void {
-    this._gameLogic.$onNextRound.subscribe(() => {
-      this.setupAffinityMap();
-    })
-    this.setupAffinityMap();
+  async ngOnInit(): Promise<void> {
+    this._gameLogic.$onNextRound.subscribe(async () => {
+      await this.setupAffinityMap();
+    });
   }
 
-  setupAffinityMap() {
-    this.advisors.map(from => {
+  async setupAffinityMap() {
+    (await this.advisors).map(from => {
       from.affinities.map(({ name: to, affinity }) => {
         const key = AffinityTablesComponent.buildAdvisorMapKey(from.name, to);
         this.advisorAffinityMap.set(key, affinity);

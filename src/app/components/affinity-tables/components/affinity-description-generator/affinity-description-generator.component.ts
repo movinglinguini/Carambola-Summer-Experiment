@@ -19,16 +19,7 @@ export class AffinityDescriptionGeneratorComponent implements OnInit, OnChanges 
   @Input('advisor') inAdvisor: IAdvisor;
   @Input('roundNo') inRoundNo: number;
 
-  get otherAdvisorNames(): CharacterKey[] {
-    const isNotPlayer = ((key: CharacterKey) => key !== this.playerKey);
-    const isNotSelf = ((key: CharacterKey) => key !== this.inAdvisor.name);
-
-    const otherNames = this._gameLogicService.advisors.filter(adv => {
-      return isNotPlayer(adv.name) && isNotSelf(adv.name);
-    }).map(adv => adv.name);
-
-    return otherNames;
-  }
+  public otherAdvisorNames: CharacterKey[] = [];
 
   get playerKey(): CharacterKey {
     return environment.playerCharacterKey;
@@ -43,8 +34,15 @@ export class AffinityDescriptionGeneratorComponent implements OnInit, OnChanges 
     private _affinityTablesService: AffinityTablesService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.loadTableData();
+
+    const isNotPlayer = ((key: CharacterKey) => key !== this.playerKey);
+    const isNotSelf = ((key: CharacterKey) => key !== this.inAdvisor.name);
+
+    this.otherAdvisorNames = (await this._gameLogicService.advisors).filter(adv => {
+      return isNotPlayer(adv.name) && isNotSelf(adv.name);
+    }).map(adv => adv.name);
   }
 
   ngOnChanges(): void {

@@ -10,15 +10,14 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ActionReactionComponent implements OnInit {
   @Input('roundNo') inRoundNo: number;
 
-  get advisors(): IAdvisor[] {
-    return this._gameLogicService.advisors;
-  }
+  public advisors: IAdvisor[] = [];
 
   constructor(
     private _gameLogicService: GameLogicService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.advisors = await this._gameLogicService.advisors;
   }
 
 }
