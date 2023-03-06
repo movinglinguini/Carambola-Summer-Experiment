@@ -7,7 +7,7 @@ export const environment = {
   /** If true, the game will run itself from start to end. */
   testMode: false,
   advisorGeneratorMeta: {
-    name: 'defaultGenerator',
+    name: 'experimentalGeneratorControl',
     opts: {
       advisorCount: 3,
       playerCharacterKey: 'player',
@@ -16,7 +16,7 @@ export const environment = {
     },
   },
   actionGeneratorMeta: {
-    name: 'defaultGenerator',
+    name: 'experimentalGenerator',
     opts: null
   },
   decisionEventGeneratorMeta: {
@@ -34,6 +34,10 @@ export const environment = {
    * reactions.
    */
   showRawNumbers: true,
+  /**
+   * If true, the game will show the advisor's values.
+   */
+  showAdvisorValues: true,
   /**
    * The amount of rounds that will transpire
    * before the ending screen appears.

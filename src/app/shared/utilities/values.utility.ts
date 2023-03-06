@@ -20,15 +20,15 @@ export function valueNameToIdx(valueName: string) {
   return VALUE_LIST.indexOf(valueName);
 }
 
-export function getOpposingValue(valueIdx: number) {
-  const newValueIdx = Math.round(valueIdx + VALUE_LIST.length * 0.5);
+export function getOpposingValue(valueIdx: number, valueList: string[] = VALUE_LIST) {
+  const newValueIdx = Math.round(valueIdx + valueList.length * 0.5);
 
   if (newValueIdx < 0) {
-    return newValueIdx + VALUE_LIST.length;
+    return newValueIdx + valueList.length;
   }
 
-  if (newValueIdx >= VALUE_LIST.length) {
-    return newValueIdx - VALUE_LIST.length;
+  if (newValueIdx >= valueList.length) {
+    return newValueIdx - valueList.length;
   }
 
   return newValueIdx;

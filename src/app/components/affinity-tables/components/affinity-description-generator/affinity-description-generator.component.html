@@ -3,6 +3,10 @@
     {{inAdvisor.name}}
   </span>
 
+  <ng-container *ngIf="showAdvisorValues">
+    <span>(Cherishes: {{getAdvisorCherishedValues()}}, Despises {{getAdvisorDespisedValues()}})</span>
+  </ng-container>
+
   <span class="affinity-string {{getAffinityPolarityTowards(playerKey)}}">
     {{getAffinityTowards(playerKey)}}
 

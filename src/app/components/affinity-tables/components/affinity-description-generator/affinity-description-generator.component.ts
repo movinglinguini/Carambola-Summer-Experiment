@@ -1,3 +1,4 @@
+import { VALUE_LIST } from './../../../../shared/utilities/values.utility';
 import { AffinityTablesService } from './../../services/affinity-tables.service';
 import { environment } from './../../../../../environments/environment';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
@@ -27,6 +28,10 @@ export class AffinityDescriptionGeneratorComponent implements OnInit, OnChanges 
 
   get showRawNumbers(): boolean {
     return environment.showRawNumbers;
+  }
+
+  get showAdvisorValues(): boolean {
+    return environment.showAdvisorValues;
   }
 
   constructor(
@@ -95,6 +100,14 @@ export class AffinityDescriptionGeneratorComponent implements OnInit, OnChanges 
 
   getRebellionUtility() {
     return this._affinityTablesService.getRawRebelliousness(this.inAdvisor.name, this.inRoundNo);
+  }
+
+  getAdvisorCherishedValues() {
+    return this.inAdvisor.cherishes.map(c => VALUE_LIST[c]);
+  }
+
+  getAdvisorDespisedValues() {
+    return this.inAdvisor.despises.map(d => VALUE_LIST[d]);
   }
 
   private loadTableData() {
