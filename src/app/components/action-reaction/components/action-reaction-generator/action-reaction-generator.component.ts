@@ -1,8 +1,7 @@
 import { IAction, calculateActionEffect } from './../../../../shared/resources/action.resource';
 import { environment } from './../../../../../environments/environment';
-import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
-import { IAdvisor } from '../../../../shared/resources/advisors.resource-dep';
 import { Component, Input, OnInit } from '@angular/core';
+import { IAdvisor } from 'src/app/interfaces/advisor.interface';
 
 @Component({
   selector: 'app-action-reaction-generator',

@@ -4,11 +4,6 @@ import { IAction } from '../interfaces/action.interface';
 import { selectRandom } from '../shared/utilities/random.utility';
 import { ActionValueEffects } from '../enums/action-value-effects.enum';
 
-export interface IDecisionEvent {
-  alternatives: [IAction, IAction];
-  chosenAction: IAction | null;
-}
-
 /** Tracks action pairs */
 const actionPairTracker = new Set<string>();
 let viableAction1s: IAction[];

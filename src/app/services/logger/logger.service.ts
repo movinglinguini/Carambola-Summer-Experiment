@@ -1,7 +1,7 @@
-import { IAdvisor } from '../../shared/resources/advisors.resource-dep';
 import { IDecisionEvent } from './../game-logic/modules/generate-decision-event';
 import { IAction } from './../../shared/resources/action.resource';
 import { Injectable, EventEmitter } from '@angular/core';
+import { IAdvisor } from 'src/app/interfaces/advisor.interface';
 
 export enum LogDataTypes {
   INIT = 'init',

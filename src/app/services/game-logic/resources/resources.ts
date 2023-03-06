@@ -1,5 +1,5 @@
+import { IAdvisor } from 'src/app/interfaces/advisor.interface';
 import { IAction } from './../../../shared/resources/action.resource';
-import { IAdvisor } from '../../../shared/resources/advisors.resource-dep';
 
 interface IGameResources {
   advisorList: IAdvisor[];

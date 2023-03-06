@@ -35,11 +35,7 @@ export class AdvisorService extends BasePropService {
   public async generateAdvisors(): Promise<IDBAdvisor[]> {
     await this.clearTable();
     const generator = await this.loadAdvisorGenerator(environment.advisorGeneratorMeta.name);
-    const advisors: IDBAdvisor[] = generator(environment.advisorGeneratorMeta.opts)
-      .map((adv) => ({
-        _id: adv.name,
-        ...adv,
-      }));
+    const advisors: IDBAdvisor[] = generator(environment.advisorGeneratorMeta.opts);
 
     this.initAllAdvisors(advisors);
     // save advisors to the

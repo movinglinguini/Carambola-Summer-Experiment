@@ -2,12 +2,11 @@ import { DecisionEventService } from './../decision-event.service';
 import { ActionService } from './../action.service';
 import { AdvisorService } from './../advisor.service';
 import { LoggerService, ILogInitData, LogDataTypes, ILogDecisionEvent } from './../logger/logger.service';
-import { generateDecisionEvent, IDecisionEvent } from './modules/generate-decision-event';
-import { GameResources } from './resources/resources';
+import { IDecisionEvent } from './modules/generate-decision-event';
 import { environment } from '../../../environments/environment';
 import { Injectable, EventEmitter } from '@angular/core';
-import { generateAdvisors, IAdvisor } from '../../shared/resources/advisors.resource-dep';
-import { calculateActionEffect, executeActionEffects, generateActions, IAction } from '../../shared/resources/action.resource';
+import { calculateActionEffect, IAction } from '../../shared/resources/action.resource';
+import { IAdvisor } from 'src/app/interfaces/advisor.interface';
 
 interface IEvent {
   round: number;

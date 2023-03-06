@@ -1,6 +1,6 @@
+import { IAdvisor } from './../../interfaces/advisor.interface';
 import { environment } from '../../../environments/environment';
 import {
-  IAdvisor,
   determineIfRebellious,
   calculateRebellionUtility,
   calculateRelationshipEffectOnRebellionUtility

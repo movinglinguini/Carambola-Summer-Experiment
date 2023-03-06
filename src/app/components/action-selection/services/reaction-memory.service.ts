@@ -1,8 +1,7 @@
 import { TimelineService } from './../../../services/timeline.service';
 import { Injectable } from '@angular/core';
-import { GameLogicService } from 'src/app/services/game-logic/game-logic.service';
+import { IAdvisor } from 'src/app/interfaces/advisor.interface';
 import { IAction } from 'src/app/shared/resources/action.resource';
-import { IAdvisor } from 'src/app/shared/resources/advisors.resource-dep';
 
 interface IActionMemoryUnit {
   advisor: IAdvisor;

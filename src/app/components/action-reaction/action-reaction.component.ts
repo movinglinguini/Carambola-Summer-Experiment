@@ -1,7 +1,7 @@
 import { IAction } from './../../shared/resources/action.resource';
-import { IAdvisor } from '../../shared/resources/advisors.resource-dep';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { IAdvisor } from 'src/app/interfaces/advisor.interface';
 
 @Component({
   selector: 'app-action-reaction',

@@ -1,26 +1,7 @@
 import { selectRandom } from '../utilities/random.utility';
 import { environment } from '../../../environments/environment.prod';
 import { getOpposingValue, VALUE_LIST } from '../utilities/values.utility';
-
-interface IAdvisorAffinity {
-  name: string;
-  affinity: number;
-}
-
-interface IRelationshipEffects {
-  name: string;
-  effect: number;
-}
-
-export interface IAdvisor {
-  name: string;
-  cherishes: [ number, number ];
-  despises: [ number, number ];
-  affinities: IAdvisorAffinity[];
-  relationshipEffects: IRelationshipEffects[];
-  rebellious: boolean;
-  rebellionUtility: number;
-}
+import { IAdvisor, IAdvisorAffinity } from '../../interfaces/advisor.interface';
 
 export const ADVISOR_MAP = new Map<string, IAdvisor>();
 

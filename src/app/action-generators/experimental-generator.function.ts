@@ -1,6 +1,6 @@
 import { compressedActionData } from './utilities/action-data.util';
 import { valueNameToIdx } from './../shared/utilities/values.utility';
-import { IAction } from "../interfaces/action.interface";
+import { IAction } from '../interfaces/action.interface';
 
 /**
  * Action generation function that is similar to the one in `default-generator` but

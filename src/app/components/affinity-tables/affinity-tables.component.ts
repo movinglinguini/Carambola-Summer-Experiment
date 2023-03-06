@@ -1,7 +1,8 @@
 import { environment } from './../../../environments/environment';
-import { calculateEmperorOpinion, IAdvisor } from '../../shared/resources/advisors.resource-dep';
+import { calculateEmperorOpinion } from '../../shared/resources/advisors.resource-dep';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, Input, OnInit } from '@angular/core';
+import { IAdvisor } from 'src/app/interfaces/advisor.interface';
 
 const affinityMapKeyDelimiter = '::';
 

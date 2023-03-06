@@ -10,8 +10,8 @@ export interface IRelationshipEffects {
 
 export interface IAdvisor {
   name: string;
-  cherishes: [ number, number ];
-  despises: [ number, number ];
+  cherishes: number[];
+  despises: number[];
   affinities: IAdvisorAffinity[];
   relationshipEffects: IRelationshipEffects[];
   rebellious: boolean;
