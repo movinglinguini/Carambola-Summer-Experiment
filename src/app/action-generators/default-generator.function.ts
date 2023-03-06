@@ -1,29 +1,5 @@
-import { environment } from '../../../environments/environment';
-import {
-  IAdvisor,
-  determineIfRebellious,
-  calculateRebellionUtility,
-  calculateRelationshipEffectOnRebellionUtility
-} from './advisors.resource-dep';
-
-import { valueNameToIdx, VALUE_MAP } from '../utilities/values.utility';
-
-export interface IAction {
-  name: string;
-  description: string;
-  promotes: number[];
-  harms: number[];
-  oppositeActionKey: string;
-}
-
-type ActionKey = string;
-
-export enum ActionValueEffects {
-  PROMOTE = 'promotes',
-  HARM = 'harms'
-}
-
-export const actionMap = new Map<ActionKey, IAction>();
+import { VALUE_MAP, valueNameToIdx } from './../shared/utilities/values.utility';
+import { IAction } from "../interfaces/action.interface";
 
 const compressedActionData = [{
   name: 'Maintain Barracks',
@@ -110,83 +86,8 @@ export function generateActions(): IAction[] {
       oppositeActionKey: action.name,
     };
 
-    actionMap.set(action1.name, action1);
-    actionMap.set(action2.name, action2);
-
     decompressedActions.push(action1, action2);
   });
 
   return decompressedActions;
-}
-
-
-/**
- *
- * @param action
- * @param advisorList
- * @deprecated
- */
-export function executeActionEffects(action: IAction, advisorList: IAdvisor[]) {
-  const clamp = (value: number, min: number, max: number) => {
-    return Math.floor(Math.max(min, Math.min(value, max)));
-  }
-
-  const maxAffinity = environment.maxAffinity;
-  const minAffinity = environment.minAffinity;
-
-  advisorList.forEach(advisor => {
-    const playerAffinityIdx = advisor.affinities.findIndex(aff => aff.name === environment.playerCharacterKey) as number;
-    const affinityTowardPlayer =  advisor.affinities[playerAffinityIdx];
-    let affinity = affinityTowardPlayer.affinity as number;
-
-    affinity += calculateActionEffect(action, advisor);
-    affinity = clamp(affinity, minAffinity, maxAffinity);
-
-    const newAffinity = {
-      name: environment.playerCharacterKey,
-      affinity,
-    }
-
-    advisor.affinities[playerAffinityIdx] = newAffinity;
-  });
-
-  advisorList.forEach(advisor => {
-    const partners = advisorList.filter(partner => ![advisor.name, environment.playerCharacterKey].includes(partner.name))
-    partners.forEach(partner => {
-      const relEffectIdx = advisor.relationshipEffects.findIndex(p => p.name === partner.name);
-      advisor.relationshipEffects[relEffectIdx].effect = calculateRelationshipEffectOnRebellionUtility(advisor, partner);
-    });
-  });
-
-  advisorList.forEach(advisor => {
-    advisor.rebellionUtility = calculateRebellionUtility(advisor);
-    advisor.rebellious = determineIfRebellious(advisor);
-  });
-}
-
-export function calculateActionEffect(action: IAction, advisor: IAdvisor) {
-  const promoteEffect = [...action.promotes].reduce((acc, value) => {
-    return acc + determineEffect(ActionValueEffects.PROMOTE, value, advisor);
-  }, 0);
-
-  const harmEffect = [...action.harms].reduce((acc, value) => {
-    return acc + determineEffect(ActionValueEffects.HARM, value, advisor);
-  }, 0);
-
-  return promoteEffect + harmEffect;
-}
-
-function determineEffect(actionEffect: ActionValueEffects, valueIdx: number, onAdvisor: IAdvisor): number {
-  const cherishesValue = onAdvisor.cherishes.includes(valueIdx);
-  const despisesValue = onAdvisor.despises.includes(valueIdx);
-
-  if (!cherishesValue && !despisesValue) {
-    return 0;
-  }
-
-  if (cherishesValue) {
-    return actionEffect === ActionValueEffects.HARM ? -1 : 1;
-  } else {
-    return actionEffect === ActionValueEffects.PROMOTE ? -1 : 1;
-  }
 }

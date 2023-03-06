@@ -1,5 +1,8 @@
 <!-- <app-round-counter></app-round-counter> -->
-<app-main-screen></app-main-screen>
+<ng-container *ngIf="gameInitialized">
+  <app-main-screen></app-main-screen>
+</ng-container>
+
 <ng-container *ngIf="isGameOver">
   <app-end-screen (restart)="onRestart()"></app-end-screen>
 </ng-container>

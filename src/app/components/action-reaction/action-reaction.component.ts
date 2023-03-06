@@ -1,5 +1,5 @@
 import { IAction } from './../../shared/resources/action.resource';
-import { IAdvisor } from './../../shared/resources/advisors.resource';
+import { IAdvisor } from '../../shared/resources/advisors.resource-dep';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, Input, OnInit } from '@angular/core';
 
@@ -12,15 +12,14 @@ export class ActionReactionComponent implements OnInit {
   @Input('roundNo') inRoundNo: number;
   public chosenAction: IAction;
 
-  get advisors(): IAdvisor[] {
-    return this._gameLogicService.advisors;
-  }
+  public advisors: IAdvisor[] = [];
 
   constructor(
     private _gameLogicService: GameLogicService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.advisors = await this._gameLogicService.advisors;
     this.chosenAction = this._gameLogicService.getDecisionEventAtRound(this.inRoundNo).chosenAction as IAction;
   }
 

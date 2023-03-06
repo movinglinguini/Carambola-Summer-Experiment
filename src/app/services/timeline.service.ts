@@ -1,5 +1,5 @@
 import { IAction } from './../shared/resources/action.resource';
-import { IAdvisor } from './../shared/resources/advisors.resource';
+import { IAdvisor } from './../shared/resources/advisors.resource-dep';
 import { GameLogicService } from 'src/app/services/game-logic/game-logic.service';
 import { DateTime } from 'luxon';
 import { Injectable, EventEmitter } from '@angular/core';

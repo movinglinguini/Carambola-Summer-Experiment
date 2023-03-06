@@ -6,7 +6,24 @@ export const environment = {
   production: false,
   /** If true, the game will run itself from start to end. */
   testMode: false,
-  /** 
+  advisorGeneratorMeta: {
+    name: 'defaultGenerator',
+    opts: {
+      advisorCount: 3,
+      playerCharacterKey: 'player',
+      maxAffinity: 5,
+      minAffinity: -5,
+    },
+  },
+  actionGeneratorMeta: {
+    name: 'defaultGenerator',
+    opts: null
+  },
+  decisionEventGeneratorMeta: {
+    name: 'defaultGenerator',
+    opts: null,
+  },
+  /**
    * If true, the game will print dumps of affinities the
    * NPC's have among each other and with the player.
    */
@@ -16,7 +33,7 @@ export const environment = {
    * various NPC properties, including affinity and
    * reactions.
    */
-  showRawNumbers: false,
+  showRawNumbers: true,
   /**
    * The amount of rounds that will transpire
    * before the ending screen appears.
@@ -31,13 +48,14 @@ export const environment = {
    * The min affinity value the NPCs can have
    * toward each other and the player.
    */
-  minAffinity: -5,  
+  minAffinity: -5,
   /** Do not edit the following. */
   testRunCount: 1,
   advisorCount: 3,
   showLog: false,
-  playerCharacterKey: 'player',
   loggerEndpoint: 'http://localhost:3000/',
+  /** @deprecated */
+  playerCharacterKey: 'player',
 };
 
 /*

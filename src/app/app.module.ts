@@ -18,6 +18,7 @@ import { ChronicleComponent } from './components/main-screen/components/chronicl
 import { TimelineComponent } from './components/main-screen/components/timeline/timeline.component';
 import { ReactionMemoryService } from './components/action-selection/services/reaction-memory.service';
 import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdvisorService } from './services/advisor.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
     LoggerService,
     AffinityTablesService,
     ReactionMemoryService,
+    AdvisorService,
   ],
   bootstrap: [AppComponent]
 })

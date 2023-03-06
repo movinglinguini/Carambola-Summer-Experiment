@@ -1,9 +1,12 @@
+import { DecisionEventService } from './../decision-event.service';
+import { ActionService } from './../action.service';
+import { AdvisorService } from './../advisor.service';
 import { LoggerService, ILogInitData, LogDataTypes, ILogDecisionEvent } from './../logger/logger.service';
 import { generateDecisionEvent, IDecisionEvent } from './modules/generate-decision-event';
 import { GameResources } from './resources/resources';
 import { environment } from '../../../environments/environment';
 import { Injectable, EventEmitter } from '@angular/core';
-import { generateAdvisors, IAdvisor } from '../../shared/resources/advisors.resource';
+import { generateAdvisors, IAdvisor } from '../../shared/resources/advisors.resource-dep';
 import { calculateActionEffect, executeActionEffects, generateActions, IAction } from '../../shared/resources/action.resource';
 
 interface IEvent {
@@ -19,11 +22,12 @@ interface IEvent {
 export class GameLogicService {
 
   public $beforeNextRound = new EventEmitter<IEvent>();
+  public $onStart = new EventEmitter<void>();
   public $onNextRound = new EventEmitter<number>();
   public $onGameOver = new EventEmitter<number>();
 
   get advisors() {
-    return GameResources.advisorList;
+    return this._advisorService.advisors;
   }
 
   get currentDecisionEvent() {
@@ -43,10 +47,12 @@ export class GameLogicService {
   }
 
   get isPlayerOverThrown() {
-    const rebellious = this.advisors.filter(adv => adv.rebellious);
-    const notRebellious = this.advisors.filter(adv => !adv.rebellious);
-
-    return rebellious.length > notRebellious.length;
+    return (async () => {
+      const advisors = this.advisors;
+      const rebellious = advisors.filter(adv => adv.rebellious);
+      const notRebellious = advisors.filter(adv => !adv.rebellious);
+      return rebellious.length > notRebellious.length;
+    })();
   }
 
   private _round = 0;
@@ -55,18 +61,18 @@ export class GameLogicService {
 
   constructor(
     private _logger: LoggerService,
+    private _advisorService: AdvisorService,
+    private _actionService: ActionService,
+    private _decisionEventService: DecisionEventService,
   ) {}
 
   /**
    * START State change handlers
    * END State change handlers
    */
-  onStart() {
-    const advisors: IAdvisor[] = generateAdvisors(environment.advisorCount);
-    const actions: IAction[] = generateActions();
-
-    GameResources.advisorList = advisors;
-    GameResources.actionList = actions;
+  async onStart() {
+    await this._advisorService.generateAdvisors();
+    const actions: IAction[] = await this._actionService.generateActions();
 
     const payload: ILogInitData = {
       type: LogDataTypes.INIT,
@@ -78,7 +84,8 @@ export class GameLogicService {
     this._logger.logData(payload);
 
     this._round = 0;
-    this.generateDecisionEvent();
+    await this.generateDecisionEvent();
+    this.$onStart.emit();
   }
 
 
@@ -87,7 +94,7 @@ export class GameLogicService {
    * React to whenever the player chooses an action.
    * @param action
    */
-  onChooseAction(action: IAction) {
+  async onChooseAction(action: IAction) {
     if (this._currentDecisionEvent) {
       this._currentDecisionEvent.chosenAction = action;
       this._decisionEventHistory.push(this._currentDecisionEvent);
@@ -112,9 +119,9 @@ export class GameLogicService {
       });
 
       // execute the effects of the action
-      executeActionEffects(action, this.advisors);
+      await this._advisorService.makeAllAdvisorsReactToAction(action);
       // go to the next decision event
-      this.generateDecisionEvent();
+      await this.generateDecisionEvent();
       this._round += 1;
 
       if (this.isGameOver) {
@@ -133,8 +140,9 @@ export class GameLogicService {
    * @returns A decision event object, which includes two alternative actions the player may choose from
    * and a slot for the chosen action, which can be used to track the history of actions.
    * */
-  generateDecisionEvent(): IDecisionEvent {
-    this._currentDecisionEvent = generateDecisionEvent();
+  async generateDecisionEvent(): Promise<IDecisionEvent> {
+    const actionList = await this._actionService.getAllActions();
+    this._currentDecisionEvent = await this._decisionEventService.generateDecisionEvent(actionList);
 
     const payload: ILogDecisionEvent = {
       type: LogDataTypes.PRE_DECISION,
