@@ -7,7 +7,7 @@ export const environment = {
   /** If true, the game will run itself from start to end. */
   testMode: false,
   advisorGeneratorMeta: {
-    name: 'experimentalGeneratorControl',
+    name: 'experimentalGeneratorExp',
     opts: {
       advisorCount: 3,
       playerCharacterKey: 'player',
@@ -20,9 +20,36 @@ export const environment = {
     opts: null
   },
   decisionEventGeneratorMeta: {
-    name: 'defaultGenerator',
+    name: 'experimentalGenerator',
     opts: null,
   },
+  /**
+   * If true, shows the timeline element.
+   */
+  showTimeline: false,
+  /**
+   * If true, the game will present tooltips to players when they
+   * hover over action cards.
+   * */
+  showActionTooltips: false,
+  /**
+   * If true, shows the action description text.
+   */
+  showActionDescriptions: false,
+  /**
+   * If true, shows the values that an action effects on its action card.
+   */
+  showActionValues: true,
+  /**
+   * If true, show which values the action promotes.
+   * This will only work if `showActionValues` is also true.
+   */
+  showActionPromotes: true,
+  /**
+   * If true, show which values the action harms.
+   * This will only work if `showActionValues` is also true.
+   */
+  showActionHarms: false,
   /**
    * If true, the game will print dumps of affinities the
    * NPC's have among each other and with the player.
@@ -42,7 +69,7 @@ export const environment = {
    * The amount of rounds that will transpire
    * before the ending screen appears.
    */
-  countRounds: 15,
+  countRounds: 7,
   /**
    * The max affinity value the NPCs can have
    * toward each other and the player.

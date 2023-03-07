@@ -141,7 +141,13 @@ export class GameLogicService {
    * */
   async generateDecisionEvent(): Promise<IDecisionEvent> {
     const actionList = await this._actionService.getAllActions();
-    this._currentDecisionEvent = await this._decisionEventService.generateDecisionEvent(actionList);
+    /**
+     * @memo @technicaldebt this part is a little jank. We shouldn't specify that advisors are needed for
+     * every decision event. Instead, we should have a way to specify the _resources_ that
+     * are needed for this function.
+    */
+    this._currentDecisionEvent = await this._decisionEventService
+      .generateDecisionEvent({ actionList, advisor: this.advisors[0] });
 
     const payload: ILogDecisionEvent = {
       type: LogDataTypes.PRE_DECISION,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-main-screen',
@@ -6,4 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./main-screen.component.scss']
 })
 export class MainScreenComponent {
+  get showTimelineElement() {
+    return environment.showTimeline;
+  }
+
 }

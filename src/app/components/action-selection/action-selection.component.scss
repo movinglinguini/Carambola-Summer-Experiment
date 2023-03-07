@@ -39,14 +39,13 @@
       align-items: center;
     }
 
-    .action-effects-container {
+    .action-values {
 
-      .effect-list{
+      .value-description{
         padding: 5px;
-        width: 50%;
 
-        .value-text-header {
-          margin-bottom: 1rem;
+        .value-effect-title {
+          margin-bottom: 5px;
         }
       }
 

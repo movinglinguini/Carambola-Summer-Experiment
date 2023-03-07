@@ -1,3 +1,4 @@
+import { IAdvisor } from './../interfaces/advisor.interface';
 import { DecisionEventGenerators } from './../decision-event-generators/index';
 import { IDecisionEvent, IEmptyDecisionEvent } from '../interfaces/decision-event.interface';
 import { BasePropService } from './base-prop.service';
@@ -22,13 +23,13 @@ export class DecisionEventService extends BasePropService {
     super('DecisionEvents');
   }
 
-  public async generateDecisionEvent(actionList: IAction[]): Promise<IDBDecisionEvent> {
+  public async generateDecisionEvent(opts: { actionList: IAction[], advisor?: IAdvisor }): Promise<IDBDecisionEvent> {
     if (!this._generator) {
       this._generator = await this.loadDecisionEventGenerator(environment.decisionEventGeneratorMeta.name);
     }
 
     const decisionEvent: IDBDecisionEvent = {
-      ...this._generator({ actionList }),
+      ...this._generator(opts),
       _id: '' + new Date().getTime(),
     };
 

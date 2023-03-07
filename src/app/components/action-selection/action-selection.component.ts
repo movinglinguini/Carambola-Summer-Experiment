@@ -5,6 +5,7 @@ import { GameLogicService } from './../../services/game-logic/game-logic.service
 import { Component, Input } from '@angular/core';
 import { ReactionMemoryService } from './services/reaction-memory.service';
 import { InteractionTrackerService } from 'src/app/services/interaction-tracker.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-action-selection',
@@ -14,6 +15,22 @@ import { InteractionTrackerService } from 'src/app/services/interaction-tracker.
 export class ActionSelectionComponent{
   get currentDecisionEvent() {
     return this._gameLogic.currentDecisionEvent;
+  }
+
+  get showActionDescriptions() {
+    return environment.showActionDescriptions;
+  }
+
+  get showActionValues() {
+    return environment.showActionValues;
+  }
+
+  get showActionPromotes() {
+    return environment.showActionPromotes;
+  }
+
+  get showActionHarms() {
+    return environment.showActionHarms;
   }
 
   constructor(
@@ -32,7 +49,10 @@ export class ActionSelectionComponent{
 
   onMouseOver(tooltip: NgbTooltip, action: IAction) {
     this._interactionTrackingService.$trackOnHoverAction.emit({ action, event: 'enter' });
-    tooltip.open({ action });
+
+    if (environment.showActionTooltips) {
+      tooltip.open({ action });
+    }
   }
 
   onMouseLeave(tooltip: NgbTooltip, action: IAction) {

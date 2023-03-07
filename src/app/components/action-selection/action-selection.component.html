@@ -18,6 +18,7 @@
       (mouseover)="onMouseOver(tooltip, action)"
       (mouseleave)="onMouseLeave(tooltip, action)"
       [ngbTooltip]="actionCardTooltip"
+      triggers="manual"
       tooltipClass="reaction-memory-tooltip"
       #tooltip="ngbTooltip"
     >
@@ -25,8 +26,26 @@
         {{action.name}}
       </div>
       <hr/>
-      <div class="action-card-description">
+      <div class="action-card-description" *ngIf="showActionDescriptions">
         {{action.description}}
+      </div>
+      <div class="action-values" *ngIf="showActionValues">
+        <div class="value-description" *ngIf="showActionPromotes">
+          <p class="value-effect-title"><b>Promotes</b></p>
+          <div>
+            <ng-container *ngFor="let value of action.promotes">
+              <p class="value-text"><i>{{getValueText(value)}}</i></p>
+            </ng-container>
+          </div>
+        </div>
+        <div class="value-description" *ngIf="showActionHarms">
+          <p class="value-effect-title"><b>Harms</b></p>
+          <div>
+            <ng-container *ngFor="let value of action.harms">
+              <p class="value-text"><i>{{getValueText(value)}}</i></p>
+            </ng-container>
+          </div>
+        </div>
       </div>
     </div>
   </button>
