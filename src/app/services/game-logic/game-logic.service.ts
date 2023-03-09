@@ -46,12 +46,10 @@ export class GameLogicService {
   }
 
   get isPlayerOverThrown() {
-    return (async () => {
-      const advisors = this.advisors;
-      const rebellious = advisors.filter(adv => adv.rebellious);
-      const notRebellious = advisors.filter(adv => !adv.rebellious);
-      return rebellious.length > notRebellious.length;
-    })();
+    const advisors = this.advisors;
+    const rebellious = advisors.filter(adv => adv.rebellious);
+    const notRebellious = advisors.filter(adv => !adv.rebellious);
+    return rebellious.length > notRebellious.length;
   }
 
   private _round = 0;

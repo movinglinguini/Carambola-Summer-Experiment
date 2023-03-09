@@ -1,3 +1,4 @@
+import { RoundCounterComponent } from './components/round-counter/round-counter.component';
 import { AffinityTablesService } from './components/affinity-tables/services/affinity-tables.service';
 import { LoggerService } from './services/logger/logger.service';
 import { GameLogicService } from './services/game-logic/game-logic.service';
@@ -34,6 +35,7 @@ import { AdvisorService } from './services/advisor.service';
     ActionReactionGeneratorComponent,
     ChronicleComponent,
     TimelineComponent,
+    RoundCounterComponent,
   ],
   imports: [
     BrowserModule,

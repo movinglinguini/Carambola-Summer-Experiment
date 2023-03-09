@@ -12,7 +12,13 @@
     <ng-container *ngFor="let round of rounds; let idx = index">
       <div [attr.id]="'view-top-marker_'+idx"></div>
 
-      <h1 class="history-date">{{beautifyDate(dateTimeline[idx])}}</h1>
+      <ng-container *ngIf="showHistoryDate">
+        <h1 class="history-date">{{beautifyDate(dateTimeline[idx])}}</h1>
+      </ng-container>
+      <ng-container *ngIf="showRoundCounter">
+        <h1>Round {{idx + 1}}/{{maximumRounds}}</h1>
+      </ng-container>
+
       <!--show affinities at this round-->
       <app-affinity-tables [roundNo]="idx"></app-affinity-tables>
       <!--show which action was selected at this round-->
@@ -31,7 +37,12 @@
     </ng-container>
 
     <div [attr.id]="'view-top-marker_'+rounds.length"></div>
-    <h1 class="history-date">{{beautifyDate(currentDate)}}</h1>
+    <ng-container *ngIf="showHistoryDate">
+      <h1 class="history-date">{{beautifyDate(currentDate)}}</h1>
+    </ng-container>
+    <ng-container *ngIf="showRoundCounter">
+      <h1>Round {{currentRound + 1}}/{{maximumRounds}} - Your Score: {{playerScore}}</h1>
+    </ng-container>
 
     <app-affinity-tables [roundNo]="currentRound"></app-affinity-tables>
 

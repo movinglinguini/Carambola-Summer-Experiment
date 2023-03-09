@@ -63,6 +63,9 @@ function generateAlternativesProgression(advisor: IAdvisor, actionList: IAction[
     [ cherishedActions[0], despisedActions[0] ],
     [ cherishedActions[0], ambivalentActions[0] ],
     [ cherishedActions[1], ambivalentActions[2] ],
+    /**
+     * @memo Small bit of jank here. Need to expand action list so that there is a fourth ambivalent action.
+    */
     [ despisedActions[1], selectRandom(ambivalentActions) ],
     [ cherishedActions[2], despisedActions[2] ]
   ];

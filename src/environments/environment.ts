@@ -6,13 +6,18 @@ export const environment = {
   production: false,
   /** If true, the game will run itself from start to end. */
   testMode: false,
+  // ===================================================================
+  /**
+   * GAMEPLAY CONFIGS
+   */
   advisorGeneratorMeta: {
-    name: 'experimentalGeneratorExp',
+    name: 'experimentalGeneratorControl',
     opts: {
-      advisorCount: 3,
+      advisorCount: 1,
       playerCharacterKey: 'player',
       maxAffinity: 5,
       minAffinity: -5,
+      initialAffinityTowardPlayer: 0,
     },
   },
   actionGeneratorMeta: {
@@ -23,6 +28,25 @@ export const environment = {
     name: 'experimentalGenerator',
     opts: null,
   },
+  /**
+   * The amount of rounds that will transpire
+   * before the ending screen appears.
+   */
+  countRounds: 7,
+  /**
+   * The max affinity value the NPCs can have
+   * toward each other and the player.
+   */
+  maxAffinity: 5,
+    /**
+   * The min affinity value the NPCs can have
+   * toward each other and the player.
+   */
+  minAffinity: -5,
+  //=======================================================================
+  /**
+   * UI CONFIGS
+   */
   /**
    * If true, shows the timeline element.
    */
@@ -50,6 +74,13 @@ export const environment = {
    * This will only work if `showActionValues` is also true.
    */
   showActionHarms: false,
+  showHistoryDate: false,
+  /**
+   * If true, show the round counter.
+   */
+  showRoundCounter: true,
+  //====================================================================
+  // DEBUGGING OPTIONS
   /**
    * If true, the game will print dumps of affinities the
    * NPC's have among each other and with the player.
@@ -60,26 +91,11 @@ export const environment = {
    * various NPC properties, including affinity and
    * reactions.
    */
-  showRawNumbers: true,
+  showRawNumbers: false,
   /**
    * If true, the game will show the advisor's values.
    */
-  showAdvisorValues: true,
-  /**
-   * The amount of rounds that will transpire
-   * before the ending screen appears.
-   */
-  countRounds: 7,
-  /**
-   * The max affinity value the NPCs can have
-   * toward each other and the player.
-   */
-  maxAffinity: 5,
-    /**
-   * The min affinity value the NPCs can have
-   * toward each other and the player.
-   */
-  minAffinity: -5,
+  showAdvisorValues: false,
   /** Do not edit the following. */
   testRunCount: 1,
   advisorCount: 3,

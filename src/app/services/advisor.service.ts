@@ -149,7 +149,9 @@ export class AdvisorService extends BasePropService {
     const getRandomAffinity = () => (Math.random() * (environment.maxAffinity - environment.minAffinity)) + environment.minAffinity
 
     advisors.forEach((advisor) => {
-      advisor.affinities.push({ name: playerKey, affinity: Math.round(getRandomAffinity()) });
+      const initAffinity = environment.advisorGeneratorMeta.opts.initialAffinityTowardPlayer;
+      const playerAffinity =  (Boolean(initAffinity) || initAffinity === 0) ? initAffinity : Math.round(getRandomAffinity());
+      advisor.affinities.push({ name: playerKey, affinity: playerAffinity });
     });
 
     advisors.forEach((advisor1, idx) => {
