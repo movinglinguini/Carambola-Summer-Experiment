@@ -56,4 +56,8 @@ export class ActionReactionGeneratorComponent implements OnInit {
     }
   }
 
+  getActionEffect() {
+
+  }
+
 }

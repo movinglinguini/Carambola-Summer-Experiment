@@ -121,10 +121,10 @@ export class GameLogicService {
       await this.generateDecisionEvent();
       this._round += 1;
 
+      this.$onNextRound.emit(this._round);
+
       if (this.isGameOver) {
         this.$onGameOver.emit();
-      } else {
-        this.$onNextRound.emit(this._round);
       }
     }
   }
