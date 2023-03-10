@@ -40,7 +40,7 @@
     <ng-container *ngIf="showHistoryDate">
       <h1 class="history-date">{{beautifyDate(currentDate)}}</h1>
     </ng-container>
-    <ng-container *ngIf="showRoundCounter">
+    <ng-container *ngIf="showRoundCounter && !isGameOver">
       <h1>Round {{currentRound + 1}}/{{maximumRounds}} - Your Score: {{playerScore}}</h1>
     </ng-container>
 

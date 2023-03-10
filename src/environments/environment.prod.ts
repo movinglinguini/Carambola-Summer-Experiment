@@ -2,6 +2,10 @@ export const environment = {
   production: true,
   /** If true, the game will run itself from start to end. */
   testMode: false,
+  // ===================================================================
+  /**
+   * GAMEPLAY CONFIGS
+   */
   advisorGeneratorMeta: {
     name: 'defaultGenerator',
     opts: {
@@ -9,6 +13,7 @@ export const environment = {
       playerCharacterKey: 'player',
       maxAffinity: 5,
       minAffinity: -5,
+      initialAffinityTowardPlayer: null,
     },
   },
   actionGeneratorMeta: {
@@ -19,6 +24,25 @@ export const environment = {
     name: 'defaultGenerator',
     opts: null,
   },
+  /**
+   * The amount of rounds that will transpire
+   * before the ending screen appears.
+   */
+  countRounds: 7,
+  /**
+   * The max affinity value the NPCs can have
+   * toward each other and the player.
+   */
+  maxAffinity: 5,
+    /**
+   * The min affinity value the NPCs can have
+   * toward each other and the player.
+   */
+  minAffinity: -5,
+  //=======================================================================
+  /**
+   * UI CONFIGS
+   */
   /**
    * If true, shows the timeline element.
    */
@@ -46,6 +70,13 @@ export const environment = {
    * This will only work if `showActionValues` is also true.
    */
   showActionHarms: false,
+  showHistoryDate: true,
+  /**
+   * If true, show the round counter.
+   */
+  showRoundCounter: false,
+  //====================================================================
+  // DEBUGGING OPTIONS
   /**
    * If true, the game will print dumps of affinities the
    * NPC's have among each other and with the player.
@@ -61,21 +92,6 @@ export const environment = {
    * If true, the game will show the advisor's values.
    */
   showAdvisorValues: false,
-  /**
-   * The amount of rounds that will transpire
-   * before the ending screen appears.
-   */
-  countRounds: 15,
-  /**
-   * The max affinity value the NPCs can have
-   * toward each other and the player.
-   */
-  maxAffinity: 5,
-    /**
-   * The min affinity value the NPCs can have
-   * toward each other and the player.
-   */
-  minAffinity: -5,
   /** Do not edit the following. */
   testRunCount: 1,
   advisorCount: 3,

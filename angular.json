@@ -57,6 +57,22 @@
               ],
               "outputHashing": "all"
             },
+            "exp-exp": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment-exp-exp.prod.ts"
+                }
+              ]
+            },
+            "exp-control": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment-exp-cont.prod.ts"
+                }
+              ]
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,

@@ -150,7 +150,7 @@ export class AdvisorService extends BasePropService {
 
     advisors.forEach((advisor) => {
       const initAffinity = environment.advisorGeneratorMeta.opts.initialAffinityTowardPlayer;
-      const playerAffinity =  (Boolean(initAffinity) || initAffinity === 0) ? initAffinity : Math.round(getRandomAffinity());
+      const playerAffinity =  ((Boolean(initAffinity) || initAffinity === 0) ? initAffinity : Math.round(getRandomAffinity())) as number;
       advisor.affinities.push({ name: playerKey, affinity: playerAffinity });
     });
 

@@ -34,7 +34,7 @@ export class GameLogicService {
   }
 
   get isGameOver() {
-    return this._round >= (environment.countRounds - 1);
+    return this._round >= (environment.countRounds);
   }
 
   get round() {
@@ -117,14 +117,16 @@ export class GameLogicService {
 
       // execute the effects of the action
       await this._advisorService.makeAllAdvisorsReactToAction(action);
-      // go to the next decision event
-      await this.generateDecisionEvent();
+
       this._round += 1;
 
       this.$onNextRound.emit(this._round);
 
       if (this.isGameOver) {
         this.$onGameOver.emit();
+      } else {
+        // go to the next decision event
+        await this.generateDecisionEvent();
       }
     }
   }

@@ -4,9 +4,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "deploy": "ng build --baseHref='' && zip build.zip build",
     "logger": "node logger",
-    "build": "ng build",
+    "build": "ng build --base-href '' --output-path ./build/default",
+    "build:exp-cont": "ng build --configuration exp-control --base-href '' --output-path ./build/experimental-control",
+    "build:exp-exp": "ng build --configuration exp-exp --base-href '' --output-path ./build/experimental-intervention",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
