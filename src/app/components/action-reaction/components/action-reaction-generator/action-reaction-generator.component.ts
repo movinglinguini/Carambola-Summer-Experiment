@@ -2,6 +2,7 @@ import { IAction, calculateActionEffect } from './../../../../shared/resources/a
 import { environment } from './../../../../../environments/environment';
 import { Component, Input, OnInit } from '@angular/core';
 import { IAdvisor } from 'src/app/interfaces/advisor.interface';
+import { VALUE_LIST } from 'src/app/shared/utilities/values.utility';
 
 @Component({
   selector: 'app-action-reaction-generator',
@@ -56,8 +57,9 @@ export class ActionReactionGeneratorComponent implements OnInit {
     }
   }
 
-  getActionEffect() {
-
+  /** @deprecated */
+  getActionPromotes() {
+    return VALUE_LIST[this.inAction.promotes[0]];
   }
 
 }

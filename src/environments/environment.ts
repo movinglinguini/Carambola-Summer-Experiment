@@ -79,6 +79,10 @@ export const environment = {
    * If true, show the round counter.
    */
   showRoundCounter: true,
+  /**
+   * If true, show the final messages of the game.
+   */
+  showEndScreen: false,
   //====================================================================
   // DEBUGGING OPTIONS
   /**

@@ -6,8 +6,8 @@
     "start": "ng serve",
     "logger": "node logger",
     "build": "ng build --base-href '' --output-path ./build/default",
-    "build:exp-cont": "ng build --configuration exp-control --base-href '' --output-path ./build/experimental-control",
-    "build:exp-exp": "ng build --configuration exp-exp --base-href '' --output-path ./build/experimental-intervention",
+    "build:exp-cont": "ng build --configuration exp-control --base-href '' --output-path ./build/exp-a && ng build --configuration exp-control --base-href '' --output-path ./build/exp-b && ng build --configuration exp-control --base-href '' --output-path ./build/exp-c",
+    "build:exp-exp": "ng build --configuration exp-exp --base-href '' --output-path ./build/exp-d && ng build --configuration exp-exp --base-href '' --output-path ./build/exp-e && ng build --configuration exp-exp --base-href '' --output-path ./build/exp-f",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

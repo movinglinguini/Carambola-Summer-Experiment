@@ -75,6 +75,7 @@ export const environment = {
    * If true, show the round counter.
    */
   showRoundCounter: true,
+  showEndScreen: false,
   //====================================================================
   // DEBUGGING OPTIONS
   /**

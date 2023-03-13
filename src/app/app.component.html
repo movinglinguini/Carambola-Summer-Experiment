@@ -3,7 +3,7 @@
   <app-main-screen></app-main-screen>
 </ng-container>
 
-<ng-container *ngIf="isGameOver">
+<ng-container *ngIf="isGameOver && showEndScreen">
   <app-end-screen (restart)="onRestart()"></app-end-screen>
 </ng-container>
 

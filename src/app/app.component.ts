@@ -23,6 +23,10 @@ export class AppComponent {
     return this._gameLogic.isGameOver;
   }
 
+  get showEndScreen() {
+    return environment.showEndScreen;
+  }
+
   constructor(
     private _gameLogic: GameLogicService,
     private _autoPlayer: AutoplayerService,
