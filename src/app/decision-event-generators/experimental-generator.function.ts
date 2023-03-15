@@ -30,15 +30,20 @@ export function generateDecisionEvent(opts: { advisor: IAdvisor, actionList: IAc
     decisionEventProgression.push(...generateAlternativesProgression(opts.advisor, opts.actionList));
   }
 
-  console.log(decisionEventProgression);
-
   if (decisionEventProgression.length === 0) {
     throw Error('Error generating next decision event: There are no more decision events to show!');
   }
 
   const actionPair = decisionEventProgression.shift() as [IAction, IAction];
+  let shuffledPairIdx = [];
+  if (Math.random() < 0.5) {
+    shuffledPairIdx = [0, 1];
+  } else {
+    shuffledPairIdx = [1, 0];
+  }
+
   return {
-    alternatives: actionPair,
+    alternatives: shuffledPairIdx.map(idx => actionPair[idx]) as [IAction, IAction],
     chosenAction: null,
   };
 }
