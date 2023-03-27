@@ -1,22 +1,22 @@
 import { VALUE_MAP } from './../../shared/utilities/values.utility';
 
 export const compressedActionData = [{
-  name: 'Maintain Barracks',
-  oppositeName: 'Repurpose Barracks',
+  name: 'Use Materials for Weapon Manufacturing',
+  oppositeName: 'Use Materials for Public Works',
   promote: [ VALUE_MAP.power ],
-  description: 'Maintain your military\'s presence in the empire.',
-  oppositeDescription: 'Replace the barracks with something that the people can use.',
+  description: 'Funnel raw resources into extra offensive power for your military.',
+  oppositeDescription: 'Use raw resources to build structures for public use.',
   harm: [ VALUE_MAP.universalism ],
-},  {
-  name: 'Authorize Military March',
-  oppositeName: 'Prohibit Military March',
-  description: "Show off the achievements and grandeur of your army before the peasants.",
-  oppositeDescription: "Your subjects don't need to be reminded of what your military is capable of.",
-  promote: [ VALUE_MAP.achievement ],
-  harm: [ VALUE_MAP.universalism ]
 }, {
-  name: 'Authorize Festival',
-  oppositeName: 'Prohibit Festival',
+  name: 'Hold Parade of Victories',
+  oppositeName: 'Delay Parade of Victories',
+  description: "Show off the achievements and grandeur of your nation before your peasants and the world.",
+  oppositeDescription: "Wait a bit longer before you show off your achievements.",
+  promote: [ VALUE_MAP.achievement ],
+  harm: []
+}, {
+  name: 'Hold a Festival for the God of Pleasure',
+  oppositeName: 'Prohibit Festival for the God of Pleasure',
   description: "Let the people run wild!",
   oppositeDescription: "A festival will attract crowds too large for the guards to handle.",
   promote: [ VALUE_MAP.hedonism ],
@@ -41,7 +41,7 @@ export const compressedActionData = [{
   description: 'Even the sick are under your care.',
   oppositeDescription: 'Maintaining this hospital and tending to the sick shows weakness.',
   promote: [ VALUE_MAP.universalism ],
-  harm: [ VALUE_MAP.power ],
+  harm: [],
 }, {
   name: 'Open Food Rations',
   oppositeName: 'Restrict Food Rations',
