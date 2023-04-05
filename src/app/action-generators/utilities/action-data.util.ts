@@ -30,7 +30,7 @@ export const compressedActionData = [{
   harm: [ VALUE_MAP.conformityTradition ],
 }, {
   name: 'Punish a Criminal',
-  oppositeName: 'Punish a Criminal',
+  oppositeName: 'Pardon a Criminal',
   description: 'Show no tolerance for law-breaking in your empire.',
   oppositeDescription: 'Give the criminal one more chance to do right in life.',
   promote: [ VALUE_MAP.conformityTradition ],
@@ -45,14 +45,14 @@ export const compressedActionData = [{
 }, {
   name: 'Open Food Rations to Peasants',
   oppositeName: 'Restrict Food Rations',
-  description: 'Bring mercy to the needy by giving them access to food.',
+  description: 'Give the peasants access to food from the Empire\'s stores.',
   oppositeDescription: 'Bringing out rations will attract crowds too large for the guards to handle.',
   promote: [ VALUE_MAP.universalism ],
   harm: [ VALUE_MAP.security ]
 }, {
   name: 'Enforce an Hour of Prayer',
   oppositeName: 'Relax Mass',
-  description: 'Remind your subjects who they should pray to.',
+  description: 'Ensure that your subjects are praying to the Empire\'s goddess.',
   oppositeDescription: 'The faithful will come. The rest may do as they please.',
   promote: [ VALUE_MAP.conformityTradition ],
   harm: [ VALUE_MAP.stimulation ]
