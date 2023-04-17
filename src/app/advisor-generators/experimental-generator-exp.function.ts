@@ -1,11 +1,14 @@
-import { VALUE_LIST, getOpposingValue } from './../shared/utilities/values.utility';
 import { IAdvisor } from "../interfaces/advisor.interface";
 import { generateAdvisors as defaultGenerator } from './default-generator.function';
-import { selectRandom } from '../shared/utilities/random.utility';
 
-
-export const ADVISOR_MAP = new Map<string, IAdvisor>();
-
+/**
+ * Generated intervention advisors taken from `../notebooks/Generate NPCS.md`
+ */
+const interventionAdvisors = [
+  {'cherishes': [8, 7, 0], 'despises': [4, 3, 5]},
+  {'cherishes': [6, 5, 7], 'despises': [2, 1, 3]},
+  {'cherishes': [1, 0, 2], 'despises': [6, 5, 7]}
+];
 
 /**
  * Generates `advisorCount` advisors such that they have two values they cherish, and two they despise.
@@ -18,27 +21,18 @@ export function generateAdvisors(opts: {
   minAffinity: number,
 }): IAdvisor[] {
   const newAdvisor = defaultGenerator({...opts, advisorCount: 1})[0];
+  newAdvisor.name = 'Your Advisor';
 
-  const wrapArrayIndex = (idx: number, arrLen: number) => {
-    if (idx < 0) { return arrLen + idx }
-    if (idx >= arrLen ) { return idx - arrLen }
-    return idx;
+  const playthroughKey = 'experiment_playthrough_no';
+
+  if (!localStorage.getItem(playthroughKey)) {
+    localStorage.setItem(playthroughKey, '1');
   }
 
-  const cidx = selectRandom(VALUE_LIST.map((v, idx) => idx));
-  const didx = getOpposingValue(cidx, VALUE_LIST);
+  const playthroughNo = parseInt(localStorage.getItem(playthroughKey) as string, 10);
 
-  newAdvisor.cherishes = [
-    cidx,
-    wrapArrayIndex(cidx + 1, VALUE_LIST.length),
-    wrapArrayIndex(cidx - 1, VALUE_LIST.length)
-  ];
-
-  newAdvisor.despises = [
-    didx,
-    wrapArrayIndex(didx + 1, VALUE_LIST.length),
-    wrapArrayIndex(didx - 1, VALUE_LIST.length)
-  ]
+  newAdvisor.cherishes = interventionAdvisors[playthroughNo - 1].cherishes;
+  newAdvisor.despises = interventionAdvisors[playthroughNo - 1].despises;
 
   return [newAdvisor];
 }

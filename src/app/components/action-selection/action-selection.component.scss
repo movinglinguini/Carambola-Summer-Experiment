@@ -3,19 +3,20 @@
   #alternative-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
 
     #separator {
       padding: 1rem;
+      display: flex;
+      align-items: center;
     }
   }
 
 }
 
 .action-card-btn {
-  $card-height: 15rem;
+  $card-height: 'fit-content';
   $width-height-ratio: 0.75;
-  $card-width: $card-height * $width-height-ratio;
+  // $card-width: $card-height * $width-height-ratio;
 
   // &:hover {
   //   $scale: 0.05;
@@ -23,8 +24,8 @@
   // }
 
   .action-card {
-    width: $card-width;
-    height: $card-height;
+    width: 15rem;
+    height: 100%;
 
     background-color: white;
     border-radius: 2.5%;

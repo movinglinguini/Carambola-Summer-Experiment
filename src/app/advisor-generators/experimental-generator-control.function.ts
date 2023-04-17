@@ -1,9 +1,17 @@
 import { IAdvisor } from "../interfaces/advisor.interface";
 import { selectRandom } from '../shared/utilities/random.utility';
-import { VALUE_LIST, getOpposingValue } from '../shared/utilities/values.utility';
+import { VALUE_LIST } from '../shared/utilities/values.utility';
 import { generateAdvisors as defaultGenerator } from './default-generator.function';
 
-export const ADVISOR_MAP = new Map<string, IAdvisor>();
+
+/**
+ * Generated control advisors taken from `../notebooks/Generate NPCS.md`
+ */
+const controlAdvisors = [
+  {'cherishes': [3, 7, 2], 'despises': [0, 6, 5]},
+  {'cherishes': [0, 3, 5], 'despises': [6, 4, 2]},
+  {'cherishes': [0, 4, 6], 'despises': [3, 1, 5]}
+]
 
 const remainingValueIndices = VALUE_LIST.map((_, idx) => idx);
 /**
@@ -16,19 +24,19 @@ export function generateAdvisors(opts: {
   maxAffinity: number,
   minAffinity: number,
 }): IAdvisor[] {
+  const playthroughKey = 'experiment_playthrough_no';
+
+  if (!localStorage.getItem(playthroughKey)) {
+    localStorage.setItem(playthroughKey, '1');
+  }
+
+  const playthroughNo = parseInt(localStorage.getItem(playthroughKey) as string, 10);
+
   const newAdvisor = defaultGenerator({...opts, advisorCount: 1})[0];
+  newAdvisor.name = 'Your Advisor';
 
-  newAdvisor.cherishes = [
-    selectValueWithoutReplacement(selectRandom(remainingValueIndices)),
-    selectValueWithoutReplacement(selectRandom(remainingValueIndices)),
-    selectValueWithoutReplacement(selectRandom(remainingValueIndices))
-  ];
-
-  newAdvisor.despises = [
-    selectValueWithoutReplacement(selectRandom(remainingValueIndices)),
-    selectValueWithoutReplacement(selectRandom(remainingValueIndices)),
-    selectValueWithoutReplacement(selectRandom(remainingValueIndices))
-  ]
+  newAdvisor.cherishes = controlAdvisors[playthroughNo - 1].cherishes;
+  newAdvisor.despises = controlAdvisors[playthroughNo - 1].despises;
 
   return [newAdvisor];
 }
