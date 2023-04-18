@@ -1,7 +1,7 @@
 import { DateCounterService } from './../../../../services/date-counter.service';
 import { DateTime } from 'luxon';
 import { GameLogicService } from './../../../../services/game-logic/game-logic.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 interface IRoundDatum {}
@@ -12,6 +12,9 @@ interface IRoundDatum {}
   styleUrls: ['./chronicle.component.scss']
 })
 export class ChronicleComponent implements OnInit {
+
+  @ViewChild('bottomMarker')
+  public bottomMarker: ElementRef;
 
   public rounds: IRoundDatum[] = [];
   public isScrolling = false;
@@ -63,7 +66,7 @@ export class ChronicleComponent implements OnInit {
 
   ngAfterViewChecked() {
     if (this.isScrolling) {
-      document.getElementById('view-top-marker_'+this.rounds.length)?.scrollIntoView();
+      this.bottomMarker.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
       this.isScrolling = false;
     }
   }

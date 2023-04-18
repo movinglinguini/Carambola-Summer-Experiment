@@ -5,6 +5,7 @@
   flex-direction: column;
   width: 50vw;
   margin: auto;
+  margin-bottom: 15rem;
 
   h1 {
     &#game-intro {
@@ -55,5 +56,11 @@
       margin-left: $margin-size;
       margin-right: $margin-size;
     }
+  }
+
+  .bottom-marker {
+    position: fixed;
+    height: 15px;
+    bottom: 0;
   }
 }
