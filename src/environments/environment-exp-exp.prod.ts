@@ -55,7 +55,7 @@ export const environment = {
   /**
    * If true, shows the action description text.
    */
-  showActionDescriptions: false,
+  showActionDescriptions: true,
   /**
    * If true, shows the values that an action effects on its action card.
    */

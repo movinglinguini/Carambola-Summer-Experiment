@@ -2,6 +2,7 @@ import { AutoplayerService } from './services/autoplayer/autoplayer.service';
 import { environment } from './../environments/environment';
 import { GameLogicService } from './services/game-logic/game-logic.service';
 import { Component } from '@angular/core';
+import { ExperimentService } from './services/experiment.service';
 
 @Component({
   selector: 'app-root',
@@ -30,6 +31,7 @@ export class AppComponent {
   constructor(
     private _gameLogic: GameLogicService,
     private _autoPlayer: AutoplayerService,
+    private _experimentService: ExperimentService
   ) {}
 
   async ngOnInit() {

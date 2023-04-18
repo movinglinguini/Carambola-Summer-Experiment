@@ -20,6 +20,7 @@ import { TimelineComponent } from './components/main-screen/components/timeline/
 import { ReactionMemoryService } from './components/action-selection/services/reaction-memory.service';
 import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { AdvisorService } from './services/advisor.service';
+import { ExperimentService } from './services/experiment.service';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AdvisorService } from './services/advisor.service';
     AffinityTablesService,
     ReactionMemoryService,
     AdvisorService,
+    ExperimentService
   ],
   bootstrap: [AppComponent]
 })

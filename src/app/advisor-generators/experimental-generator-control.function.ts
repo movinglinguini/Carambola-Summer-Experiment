@@ -2,6 +2,7 @@ import { IAdvisor } from "../interfaces/advisor.interface";
 import { selectRandom } from '../shared/utilities/random.utility';
 import { VALUE_LIST } from '../shared/utilities/values.utility';
 import { generateAdvisors as defaultGenerator } from './default-generator.function';
+import { getPlaythroughNo } from './utilities/experiment-playthrough.utils';
 
 
 /**
@@ -24,13 +25,7 @@ export function generateAdvisors(opts: {
   maxAffinity: number,
   minAffinity: number,
 }): IAdvisor[] {
-  const playthroughKey = 'experiment_playthrough_no';
-
-  if (!localStorage.getItem(playthroughKey)) {
-    localStorage.setItem(playthroughKey, '1');
-  }
-
-  const playthroughNo = parseInt(localStorage.getItem(playthroughKey) as string, 10);
+  const playthroughNo = getPlaythroughNo();
 
   const newAdvisor = defaultGenerator({...opts, advisorCount: 1})[0];
   newAdvisor.name = 'Your Advisor';

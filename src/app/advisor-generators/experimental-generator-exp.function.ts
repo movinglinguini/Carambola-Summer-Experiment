@@ -1,5 +1,6 @@
 import { IAdvisor } from "../interfaces/advisor.interface";
 import { generateAdvisors as defaultGenerator } from './default-generator.function';
+import { getPlaythroughNo } from "./utilities/experiment-playthrough.utils";
 
 /**
  * Generated intervention advisors taken from `../notebooks/Generate NPCS.md`
@@ -23,13 +24,7 @@ export function generateAdvisors(opts: {
   const newAdvisor = defaultGenerator({...opts, advisorCount: 1})[0];
   newAdvisor.name = 'Your Advisor';
 
-  const playthroughKey = 'experiment_playthrough_no';
-
-  if (!localStorage.getItem(playthroughKey)) {
-    localStorage.setItem(playthroughKey, '1');
-  }
-
-  const playthroughNo = parseInt(localStorage.getItem(playthroughKey) as string, 10);
+  const playthroughNo = getPlaythroughNo();
 
   newAdvisor.cherishes = interventionAdvisors[playthroughNo - 1].cherishes;
   newAdvisor.despises = interventionAdvisors[playthroughNo - 1].despises;

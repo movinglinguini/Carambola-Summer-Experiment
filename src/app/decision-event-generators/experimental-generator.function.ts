@@ -51,7 +51,7 @@ export function generateDecisionEvent(opts: { advisor: IAdvisor, actionList: IAc
 /** Gene */
 function generateAlternativesProgression(advisor: IAdvisor, actionList: IAction[]): [IAction, IAction][] {
   const getActionThatPromotesValue = ((value: number) => {
-    return selectRandom(actionList.filter(act => act.promotes.includes(value))) as IAction;
+    return actionList.filter(act => act.promotes.includes(value))[0] as IAction;
   });
 
   const ambivalentValues = VALUE_LIST.map((v) => valueNameToIdx(v)).filter((vidx) => {
