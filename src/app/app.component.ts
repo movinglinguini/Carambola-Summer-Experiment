@@ -11,6 +11,7 @@ import { ExperimentService } from './services/experiment.service';
 })
 export class AppComponent {
   public gameInitialized: boolean = false;
+  public isLoggedIn: boolean = false;
 
   get doShowLog() {
     return environment.showLog;
@@ -37,14 +38,17 @@ export class AppComponent {
   async ngOnInit() {
     if (environment.testMode) {
       await this._autoPlayer.run();
-    } else {
-      await this.initGame();
-      this.gameInitialized = true;
     }
+  }
+
+  onLogin() {
+    this.isLoggedIn = true;
+    this.initGame();
   }
 
   async initGame() {
     await this._gameLogic.onStart();
+    this.gameInitialized = true;
   }
 
   async onRestart() {
