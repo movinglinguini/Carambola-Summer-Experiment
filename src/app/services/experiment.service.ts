@@ -24,7 +24,7 @@ export class ExperimentService {
   
     ExperimentService.playthroughNo = parseInt(localStorage.getItem(playthroughKey) as string, 10);
 
-    this._gameLogicService.$beforeNextRound.subscribe((async () => {
+    this._gameLogicService.$onNextRound.subscribe((async () => {
       try {
         await this.saveRound();
       } catch (err) {}
