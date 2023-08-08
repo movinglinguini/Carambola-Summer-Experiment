@@ -52,6 +52,7 @@ export class ExperimentService {
     fetch(`${this._mongoEndpoint}${route}`, {
       method: 'post',
       body: JSON.stringify({
+        datetime: Date.now(),
         userCode: parseInt(localStorage.getItem('user-code') as string),
         playthroughNo: ExperimentService.playthroughNo,
         score: -advisors.reduce((tot, adv) => tot + adv.rebellionUtility, 0),
@@ -67,6 +68,7 @@ export class ExperimentService {
     fetch(`${this._mongoEndpoint}${createPlaythroughRoute}`, {
       method: 'post',
       body: JSON.stringify({
+        datetime: Date.now(),
         userCode: parseInt(localStorage.getItem('user-code') as string),
         playthroughNo: ExperimentService.playthroughNo,
         score: -advisors.reduce((tot, adv) => tot + adv.rebellionUtility, 0),

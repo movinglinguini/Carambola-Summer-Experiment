@@ -15,3 +15,18 @@
 
  <i>{{getActionPromotes()}}</i>.
 </p>
+
+<p *ngIf="showScore">
+  
+  <span *ngIf="reactionPolarity">
+    You
+    <span *ngIf="reactionPolarity == 'negative'" class="affinity-string negative">lost</span>
+    <span *ngIf="reactionPolarity == 'positive'" class="affinity-string positive">gained</span>
+    {{absRawDecisionReaction}}
+    point{{absRawDecisionReaction != 1 ? 's' : ''}}.
+  </span>
+  
+  <span *ngIf="!reactionPolarity">
+    Your score is unchanged.
+  </span>
+</p>

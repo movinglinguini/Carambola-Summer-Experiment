@@ -29,8 +29,16 @@ export class ActionReactionGeneratorComponent implements OnInit {
     return environment.showRawNumbers;
   }
 
+  get showScore() {
+    return environment.showScore;
+  }
+
   get rawDecisionReaction() {
     return this._rawDecisionReaction;
+  }
+
+  get absRawDecisionReaction() {
+    return Math.abs(this._rawDecisionReaction);
   }
 
   constructor() { }

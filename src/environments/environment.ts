@@ -5,7 +5,7 @@ import { environment as experimentalEnvironment } from './environment-exp-exp.pr
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-const importedEnv = defaultEnvironment;
+const importedEnv = experimentalEnvironment;
 
 importedEnv.production = false;
 importedEnv.testMode = false;

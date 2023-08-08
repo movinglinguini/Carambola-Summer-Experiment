@@ -71,6 +71,7 @@ export const environment = {
    */
   showActionHarms: false,
   showHistoryDate: false,
+  showScore: true,
   /**
    * If true, show the round counter.
    */
