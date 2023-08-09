@@ -1,5 +1,5 @@
 import { NgbTooltip } from '@ng-bootstrap/ng-bootstrap';
-import { VALUE_LIST } from './../../shared/utilities/values.utility';
+import { VALUE_DESCRIPTION, VALUE_LIST } from './../../shared/utilities/values.utility';
 import { IAction } from './../../shared/resources/action.resource';
 import { GameLogicService } from './../../services/game-logic/game-logic.service';
 import { Component, Input } from '@angular/core';
@@ -43,11 +43,15 @@ export class ActionSelectionComponent{
     this._gameLogic.onChooseAction(action);
   }
 
-  getValueText(value: number): string {
-    return VALUE_LIST[value];
+  getValueText(valueIdx: number): string {
+    return VALUE_LIST[valueIdx];
   }
 
-  onMouseOver(tooltip: NgbTooltip, action: IAction) {
+  getValueDescription(valueIdx: number): string {
+    return VALUE_DESCRIPTION[this.getValueText(valueIdx)];
+  }
+
+  onMouseOverAction(tooltip: NgbTooltip, action: IAction) {
     this._interactionTrackingService.$trackOnHoverAction.emit({ action, event: 'enter' });
 
     if (environment.showActionTooltips) {
@@ -55,8 +59,16 @@ export class ActionSelectionComponent{
     }
   }
 
-  onMouseLeave(tooltip: NgbTooltip, action: IAction) {
+  onMouseLeaveAction(tooltip: NgbTooltip, action: IAction) {
     this._interactionTrackingService.$trackOnHoverAction.emit({ action, event: 'leave' });
+    tooltip.close();
+  }
+
+  onMouseOverValue(tooltip: NgbTooltip, valueIdx: IAction) {
+    tooltip.open({ valueIdx });
+  }
+
+  onMouseLeaveValue(tooltip: NgbTooltip, action: IAction) {
     tooltip.close();
   }
 

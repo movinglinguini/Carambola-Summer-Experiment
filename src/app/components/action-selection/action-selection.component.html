@@ -15,8 +15,8 @@
     (click)="onChooseAction(action)"
   >
     <div class="action-card"
-      (mouseover)="onMouseOver(tooltip, action)"
-      (mouseleave)="onMouseLeave(tooltip, action)"
+      (mouseover)="onMouseOverAction(tooltip, action)"
+      (mouseleave)="onMouseLeaveAction(tooltip, action)"
       [ngbTooltip]="actionCardTooltip"
       triggers="manual"
       tooltipClass="reaction-memory-tooltip"
@@ -34,7 +34,15 @@
           <p class="value-effect-title"><b>Promotes</b></p>
           <div>
             <ng-container *ngFor="let value of action.promotes">
-              <p class="value-text"><i>{{getValueText(value)}}</i></p>
+              <p
+                class="value-text"
+                (mouseover)="onMouseOverValue(tooltip, value)"
+                (mouseleave)="onMouseLeaveValue(tooltip, value)"
+                [ngbTooltip]="actionValueTooltip"
+                triggers="manual"
+                tooltipClass="reaction-memory-tooltip"
+                #tooltip="ngbTooltip"
+              ><i>{{getValueText(value)}}</i></p>
             </ng-container>
           </div>
         </div>
@@ -57,6 +65,10 @@
       <app-action-reaction-generator [advisor]="reaction.advisor" [action]="reaction.action"></app-action-reaction-generator>
     </ng-container>
   </ng-container>
+</ng-template>
+
+<ng-template #actionValueTooltip let-valueIdx="valueIdx">
+  <p>{{getValueDescription(valueIdx)}}</p>
 </ng-template>
 
 <ng-template #noReactionTooltip>

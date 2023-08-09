@@ -27,13 +27,13 @@ export const compressedActionData = [{
   promote: [ VALUE_MAP.stimulation ],
   description: 'Hold up an institution for the stimulation of the mind.',
   oppositeDescription: 'Art museums give space to rebels and heretics. You cannot have that.',
-  harm: [ VALUE_MAP.conformityTradition ],
+  harm: [ VALUE_MAP.tradition ],
 }, {
   name: 'Punish a Criminal',
   oppositeName: 'Pardon a Criminal',
   description: 'Show no tolerance for law-breaking in your empire.',
   oppositeDescription: 'Give the criminal one more chance to do right in life.',
-  promote: [ VALUE_MAP.conformityTradition ],
+  promote: [ VALUE_MAP.tradition ],
   harm: [ VALUE_MAP.selfDirection ],
 }, {
   name: 'Maintain a Hospital',
@@ -54,7 +54,7 @@ export const compressedActionData = [{
   oppositeName: 'Relax Mass',
   description: 'Ensure that your subjects are praying to the Empire\'s goddess.',
   oppositeDescription: 'The faithful will come. The rest may do as they please.',
-  promote: [ VALUE_MAP.conformityTradition ],
+  promote: [ VALUE_MAP.tradition ],
   harm: [ VALUE_MAP.stimulation ]
 }, {
   name: 'Reinforce the Capital City\'s Walls',
